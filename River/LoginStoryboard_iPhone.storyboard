@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="UL0-R6-vnO">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+    </dependencies>
+    <scenes>
+        <!--RiverSP Login View Controller-->
+        <scene sceneID="lnt-oU-8pV">
+            <objects>
+                <viewController storyboardIdentifier="SpotifyLogin" id="UL0-R6-vnO" customClass="RiverSPLoginViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xUg-ZP-J3b"/>
+                        <viewControllerLayoutGuide type="bottom" id="9ON-wK-kMB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="syz-jt-uEY">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sp_bg_login.png" translatesAutoresizingMaskIntoConstraints="NO" id="Hjv-Yq-hlr">
+                                <rect key="frame" x="0.0" y="60" width="320" height="508"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="508" id="pL9-ut-nin"/>
+                                    <constraint firstAttribute="width" constant="320" id="u4z-tJ-nfr"/>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nek-NY-IAo">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Spotify" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pgs-wR-4TN">
+                                        <rect key="frame" x="103" y="27" width="115" height="26"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="22"/>
+                                        <color key="textColor" red="0.86666673421859741" green="0.86666673421859741" blue="0.86666673421859741" alpha="1" colorSpace="deviceRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="Gotham-Bold"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <button opaque="NO" contentMode="center" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZQI-Ri-8c1">
+                                        <rect key="frame" x="5" y="21" width="40" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="btn_header_menu.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YSO-q8-djS">
+                                        <rect key="frame" x="258" y="23" width="62" height="36"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
+                                        <state key="normal" title="Login">
+                                            <color key="titleColor" red="0.86274516580000005" green="0.86274516580000005" blue="0.86274516580000005" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="Gotham-Book"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="loginPressed:" destination="UL0-R6-vnO" eventType="touchUpInside" id="rHJ-ch-Ktx"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.246225834" green="0.41260976490000001" blue="0.48163273359999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="48j-4u-Lj5"/>
+                                    <constraint firstAttribute="height" constant="60" id="hLn-Uz-ORy"/>
+                                </constraints>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="sp_bg_username.png" translatesAutoresizingMaskIntoConstraints="NO" id="EIo-wU-aBs">
+                                <rect key="frame" x="35" y="205" width="250" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="sp_bg_password.png" translatesAutoresizingMaskIntoConstraints="NO" id="9e1-kg-are">
+                                <rect key="frame" x="35" y="268" width="250" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="sp_ico_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="FQK-xC-nm7">
+                                <rect key="frame" x="98" y="70" width="125" height="125"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dvS-gj-H6q">
+                                <rect key="frame" x="74" y="217" width="204" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" red="0.12144886363636365" green="0.12144886363636365" blue="0.12144886363636365" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="Gotham-Book"/>
+                                </userDefinedRuntimeAttributes>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z9j-C7-dFK">
+                                <rect key="frame" x="74" y="280" width="204" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" red="0.1214488636" green="0.1214488636" blue="0.1214488636" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="go" secureTextEntry="YES"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="Gotham-Book"/>
+                                </userDefinedRuntimeAttributes>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="Hjv-Yq-hlr" firstAttribute="top" secondItem="nek-NY-IAo" secondAttribute="bottom" id="Iw4-Qe-nlP"/>
+                            <constraint firstItem="Hjv-Yq-hlr" firstAttribute="leading" secondItem="syz-jt-uEY" secondAttribute="leading" id="TuB-Sz-lk7"/>
+                            <constraint firstItem="nek-NY-IAo" firstAttribute="leading" secondItem="syz-jt-uEY" secondAttribute="leading" id="bzd-Ig-se1"/>
+                            <constraint firstItem="nek-NY-IAo" firstAttribute="top" secondItem="syz-jt-uEY" secondAttribute="top" id="rxq-L5-thb"/>
+                        </constraints>
+                    </view>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <connections>
+                        <outlet property="passwordField" destination="Z9j-C7-dFK" id="gY7-mO-pex"/>
+                        <outlet property="revealBarButton" destination="ZQI-Ri-8c1" id="uV7-MG-gUC"/>
+                        <outlet property="usernameField" destination="dvS-gj-H6q" id="BR5-B0-Mop"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eVf-LP-Vx9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="273" y="17"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="btn_header_menu.png" width="20" height="20"/>
+        <image name="sp_bg_login.png" width="320" height="508"/>
+        <image name="sp_bg_password.png" width="250" height="50"/>
+        <image name="sp_bg_username.png" width="250" height="50"/>
+        <image name="sp_ico_logo.png" width="125" height="125"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

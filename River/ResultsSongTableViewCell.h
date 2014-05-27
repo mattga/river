@@ -1,0 +1,18 @@
+//
+//  ResultsSongTableViewCell.h
+//  River
+//
+//  Created by Matthew Gardner on 5/8/14.
+//  Copyright (c) 2014 mdg. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface ResultsSongTableViewCell : UITableViewCell
+
+@property (weak, nonatomic) IBOutlet UILabel *songLabel;
+@property (weak, nonatomic) IBOutlet UILabel *artistLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *songImage;
+@property (weak, nonatomic) IBOutlet UIImageView *songPressedImage;
+
+@end

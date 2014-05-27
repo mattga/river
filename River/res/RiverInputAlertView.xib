@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="KMN-TM-idc" customClass="RiverAlertView">
+            <rect key="frame" x="0.0" y="0.0" width="270" height="200"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aSS-Of-WzL">
+                    <rect key="frame" x="0.0" y="160" width="135" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.86274509799999999" green="0.86274509799999999" blue="0.86274509799999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="135" id="5jo-da-XJ3"/>
+                        <constraint firstAttribute="height" constant="40" id="CdZ-Cd-haK"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
+                    <state key="normal" title="Cancel">
+                        <color key="titleColor" red="0.0" green="0.71764707569999997" blue="0.97254908080000002" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="Gotham-Light"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="cancelPressed:" destination="KMN-TM-idc" eventType="touchUpInside" id="tJT-ZA-cFv"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SdK-Wi-24w">
+                    <rect key="frame" x="135" y="160" width="135" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.0" green="0.71764707569999997" blue="0.97254908080000002" alpha="1" colorSpace="deviceRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="HoZ-yg-MZB"/>
+                        <constraint firstAttribute="width" constant="135" id="UV6-ab-Ogo"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
+                    <state key="normal" title="OK">
+                        <color key="titleColor" red="0.86274509799999999" green="0.86274509799999999" blue="0.86274509799999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="Gotham-Light"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="okPressed:" destination="KMN-TM-idc" eventType="touchUpInside" id="xol-ZP-ok8"/>
+                    </connections>
+                </button>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Alert Message Goes Here" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jku-2N-khb">
+                    <rect key="frame" x="10" y="10" width="250" height="90"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="textColor" red="0.86274509799999999" green="0.86274509799999999" blue="0.86274509799999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="Gotham-LIght"/>
+                    </userDefinedRuntimeAttributes>
+                </textView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_setup_username.png" translatesAutoresizingMaskIntoConstraints="NO" id="Kku-v5-vE2">
+                    <rect key="frame" x="23" y="110" width="225" height="35"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="225" id="2eJ-pd-FAM"/>
+                        <constraint firstAttribute="height" constant="35" id="DhU-SF-uX1"/>
+                    </constraints>
+                </imageView>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wHa-pP-dMA">
+                    <rect key="frame" x="28" y="113" width="215" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="V5H-n5-Hrl"/>
+                        <constraint firstAttribute="width" constant="215" id="d5K-ed-g32"/>
+                    </constraints>
+                    <color key="textColor" red="0.86274509799999999" green="0.86274509799999999" blue="0.86274509799999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
+                    <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="Gotham-Light"/>
+                    </userDefinedRuntimeAttributes>
+                </textField>
+            </subviews>
+            <color key="backgroundColor" red="0.246225834" green="0.41260976490000001" blue="0.48163273359999997" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="wHa-pP-dMA" firstAttribute="top" secondItem="Jku-2N-khb" secondAttribute="bottom" constant="13" id="1wD-Aa-Piq"/>
+                <constraint firstItem="aSS-Of-WzL" firstAttribute="leading" secondItem="KMN-TM-idc" secondAttribute="leading" id="2fH-gF-cVJ"/>
+                <constraint firstAttribute="bottom" secondItem="aSS-Of-WzL" secondAttribute="bottom" id="Bfo-Kv-4Fq"/>
+                <constraint firstItem="Kku-v5-vE2" firstAttribute="top" secondItem="Jku-2N-khb" secondAttribute="bottom" constant="10" id="Bha-7q-40R"/>
+                <constraint firstItem="Jku-2N-khb" firstAttribute="top" secondItem="KMN-TM-idc" secondAttribute="top" constant="10" id="HVE-Yn-eSs"/>
+                <constraint firstItem="SdK-Wi-24w" firstAttribute="top" secondItem="wHa-pP-dMA" secondAttribute="bottom" constant="17" id="HdC-1X-6Kg"/>
+                <constraint firstAttribute="trailing" secondItem="SdK-Wi-24w" secondAttribute="trailing" id="KHd-Ym-fJH"/>
+                <constraint firstAttribute="trailing" secondItem="Jku-2N-khb" secondAttribute="trailing" constant="10" id="WbU-wW-zrV"/>
+                <constraint firstItem="Kku-v5-vE2" firstAttribute="leading" secondItem="KMN-TM-idc" secondAttribute="leading" constant="23" id="Xrh-z5-wo2"/>
+                <constraint firstItem="wHa-pP-dMA" firstAttribute="leading" secondItem="KMN-TM-idc" secondAttribute="leading" constant="28" id="a6O-mH-07s"/>
+                <constraint firstAttribute="bottom" secondItem="SdK-Wi-24w" secondAttribute="bottom" id="gju-b7-Uz6"/>
+                <constraint firstItem="Jku-2N-khb" firstAttribute="leading" secondItem="KMN-TM-idc" secondAttribute="leading" constant="10" id="pcW-qY-n5m"/>
+                <constraint firstItem="SdK-Wi-24w" firstAttribute="top" secondItem="Kku-v5-vE2" secondAttribute="bottom" constant="15" id="r0p-CS-qnH"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="alertMessageView" destination="Jku-2N-khb" id="e3E-Tb-Juf"/>
+                <outlet property="cancelButton" destination="aSS-Of-WzL" id="GmO-h5-ob9"/>
+                <outlet property="inputField" destination="wHa-pP-dMA" id="cji-bT-cvz"/>
+                <outlet property="okButton" destination="SdK-Wi-24w" id="zU2-wQ-I87"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="bg_setup_username.png" width="225" height="35"/>
+    </resources>
+</document>
