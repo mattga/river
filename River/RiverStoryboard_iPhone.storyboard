@@ -807,7 +807,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2oB-Fg-cEV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1226" y="477"/>
+            <point key="canvasLocation" x="1226" y="352"/>
         </scene>
         <!--Reveal View Controller-->
         <scene sceneID="9xP-mC-5lo">
@@ -2055,7 +2055,7 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Song Song Song" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eur-zc-Ga3">
-                                            <rect key="frame" x="62" y="7" width="238" height="29"/>
+                                            <rect key="frame" x="66" y="7" width="238" height="29"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="23"/>
                                             <color key="textColor" red="0.0" green="0.71764707569999997" blue="0.97254908080000002" alpha="1" colorSpace="deviceRGB"/>
@@ -2065,7 +2065,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Artist Artist Artist" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GbA-6j-viR">
-                                            <rect key="frame" x="62" y="32" width="238" height="21"/>
+                                            <rect key="frame" x="66" y="32" width="238" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
                                             <color key="textColor" red="0.0" green="0.71764707569999997" blue="0.97254908080000002" alpha="1" colorSpace="deviceRGB"/>
@@ -2074,10 +2074,15 @@
                                                 <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="Gotham-Light"/>
                                             </userDefinedRuntimeAttributes>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="grC-hf-mR9">
+                                            <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.86274516580000005" green="0.86274516580000005" blue="0.86274516580000005" alpha="1" colorSpace="deviceRGB"/>
                                 <connections>
+                                    <outlet property="albumArtImage" destination="grC-hf-mR9" id="b1G-sE-dER"/>
                                     <outlet property="artistLabel" destination="GbA-6j-viR" id="ZnO-o7-I6a"/>
                                     <outlet property="songImage" destination="QJ4-2j-ibp" id="pNr-bJ-Jr9"/>
                                     <outlet property="songLabel" destination="Eur-zc-Ga3" id="b81-tV-IpG"/>
@@ -2118,19 +2123,19 @@
                                     <outlet property="artistSelectedImage" destination="nds-1y-raB" id="ch0-Iz-htE"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="resultsAlbumCell" rowHeight="60" id="Sb3-S7-ukz" customClass="ResultsAlbumTableViewCell">
-                                <rect key="frame" x="0.0" y="133" width="320" height="60"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="resultsAlbumCell" rowHeight="61" id="Sb3-S7-ukz" customClass="ResultsAlbumTableViewCell">
+                                <rect key="frame" x="0.0" y="133" width="320" height="61"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Sb3-S7-ukz" id="ZiM-It-jER">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_song_placeholder_small.png" translatesAutoresizingMaskIntoConstraints="NO" id="5gL-Z6-Tzz">
-                                            <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="60" height="61"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </imageView>
                                         <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_song_placeholder_small_selected.png" translatesAutoresizingMaskIntoConstraints="NO" id="67t-gb-B4L">
-                                            <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="60" height="61"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Album Album Album" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lwX-Sa-wo4">
@@ -2153,10 +2158,15 @@
                                                 <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="Gotham-Light"/>
                                             </userDefinedRuntimeAttributes>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l8q-Gr-13U">
+                                            <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.86274516580000005" green="0.86274516580000005" blue="0.86274516580000005" alpha="1" colorSpace="deviceRGB"/>
                                 <connections>
+                                    <outlet property="albumArtImage" destination="l8q-Gr-13U" id="Rcl-Qo-4Wb"/>
                                     <outlet property="albumImage" destination="5gL-Z6-Tzz" id="Bu7-Mm-ewr"/>
                                     <outlet property="albumLabel" destination="lwX-Sa-wo4" id="RLn-0B-wnP"/>
                                     <outlet property="albumSelectedImage" destination="67t-gb-B4L" id="jVZ-sL-Yec"/>

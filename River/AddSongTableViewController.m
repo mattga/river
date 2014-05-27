@@ -7,6 +7,7 @@
 //
 
 #import "AddSongTableViewController.h"
+#import "RiverAuthAccount.h"
 
 @interface AddSongTableViewController ()
 
@@ -61,30 +62,51 @@
 	UITableViewCell *cell;
 	NSDictionary *dict;
 	
-	switch (selectedTab) {
-		case kSearchResultsSongs:
-			cell = [tableView dequeueReusableCellWithIdentifier:@"resultsSongCell"];
-			dict = [trackResults objectAtIndex:indexPath.row];
-			
-			[(ResultsSongTableViewCell*)cell songLabel].text = [dict objectForKey:@"track_name"];
-			[(ResultsSongTableViewCell*)cell artistLabel].text = [dict objectForKey:@"artist_name"];
-			
-			break;
-		case kSearchResultsArtists:
-			cell = [tableView dequeueReusableCellWithIdentifier:@"resultsArtistCell"];
-			dict = [artistResults objectAtIndex:indexPath.row];
-			
-			[(ResultsArtistTableViewCell*)cell artistLabel].text = [dict objectForKey:@"artist_name"];
-			
-			break;
-		case kSearchResultsAlbums:
-			cell = [tableView dequeueReusableCellWithIdentifier:@"resultsAlbumCell"];
-			dict = [albumResults objectAtIndex:indexPath.row];
-			
-			[(ResultsAlbumTableViewCell*)cell albumLabel].text = [dict objectForKey:@"album_name"];
-			[(ResultsAlbumTableViewCell*)cell artistLabel].text = [dict objectForKey:@"artist_name"];
-			
-			break;
+	if (selectedTab == kSearchResultsSongs) {
+		
+		cell = [tableView dequeueReusableCellWithIdentifier:@"resultsSongCell"];
+		dict = [trackResults objectAtIndex:indexPath.row];
+		
+		[(ResultsSongTableViewCell*)cell songLabel].text = [dict objectForKey:@"track_name"];
+		[(ResultsSongTableViewCell*)cell artistLabel].text = [dict objectForKey:@"artist_name"];
+		[[(ResultsSongTableViewCell*)cell albumArtImage] setImage:nil];
+		
+		dispatch_queue_t thread = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+		dispatch_async(thread, ^{
+			NSString *url= [RiverAuthAccount fetchAlbumArtForURL:[[trackResults objectAtIndex:indexPath.row] objectForKey:@"track_href"]];
+			dispatch_async(dispatch_get_main_queue(), ^{
+				UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+				if (cell) {
+					[[(ResultsSongTableViewCell*)cell albumArtImage] setImageWithURL:[NSURL URLWithString:url]];
+				}
+			});
+		});
+	} else if (selectedTab == kSearchResultsArtists) {
+		
+		cell = [tableView dequeueReusableCellWithIdentifier:@"resultsArtistCell"];
+		dict = [artistResults objectAtIndex:indexPath.row];
+		
+		[(ResultsArtistTableViewCell*)cell artistLabel].text = [dict objectForKey:@"artist_name"];
+		
+	} else if (selectedTab == kSearchResultsAlbums) {
+		
+		cell = [tableView dequeueReusableCellWithIdentifier:@"resultsAlbumCell"];
+		dict = [albumResults objectAtIndex:indexPath.row];
+		
+		[(ResultsAlbumTableViewCell*)cell albumLabel].text = [dict objectForKey:@"album_name"];
+		[(ResultsAlbumTableViewCell*)cell artistLabel].text = [dict objectForKey:@"artist_name"];
+		[[(ResultsSongTableViewCell*)cell albumArtImage] setImage:nil];
+		
+		dispatch_queue_t thread = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+		dispatch_async(thread, ^{
+			NSString *url= [RiverAuthAccount fetchAlbumArtForURL:[[albumResults objectAtIndex:indexPath.row] objectForKey:@"album_href"]];
+			dispatch_async(dispatch_get_main_queue(), ^{
+				UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+				if (cell) {
+					[[(ResultsSongTableViewCell*)cell albumArtImage] setImageWithURL:[NSURL URLWithString:url]];
+				}
+			});
+		});
 	}
 	
 	return cell;
