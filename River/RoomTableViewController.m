@@ -8,6 +8,7 @@
 
 #import "RoomTableViewController.h"
 #import "RiverAuthAccount.h"
+#import "RiverViewController.h"
 
 @interface RoomTableViewController ()
 
@@ -30,6 +31,12 @@
     
 	memberedRoom = [GlobalVars getVar].memberedRoom;
 	
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+	
+	[super viewDidAppear:animated];
+	
     // Register KVO on synchronizer background thread
     appDelegate = (RiverAppDelegate*)[[UIApplication sharedApplication] delegate];
     [self addObserver:self forKeyPath:@"appDelegate.syncId" options:0 context:nil];
@@ -43,8 +50,14 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"appDelegate.syncId"]) {
-        [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-		[(RoomViewController*)self.parentViewController performSelectorOnMainThread:@selector(reloadRoomData) withObject:nil waitUntilDone:NO];
+		
+		@synchronized([GlobalVars getVar].memberedRoom) {
+			
+			[self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+			[(RoomViewController*)self.parentViewController performSelectorOnMainThread:@selector(reloadRoomData) withObject:nil waitUntilDone:NO];
+			[(RiverViewController*)self.parentViewController performSelectorOnMainThread:@selector(updateFooter) withObject:nil waitUntilDone:NO];
+		
+		}
     }
 }
 
@@ -57,6 +70,9 @@
 #pragma mark Table view data source
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	
+	memberedRoom = [GlobalVars getVar].memberedRoom;
+	
     if(memberedRoom != nil) {
 		if ([GlobalVars getVar].playingIndex > -1)
 			return [memberedRoom.songs count]-1;
@@ -66,14 +82,13 @@
     return 0;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	int playingIndex = [GlobalVars getVar].playingIndex;
-
+	
 	NSString *cellId = @"songCell";
 	RoomSongTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-	Track *song = nil;
+	Song *song = nil;
 	
 	if (memberedRoom != nil) {
 		if (playingIndex > -1) {
@@ -82,7 +97,7 @@
 			else
 				song = [memberedRoom.songs objectAtIndex:indexPath.row+1];
 		} else {
-			song =[memberedRoom.songs objectAtIndex:indexPath.row];
+			song = [memberedRoom.songs objectAtIndex:indexPath.row];
 		}
 	}
 	
@@ -91,6 +106,7 @@
     return cell;
 }
 
+
 #pragma mark - Table view delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -98,14 +114,24 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
-	selectedTrack = [memberedRoom.songs objectAtIndex:indexPath.row];
 	
+	int playingIndex = [GlobalVars getVar].playingIndex;
+
+	if (playingIndex > -1) {
+		if (indexPath.row < playingIndex)
+			selectedTrack = [memberedRoom.songs objectAtIndex:indexPath.row];
+		else
+			selectedTrack = [memberedRoom.songs objectAtIndex:indexPath.row+1];
+	} else {
+		selectedTrack  = [memberedRoom.songs objectAtIndex:indexPath.row];
+	}
+		
 	bidAlert = [RiverAlertUtility showInputAlertWithMessage:@"How many tokens would you like to add to this track?"
-										  params:@{@"keyboardType" : @((int)UIKeyboardTypeNumberPad),
-												   @"initialValue" : @"0"}
-										okTarget:self
-										okAction:@selector(makeBid:)];
+													 onView:self.parentViewController.view
+													 params:@{@"keyboardType" : @((int)UIKeyboardTypeNumberPad),
+															  @"initialValue" : @"0"}
+												   okTarget:self
+												   okAction:@selector(makeBid:)];
 }
 
 - (void)makeBid:(UIButton*)button {
@@ -113,26 +139,38 @@
 	
 	if (bid > 0) {
 		
-		[RiverAuthAccount authorizedRESTCall:kRiverRESTAddSong withParams:@{@"groupId" : memberedRoom.roomID,
-																			@"userId" : [RiverAuthAccount sharedAuth].userId,
-																			@"songId" : selectedTrack.trackId,
-																			@"title" : selectedTrack.title,
-																			@"artist" : selectedTrack.artist,
-																			@"points" : @((int)bid)}
-									callback:^(NSData *response, NSError *err) {
+		[RiverAuthAccount authorizedRESTCall:kRiverRESTRoom
+									  action:kRiverActionAddSong
+										verb:kRiverPost
+										 _id:@"1"
+								  withParams:@{@"RoomName" : memberedRoom.roomName,
+											   @"Users" : @[@{@"User" : @{@"Username" : [RiverAuthAccount sharedAuth].username}}],
+											   @"Songs" : @[@{@"ProviderId" : selectedTrack.trackId,
+															  @"Tokens" : @((int)bid)}]}
+									callback:^(NSDictionary *object, NSError *err) {
+										
 										if (!err) {
-											NSString *responseText = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
-											if([responseText isEqualToString:[NSString stringWithFormat:@"Success adding points to song %@", selectedTrack.trackId]]) {
+											
+											RiverStatus *status = [[RiverStatus alloc] init];
+											[status readFromJSONObject:object];
+											
+											if(status.statusCode.intValue == kRiverStatusAlreadyExists) {
 												
 												NSLog(@"%d tokens added to %@", bid, selectedTrack.trackId);
 												
 												[bidAlert removeFromSuperview];
 												
-												[RiverAlertUtility showOKAlertWithMessage:[NSString stringWithFormat:@"%d tokens added to %@", bid, selectedTrack.title]];
+												[RiverAlertUtility showOKAlertWithMessage:[NSString stringWithFormat:@"%d tokens added to %@", bid, selectedTrack.title]
+																				   onView:self.parentViewController.view];
+												
+												[self.navigationController popToRootViewControllerAnimated:YES];
 											} else {
 												
-												[RiverAlertUtility showErrorWithMessage:responseText];
+												[RiverAlertUtility showOKAlertWithMessage:@"ERROR"
+																				   onView:self.parentViewController.view];
 											}
+											
+											[bidAlert removeFromSuperview];
 										}
 									}];
     } else {

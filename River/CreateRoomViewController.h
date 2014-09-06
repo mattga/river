@@ -10,7 +10,7 @@
 #import "RiverFrontViewController.h"
 #import "CocoaLibSpotify.h"
 
-@interface CreateRoomViewController : RiverFrontViewController
+@interface CreateRoomViewController : RiverFrontViewController <UITextFieldDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextField *roomField;
 @property (strong, nonatomic) IBOutlet UIButton *createButton;

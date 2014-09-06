@@ -13,5 +13,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *artistLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *artistImage;
 @property (weak, nonatomic) IBOutlet UIImageView *artistSelectedImage;
+@property (weak, nonatomic) IBOutlet UIImageView *artistSPImage;
 
 @end

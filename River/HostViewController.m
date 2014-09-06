@@ -8,6 +8,7 @@
 
 #import "HostViewController.h"
 #import "RiverAlertUtility.h"
+#import "RiverSPLoginViewController.h"
 
 #define SP_LIBSPOTIFY_DEBUG_LOGGING 1
 
@@ -35,38 +36,41 @@
     playbackManager = _vars.playbackManager;
 	hostTVC = [self.childViewControllers firstObject];
     
+	[self.volumeSlider setShowsVolumeSlider:YES];
+	
 	[self prepareButtons];
 	
     // AppDelegate instance
     appDelegate = (RiverAppDelegate*)[[UIApplication sharedApplication] delegate];
-
+	
     // Configure observers for player controls
     [self addObserver:self forKeyPath:@"appDelegate.syncId" options:0 context:nil];
     [self addObserver:self forKeyPath:@"playbackManager.currentTrack.duration" options:0 context:nil];
 	[self addObserver:self forKeyPath:@"playbackManager.trackPosition" options:0 context:nil];
 	[self addObserver:self forKeyPath:@"playbackManager.isPlaying" options:0 context:nil];
-
-}
-
-- (void)viewWillAppear:(BOOL)animated {
+	[self addObserver:self forKeyPath:@"playbackManager.currentTrack" options:0 context:nil];
 	
-    [super viewWillAppear:animated];
-    
-    if([[SPSession sharedSession] connectionState] != SP_CONNECTION_STATE_LOGGED_IN) {
-		UIStoryboard *loginSB = [UIStoryboard storyboardWithName:@"LoginStoryboard_iPhone" bundle:[NSBundle mainBundle]];
-		UIViewController *login = [loginSB instantiateViewControllerWithIdentifier:@"SpotifyLogin"];
-		[self.navigationController pushViewController:login animated:YES];
-	}
+	[hostTVC.tableView reloadData];
+	
 }
 
 - (void)viewDidAppear:(BOOL)animated {
 	
+	[super viewDidAppear:animated];
+	
     hostedRoom = _vars.memberedRoom;
-	playbackManager.hostedRoom = hostedRoom;
+	playbackManager.memberedRoom = hostedRoom;
 	
 	[self updateLabels];
 	
-	[super viewDidAppear:animated];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	if([[SPSession sharedSession] connectionState] != SP_CONNECTION_STATE_LOGGED_IN) {
+		UIStoryboard *loginSB = [UIStoryboard storyboardWithName:@"RiverStoryboard_iPhone" bundle:[NSBundle mainBundle]];
+		RiverSPLoginViewController *login = [loginSB instantiateViewControllerWithIdentifier:@"SpotifyLogin"];
+		[self.navigationController pushViewController:login animated:YES];
+	}
 }
 
 - (void)prepareButtons {
@@ -77,9 +81,9 @@
 	[self.trackSlider setMaximumTrackImage:maxTrack forState:UIControlStateNormal];
 	[self.trackSlider setThumbImage:[UIImage imageNamed:@"ico_slider_thumb.png"] forState:UIControlStateNormal];
 	
-	[self.volumeSlider setMinimumTrackImage:minTrack forState:UIControlStateNormal];
-	[self.volumeSlider setMaximumTrackImage:maxTrack forState:UIControlStateNormal];
-	[self.volumeSlider setThumbImage:[UIImage imageNamed:@"ico_slider_thumb.png"] forState:UIControlStateNormal];
+	[self.volumeSlider setMinimumVolumeSliderImage:minTrack forState:UIControlStateNormal];
+	[self.volumeSlider setMaximumVolumeSliderImage:maxTrack forState:UIControlStateNormal];
+	[self.volumeSlider setVolumeThumbImage:[UIImage imageNamed:@"ico_slider_thumb.png"] forState:UIControlStateNormal];
 	
 	// Restore audio controls form background streaming state
     if(playbackManager.isPlaying) {
@@ -91,16 +95,19 @@
 }
 
 - (void)updateLabels {
-	_songsLabel.text = [NSString stringWithFormat:@"%d Songs", hostedRoom.songs.count];
-	_membersLabel.text = [NSString stringWithFormat:@"%d Members", hostedRoom.members.count];
+	
+	
+	
+	self.songsButton.titleLabel.text = [NSString stringWithFormat:@"%d Songs", hostedRoom.songs.count];
+	self.membersButton.titleLabel.text = [NSString stringWithFormat:@"%d Members", hostedRoom.members.count];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"appDelegate.syncId"]) {
-		
-		[self updateLabels];
-        [hostTVC.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-		
+		@synchronized(hostedRoom) {
+			[self performSelectorOnMainThread:@selector(updateLabels) withObject:nil waitUntilDone:NO];
+			[hostTVC.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+		}
 	} else if ([keyPath isEqualToString:@"playbackManager.currentTrack.duration"]) {
 		
 		self.trackSlider.maximumValue = playbackManager.currentTrack.duration;
@@ -120,10 +127,18 @@
         if(playbackManager.isPlaying == NO) {
             [_streamButton setHidden:NO];
             [_stopButton setHidden:YES];
+			if (hostedRoom.songs.count == 0) {
+				self.currentTrack.text = @"";
+			}
         } else {
             [_streamButton setHidden:YES];
             [_stopButton setHidden:NO];
         }
+    } else if ([keyPath isEqualToString:@"playbackManager.currentTrack"]) {
+		
+		self.currentTrack.text = [NSString stringWithFormat:@"%@ - %@",
+								  [(SPArtist*)playbackManager.currentTrack.artists.firstObject name],
+								  playbackManager.currentTrack.name];
     }
 }
 
@@ -133,20 +148,29 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)dealloc {
+	
+	if (appDelegate != nil) {
+		[self removeObserver:self forKeyPath:@"appDelegate.syncId"];
+		[self removeObserver:self forKeyPath:@"playbackManager.currentTrack.duration"];
+		[self removeObserver:self forKeyPath:@"playbackManager.trackPosition"];
+		[self removeObserver:self forKeyPath:@"playbackManager.isPlaying"];
+		[self removeObserver:self forKeyPath:@"playbackManager.currentTrack"];
+	}
+}
+
+
 #pragma mark - UI Logic
 
 - (IBAction)setTrackPosition:(id)sender {
 	[playbackManager seekToTrackPosition:self.trackSlider.value];
 }
 
-- (IBAction)setVolume:(id)sender {
-	playbackManager.volume = [(UISlider *)sender value];
-}
-
 - (IBAction)skipPressed:(id)sender {
 	
-	if(hostedRoom == nil || [hostedRoom.songs count] == 0) {
-		[RiverAlertUtility showOKAlertWithMessage:@"No track to skip"];
+	if(hostedRoom == nil || [hostedRoom.songs count] < 1) {
+		[RiverAlertUtility showOKAlertWithMessage:@"No track to skip"
+										   onView:self.view];
 	} else {
 		[_nextSong setEnabled:NO];
 		
@@ -168,19 +192,32 @@
 - (IBAction)playPressed:(id)sender {
 	
 	if(hostedRoom == nil || [hostedRoom.songs count] == 0)
-		[RiverAlertUtility showOKAlertWithMessage:@"No track to play"];
+		[RiverAlertUtility showOKAlertWithMessage:@"No track to play"
+										   onView:self.view];
 	else {
 		[_streamButton setEnabled:NO];
 		
+		Song *currentTrack;
+		@synchronized(_vars.memberedRoom) {
+			if (_vars.playingIndex > -1) {
+				currentTrack = [_vars.memberedRoom.songs objectAtIndex:_vars.playingIndex];
+			}
+			currentTrack = [_vars.memberedRoom.songs objectAtIndex:0];
+		}
+		
 		if([playbackManager currentTrack] == nil) {
-			Track *currentTrack = [_vars.memberedRoom.songs objectAtIndex:0];
 			[playbackManager streamSong:currentTrack.trackId withCallback:^{
 				[_streamButton setEnabled:YES];
 				[_streamButton setHidden:YES];
 				[_stopButton setHidden:NO];
+				
+				self.currentTrack.text = [NSString stringWithFormat:@"%@ - %@",
+										  currentTrack.artist,
+										  currentTrack.title];
 			}];
 		} else {
 			[playbackManager setIsPlaying:YES];
+			[_streamButton setEnabled:YES];
 		}
 	}
 }
@@ -189,9 +226,9 @@
 	[hostTVC setSelectedTab:kHostSongsSelected];
 	
 	[self.songsButton setBackgroundColor:kRiverLightBlue];
-	[self.songsLabel setTextColor:kRiverBGLightGray];
+	[self.songsButton.titleLabel setTextColor:kRiverBGLightGray];
 	[self.membersButton setBackgroundColor:kRiverBGLightGray];
-	[self.membersLabel setTextColor:kRiverLightBlue];
+	[self.membersButton.titleLabel setTextColor:kRiverLightBlue];
 	
 	[hostTVC.tableView reloadData];
 }
@@ -200,25 +237,15 @@
 	[hostTVC setSelectedTab:kHostMembersSelected];
 	
 	[self.songsButton setBackgroundColor:kRiverBGLightGray];
-	[self.songsLabel setTextColor:kRiverLightBlue];
+	[self.songsButton.titleLabel setTextColor:kRiverLightBlue];
 	[self.membersButton setBackgroundColor:kRiverLightBlue];
-	[self.membersLabel setTextColor:kRiverBGLightGray];
+	[self.membersButton.titleLabel setTextColor:kRiverBGLightGray];
 	
 	[hostTVC.tableView reloadData];
 }
 
-- (void)dealloc {
-	[self removeObserver:self forKeyPath:@"appDelegate.syncId"];
-	[self removeObserver:self forKeyPath:@"playbackManager.currentTrack.duration"];
-	[self removeObserver:self forKeyPath:@"playbackManager.trackPosition"];
-	[self removeObserver:self forKeyPath:@"playbackManager.isPlaying"];
-}
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue.identifier isEqualToString:@"embedSongsMembers"]) {
-		
-		[segue.destinationViewController setSongs:[GlobalVars getVar].memberedRoom.songs];
-		[segue.destinationViewController setMembers:[GlobalVars getVar].memberedRoom.members];
 		
 	}
 }

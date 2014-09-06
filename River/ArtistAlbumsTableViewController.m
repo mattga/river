@@ -10,13 +10,14 @@
 #import "ResultsAlbumTableViewCell.h"
 #import "RiverAuthAccount.h"
 #import "AlbumDetailViewController.h"
+#import "ArtistDetailViewController.h"
+#import "SPJSONParser.h"
 
 @interface ArtistAlbumsTableViewController ()
 
 @end
 
 @implementation ArtistAlbumsTableViewController
-@synthesize albums;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -47,25 +48,34 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return albums.count;
+    return [(ArtistDetailViewController*)self.parentViewController albums].count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"artistAlbumCell"];
 	
-	[[(ResultsAlbumTableViewCell*)cell albumLabel] setText:[[albums objectAtIndex:indexPath.row] objectForKey:@"album_name"]];
-	[[(ResultsAlbumTableViewCell*)cell releasedLabel] setText:[[albums objectAtIndex:indexPath.row] objectForKey:@"album_released"]];
+	NSDictionary *album = [[(ArtistDetailViewController*)self.parentViewController albums] objectAtIndex:indexPath.row];
+	
+	[[(ResultsAlbumTableViewCell*)cell albumLabel] setText:[album objectForKey:@"name"]];
 	[[(ResultsAlbumTableViewCell*)cell albumArtImage] setImage:nil];
 	
 	dispatch_queue_t thread = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
 	dispatch_async(thread, ^{
-		NSString *url= [RiverAuthAccount fetchAlbumArtForURL:[[albums objectAtIndex:indexPath.row] objectForKey:@"album_href"]];
-		dispatch_async(dispatch_get_main_queue(), ^{
-			UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-			if (cell) {
-				[[(ResultsAlbumTableViewCell*)cell albumArtImage] setImageWithURL:[NSURL URLWithString:url]];
-			}
-		});
+		NSURL *url= [SPJSONParser imageURLFromSPJSON:album withSize:55];
+		[SDWebImageDownloader.sharedDownloader downloadImageWithURL:url
+															options:0
+														   progress:nil
+														  completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
+															  if (image && finished)
+															  {
+																  dispatch_async(dispatch_get_main_queue(), ^{
+																	  UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+																	  if (cell) {
+																		  [[(ResultsAlbumTableViewCell*)cell albumArtImage] setImage:image];
+																	  }
+																  });
+															  }
+														  }];
 	});
 	
 	return cell;

@@ -9,21 +9,22 @@
 #import "User.h"
 
 @implementation User
-@synthesize userId, tokens, isHost;
+@synthesize userId, userName;
 
-- (id)initWithID:(NSString*)ID {
-    userId = ID;
+- (id)initWithName:(NSString*)name {
+    userName = name;
     return [self init];
 }
 
-+ (User*)userWithJSONObject:(NSDictionary*)dict {
-    User *u = [[User alloc] init];
-    
-    u.userId = [dict objectForKey:@"id"];
-    u.tokens = [[dict objectForKey:@"points"] integerValue];
-    u.isHost = [[dict objectForKey:@"host"] boolValue];
-    
-    return u;
+- (void)readFromJSONObject:(NSDictionary*)dict {
+	
+	if (dict != nil && ![dict isEqual:[NSNull null]] && dict.count > 0) {
+		
+		self.userId = [[dict objectForKey:@"UserId"] integerValue];
+		self.userName = [dict objectForKey:@"Username"];
+		
+		[super readFromJSONObject:dict];
+	}
 }
 
 @end

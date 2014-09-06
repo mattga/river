@@ -11,6 +11,5 @@
 
 @interface AlbumTracksTableViewController : RiverTableViewController
 
-@property (nonatomic, strong) NSMutableArray *tracks;
 
 @end

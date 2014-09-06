@@ -9,7 +9,7 @@
 #import "ResultsAlbumTableViewCell.h"
 
 @implementation ResultsAlbumTableViewCell
-@synthesize albumLabel, artistLabel, albumArtImage;
+@synthesize albumLabel, artistLabel, releasedLabel, albumArtImage;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

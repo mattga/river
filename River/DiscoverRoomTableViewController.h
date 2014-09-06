@@ -16,7 +16,7 @@
 @interface DiscoverRoomTableViewController : RiverTableViewController
 
 // Passed data
-@property (nonatomic, strong) NSArray *rooms;
+@property (nonatomic, strong) NSMutableArray *rooms;
 @property (nonatomic) int selectedRoom;
 
 - (void) reloadRooms;

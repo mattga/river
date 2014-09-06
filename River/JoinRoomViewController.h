@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "RiverFrontViewController.h"
+#import "RiverViewController.h"
 
-@interface JoinRoomViewController : RiverFrontViewController
+@interface JoinRoomViewController : UIViewController <UITextFieldDelegate>
 
 // UI
 @property (strong, nonatomic) IBOutlet UITextField *roomField;

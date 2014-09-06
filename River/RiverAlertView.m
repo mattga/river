@@ -24,7 +24,7 @@
     
     RiverAlertView *newAlert = nil;
     
-    NSArray *views = [[NSBundle mainBundle] loadNibNamed:nibName owner:self options:nil];
+    NSArray *views = [[NSBundle mainBundle] loadNibNamed:nibName owner:nil options:nil];
     if(views != NULL && views.count > 0)
     {
         newAlert = (RiverAlertView *)[views objectAtIndex:0];

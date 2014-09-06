@@ -10,13 +10,16 @@
 #import "SPAlbumsXMLParser.h"
 #import "GlobalVars.h"
 #import "AlbumDetailViewController.h"
+#import "ResultsAlbumTableViewCell.h"
+#import "RiverLoadingUtility.h"
+#import "SPJSONParser.h"
 
 @interface ArtistDetailViewController ()
 
 @end
 
 @implementation ArtistDetailViewController
-@synthesize artist;
+@synthesize artistName, artistId;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,19 +33,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-	[self.artistLabel setText:[artist objectForKey:@"artist_name"]];
 	
-    [self fetchAlbumsForURI:[artist objectForKey:@"artist_href"]];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-	// Set footer labels
-	[self.userLabel setText:[[RiverAuthAccount sharedAuth] currentUser].userId];
-	[self.roomLabel setText:[GlobalVars getVar].memberedRoom.roomID];
-	[self.tokenLabel setText:[NSString stringWithFormat:@"%d", [[RiverAuthAccount sharedAuth] currentUser].tokens]];
-    
-	[super viewDidAppear:animated];
+	[[RiverLoadingUtility sharedLoader] startLoading:_cardView withFrame:CGRectNull];
+	
+	[self fetchArtistDetails];
 }
 
 - (void)didReceiveMemoryWarning
@@ -51,18 +45,54 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)fetchAlbumsForURI:(NSString*)uri {
-	[RiverAuthAccount authorizedRESTCall:kSPLookup withParams:@{@"extras" : kSPLookupExtrasAlbum, @"uri" : uri} callback:^(NSData *response, NSError *err) {
-		
-		SPAlbumsXMLParser *parser = [[SPAlbumsXMLParser alloc] initWithData:response outputArray:_albums];
-		[parser setDelegate:parser];
-		if(![parser parse])
-			NSLog(@"%@", [[parser parserError] description]);
-		
-		NSLog(@"%@", _albums);
-		
-		[albumsTVC.tableView reloadData];
-	}];
+- (void)prepareLabels {
+	[self.artistLabel setText:artistName];
+	
+	// Set footer labels
+	[self.userLabel setText:[[RiverAuthAccount sharedAuth] currentUser].userName];
+	[self.roomLabel setText:[GlobalVars getVar].memberedRoom.roomName];
+	[self.tokenLabel setText:[NSString stringWithFormat:@"%d", [[RiverAuthAccount sharedAuth] currentUser].tokens]];
+	
+}
+
+- (void)fetchArtistDetails {
+	[RiverAuthAccount authorizedRESTCall:kSPRESTArtists
+								  action:kSPRESTAlbums
+									verb:kRiverGet
+									 _id:artistId
+							  withParams:nil
+								callback:^(NSDictionary *object, NSError *err) {
+									
+									if (!err) {
+										
+										self.albums = [object objectForKey:@"items"];
+										self.albumReleaseDates = [@[] mutableCopy];
+										
+										for (int i = 0; i < self.albums.count; i++) {
+											NSDictionary *album = [self.albums objectAtIndex:i];
+											
+											[RiverAuthAccount authorizedRESTCall:kSPRESTAlbums
+																		  action:nil
+																			verb:kRiverGet
+																			 _id:[album objectForKey:@"id"]
+																	  withParams:nil
+																		callback:^(NSDictionary *object, NSError *err) {
+																			
+																			if (!err) {
+																				
+																				ResultsAlbumTableViewCell *cell = (ResultsAlbumTableViewCell*)[albumsTVC.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+																				cell.releasedLabel.text = [[object objectForKey:@"release_date"] substringToIndex:4];
+																			}
+																		}];
+										}
+										
+										[self prepareLabels];
+										
+										[albumsTVC.tableView reloadData];
+									}
+									
+									[[RiverLoadingUtility sharedLoader] stopLoading];
+								}];
 }
 
 - (IBAction)backPressed:(id)sender {
@@ -72,12 +102,8 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue.identifier isEqualToString:@"embedArtistAlbums"]) {
 		albumsTVC = segue.destinationViewController;
-		
-		_albums = [[NSMutableArray alloc] init];
-		
-		[albumsTVC setAlbums:_albums];
 	} else if ([segue.identifier isEqualToString:@"albumDetailSegue"]) {
-		[(AlbumDetailViewController*)segue.destinationViewController setAlbum:[_albums objectAtIndex:[(NSIndexPath*)sender row]]];
+		[(AlbumDetailViewController*)segue.destinationViewController setAlbumId:[[_albums objectAtIndex:[(NSIndexPath*)sender row]] objectForKey:@"id"]];
 	}
 }
 

@@ -7,6 +7,7 @@
 //
 
 #import "RoomViewController.h"
+#import "SideMenuViewController.h"
 
 @interface RoomViewController ()
 
@@ -27,14 +28,17 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
-	vars = [GlobalVars getVar];
-	_memberedRoom = vars.memberedRoom;
-	
 	// Set reveal VC delegate
 	self.revealViewController.delegate = (id<SWRevealViewControllerDelegate>)[UIApplication sharedApplication].delegate;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+	
+    [super viewWillAppear:animated];
+	
+	vars = [GlobalVars getVar];
+	_memberedRoom = vars.memberedRoom;
+	
     if(_memberedRoom==nil) {
         _hostRoomButton.hidden = NO;
 		_joinRoomButton.hidden = NO;
@@ -42,14 +46,14 @@
         _hostRoomButton.hidden = YES;
 		_joinRoomButton.hidden = YES;
     }
-    
-	self.usernameLabel.text = vars.username;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
 	
-    NSLog(@"Setting room footer for %@", _memberedRoom.roomID);
-    self.userTokensLabel.text = (_memberedRoom==nil ? @"0" : [NSString stringWithFormat:@"%d",vars.user.tokens]);
-    self.roomLabel.text = (_memberedRoom==nil ? @"-" : [NSString stringWithFormat:@"%@",_memberedRoom.roomID]);
-    
-    [super viewWillAppear:animated];
+	[super viewDidAppear:animated];
+	
+	[roomTVC.tableView reloadData];
+	
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -70,40 +74,29 @@
 }
 
 - (void)reloadRoomData {
-	self.userTokensLabel.text = [NSString stringWithFormat:@"%d", vars.user.tokens];
 	
 	if (_memberedRoom !=  nil) {
-		if (vars.playingIndex > -1) {
-			if (playingSong == nil || ![playingSong.trackId isEqualToString:[(Track*)[_memberedRoom.songs objectAtIndex:vars.playingIndex] trackId]]) {
+		if (vars.playingIndex > -1 && vars.playingIndex < self.memberedRoom.songs.count) {
+			if (playingSong == nil || ![playingSong.trackId isEqualToString:[(Song*)[_memberedRoom.songs objectAtIndex:vars.playingIndex] trackId]]) {
+				NSLog(@"playingIndex: %d  songsCount: %d", vars.playingIndex, self.memberedRoom.songs.count);
 				playingSong = [_memberedRoom.songs objectAtIndex:vars.playingIndex];
 				
-				[RiverAuthAccount authorizedRESTCall:kSPLookup withParams:@{@"uri" : playingSong.trackId} callback:^(NSData *response, NSError *err) {
-					NSMutableArray *tracksArray = [[NSMutableArray alloc] init];
-					SPTracksXMLParser *parser = [[SPTracksXMLParser alloc] initWithData:response outputArray:tracksArray];
-					[parser setDelegate:parser];
-					[parser parse];
-					Track *detailedTrack = [Track trackWithXMLObject:[tracksArray objectAtIndex:0]];
-					detailedTrack.trackId = playingSong.trackId;
-					detailedTrack.isPlaying = playingSong.isPlaying;
-					detailedTrack.currentTokens = playingSong.currentTokens;
-					
-					playingSong = detailedTrack;
-					
-					self.trackLabel.text = playingSong.title;
-					self.artistLabel.text = playingSong.artist;
-					self.albumLabel.text = [NSString stringWithFormat:@"%@ (%@)", playingSong.album, playingSong.released];
-					self.trackTokenLabel.text = [NSString stringWithFormat:@"%d", playingSong.currentTokens];
-					
-					NSURL *url = [NSURL URLWithString:[self fetchAlbumArtForURL:playingSong.trackId]];
-					[self.albumArtImageView setImageWithURL:url placeholderImage:[UIImage imageNamed:@"bg_track_placeholder.png"]];
-					
-					if (!playingViewDown)
-						 [self animatePlayingView];
-				}];
+				self.trackLabel.text = playingSong.title;
+				self.artistLabel.text = playingSong.artist;
+				self.albumLabel.text = [NSString stringWithFormat:@"%@ (%@)", playingSong.album, playingSong.year];
+				self.trackTokenLabel.text = [NSString stringWithFormat:@"%d", playingSong.tokens.intValue];
+				
+				NSURL *url = [NSURL URLWithString:playingSong.albumArtURL];
+				[self.albumArtImageView setImageWithURL:url];
+				
+				if (!playingViewDown) {
+					[self animatePlayingView];
+				}
 			}
 		} else {
-			if (playingViewDown)
+			if (playingViewDown) {
 				[self dismissPlayingView];
+			}
 		}
 	}
 }
@@ -139,33 +132,22 @@
 					 }];
 }
 
-- (NSString *)fetchAlbumArtForURL:(NSString *)url {
-    NSString *post = @"https://embed.spotify.com/oembed/?url=";
-    post = [post stringByAppendingString:url];
-    
-    NSLog(@"Fetching artwork: %@", post);
-    
-    // Create the request.
-    NSURLRequest *theRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:post]
-                                                cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                            timeoutInterval:60.0];
-    
-    // Create the connection with the request and start loading the data.
-    NSURLResponse* response = nil;
-    NSData* data = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:&response error:nil];
-    
-    NSString* dataAsString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    
-    NSRange endRange = [dataAsString rangeOfString:@"\",\"provider_name"];
-
-    NSInteger end = endRange.location;
-    NSString *artURL = [dataAsString substringToIndex:end];
-    
-    NSRange startRange = [artURL rangeOfString:@"\"thumbnail_url\":\""];
-    NSInteger start = startRange.location + startRange.length;
-    artURL = [[artURL substringFromIndex:start] stringByReplacingOccurrencesOfString:@"\\/" withString:@"/"];
-    
-    return artURL;
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	if ([segue.identifier isEqualToString:@"embedRoomTable"]) {
+		roomTVC = segue.destinationViewController;
+	} else if ([segue.identifier isEqualToString:@"hostSegue"]) {
+		[[(SideMenuViewController*)self.revealViewController.rearViewController tableView] selectRowAtIndexPath:[NSIndexPath indexPathForRow:kSideMenuHost inSection:0]
+																											animated:YES
+																									  scrollPosition:UITableViewScrollPositionNone];
+		
+		UIStoryboard *loginSB = [UIStoryboard storyboardWithName:@"RiverStoryboard_iPhone" bundle:[NSBundle mainBundle]];
+		UIViewController *login = [loginSB instantiateViewControllerWithIdentifier:@"SpotifyLogin"];
+		[self.navigationController pushViewController:login animated:YES];
+	} else if ([segue.identifier isEqualToString:@"joinSegue"]) {
+		[[(SideMenuViewController*)self.revealViewController.rearViewController tableView] selectRowAtIndexPath:[NSIndexPath indexPathForRow:kSideMenuJoin inSection:0]
+																											animated:YES
+																									  scrollPosition:UITableViewScrollPositionNone];
+	}
 }
 
 @end

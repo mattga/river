@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "RiverAlertUtility.h"
 #import "RiverViewController.h"
-#import "Track.h"
+#import "Song.h"
 #import "Room.h"
 
 @interface TrackDetailViewController : RiverViewController <UIScrollViewDelegate> {
@@ -18,6 +18,7 @@
 }
 
 @property (strong, nonatomic) NSDictionary *track;
+@property (strong, nonatomic) NSDictionary *album;
 @property (strong, nonatomic) NSMutableData *responseData;
 
 @property (strong, nonatomic) UIImageView *pointsImageView;
@@ -26,7 +27,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *tokenLabel;
 @property (strong, nonatomic) IBOutlet UILabel *roomLabel;
-@property (strong, nonatomic) IBOutlet UIImageView *albumArtVIew;
+@property (strong, nonatomic) IBOutlet UIImageView *albumArtView;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *artistLabel;
 @property (strong, nonatomic) IBOutlet UILabel *albumLabel;

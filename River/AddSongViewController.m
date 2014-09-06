@@ -13,11 +13,11 @@
 #import "ArtistDetailViewController.h"
 #import "AlbumDetailViewController.h"
 #import "RiverLoadingUtility.h"
+#import "SPJSONParser.h"
 
-@interface AddSongViewController ()
-@end
 
 @implementation AddSongViewController
+@synthesize trackResults, albumResults, artistResults;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -38,6 +38,16 @@
 								   action:@selector(endEditing:)];
 	[tap setDelegate:self];
 	[self.view addGestureRecognizer:tap];
+	
+	NSString *searchKeyword = [GlobalVars getVar].searchKeyword;
+	if (searchKeyword != nil && ![searchKeyword isEqualToString:@""]) {
+
+		self.searchField.text = searchKeyword;
+		[self.searchPlaceholderLabel setHidden:YES];
+		[self searchSpotify:searchKeyword];
+		
+		[resultsTVC.tableView reloadData];
+	}
 }
 
 - (void)didReceiveMemoryWarning
@@ -47,60 +57,66 @@
 }
 
 - (void)searchSpotify:(NSString *)searchText {
-	[RiverAuthAccount authorizedRESTCall:kSPSearchTracks withParams:@{@"query" : searchText} callback:^(NSData *response, NSError *err) {
-		SPTracksXMLParser *parser = [[SPTracksXMLParser alloc] initWithData:response outputArray:trackResults];
-		[parser setDelegate:parser];
-		if (![parser parse])
-			NSLog(@"AddSongViewController::searchSPTracks() - ERROR: %@", [[parser parserError] description]);
-		
-		if (resultsTVC.selectedTab == kSearchResultsSongs)
-			[resultsTVC.tableView reloadData];
-		
-		tracksFetched = YES;
-		if (tracksFetched && artistsFetched && albumsFetched) {
-			[[RiverLoadingUtility sharedLoader] stopLoading];
-		}
-	}];
+	[RiverAuthAccount authorizedRESTCall:kSPRESTSearch
+								  action:nil
+									verb:kRiverGet
+									 _id:nil
+							  withParams:@{@"q" : searchText, @"type" : @"track"}
+								callback:^(NSDictionary *object, NSError *err) {
+									trackResults = [SPJSONParser tracksFromSPJSON:object];
+									
+									if (resultsTVC.selectedTab == kSearchResultsSongs)
+										[resultsTVC.tableView reloadData];
+									
+									tracksFetched = YES;
+									if (tracksFetched && artistsFetched && albumsFetched) {
+										[[RiverLoadingUtility sharedLoader] stopLoading];
+									}
+								}];
 	
-	[RiverAuthAccount authorizedRESTCall:kSPSearchArtists withParams:@{@"query" : searchText} callback:^(NSData *response, NSError *err) {
-		SPArtistsXMLParser *parser = [[SPArtistsXMLParser alloc] initWithData:response outputArray:artistResults];
-		[parser setDelegate:parser];
-		if (![parser parse])
-			NSLog(@"AddSongViewController::searchSPArtists() - ERROR: %@", [[parser parserError] description]);
-		
-		if (resultsTVC.selectedTab == kSearchResultsArtists)
-			[resultsTVC.tableView reloadData];
-		
-		artistsFetched = YES;
-		if (tracksFetched && artistsFetched && albumsFetched) {
-			[[RiverLoadingUtility sharedLoader] stopLoading];
-		}
-	}];
+	[RiverAuthAccount authorizedRESTCall:kSPRESTSearch
+								  action:nil
+									verb:kRiverGet
+									 _id:nil
+							  withParams:@{@"q" : searchText, @"type" : @"artist"}
+								callback:^(NSDictionary *object, NSError *err) {
+									artistResults = [SPJSONParser artistsFromSPJSON:object];
+									
+									if (resultsTVC.selectedTab == kSearchResultsArtists)
+										[resultsTVC.tableView reloadData];
+									
+									artistsFetched = YES;
+									if (tracksFetched && artistsFetched && albumsFetched) {
+										[[RiverLoadingUtility sharedLoader] stopLoading];
+									}
+								}];
 	
-	[RiverAuthAccount authorizedRESTCall:kSPSearchAlbums withParams:@{@"query" : searchText} callback:^(NSData *response, NSError *err) {
-		SPAlbumsXMLParser *parser = [[SPAlbumsXMLParser alloc] initWithData:response outputArray:albumResults];
-		[parser setDelegate:parser];
-		if (![parser parse])
-			NSLog(@"AddSongViewController::searchSPAlbums() - ERROR: %@", [[parser parserError] description]);
-		
-		if (resultsTVC.selectedTab == kSearchResultsAlbums)
-			[resultsTVC.tableView reloadData];
-		
-		albumsFetched = YES;
-		if (tracksFetched && artistsFetched && albumsFetched) {
-			[[RiverLoadingUtility sharedLoader] stopLoading];
-		}
-	}];
-	
+	[RiverAuthAccount authorizedRESTCall:kSPRESTSearch
+								  action:nil
+									verb:kRiverGet
+									 _id:nil
+							  withParams:@{@"q" : searchText, @"type" : @"album"}
+								callback:^(NSDictionary *object, NSError *err) {
+									albumResults = [SPJSONParser albumsFromSPJSON:object];
+									
+									if (resultsTVC.selectedTab == kSearchResultsAlbums)
+										[resultsTVC.tableView reloadData];
+									
+									albumsFetched = YES;
+									if (tracksFetched && artistsFetched && albumsFetched) {
+										[[RiverLoadingUtility sharedLoader] stopLoading];
+									}
+								}];
 }
 
 - (IBAction)songsPressed:(id)sender {
+	
 	[self.songsButton setBackgroundColor:kRiverLightBlue];
-	[self.songsLabel setTextColor:kRiverBGLightGray];
+	[self.songsButton.titleLabel setTextColor:kRiverBGLightGray];
 	[self.artistsButton setBackgroundColor:kRiverBGLightGray];
-	[self.artistsLabel setTextColor:kRiverLightBlue];
+	[self.artistsButton.titleLabel setTextColor:kRiverLightBlue];
 	[self.albumsButton setBackgroundColor:kRiverBGLightGray];
-	[self.albumsLabel setTextColor:kRiverLightBlue];
+	[self.albumsButton.titleLabel setTextColor:kRiverLightBlue];
 	
 	[resultsTVC setSelectedTab:kSearchResultsSongs];
 	
@@ -108,12 +124,13 @@
 }
 
 - (IBAction)artistsPressed:(id)sender {
+	
 	[self.songsButton setBackgroundColor:kRiverBGLightGray];
-	[self.songsLabel setTextColor:kRiverLightBlue];
+	[self.songsButton.titleLabel setTextColor:kRiverLightBlue];
 	[self.artistsButton setBackgroundColor:kRiverLightBlue];
-	[self.artistsLabel setTextColor:kRiverBGLightGray];
+	[self.songsButton.titleLabel setTextColor:kRiverBGLightGray];
 	[self.albumsButton setBackgroundColor:kRiverBGLightGray];
-	[self.albumsLabel setTextColor:kRiverLightBlue];
+	[self.albumsButton.titleLabel setTextColor:kRiverLightBlue];
 	
 	[resultsTVC setSelectedTab:kSearchResultsArtists];
 	
@@ -121,12 +138,13 @@
 }
 
 - (IBAction)albumsPressed:(id)sender {
+	
 	[self.songsButton setBackgroundColor:kRiverBGLightGray];
-	[self.songsLabel setTextColor:kRiverLightBlue];
+	[self.songsButton.titleLabel setTextColor:kRiverLightBlue];
 	[self.artistsButton setBackgroundColor:kRiverBGLightGray];
-	[self.artistsLabel setTextColor:kRiverLightBlue];
+	[self.artistsButton.titleLabel setTextColor:kRiverLightBlue];
 	[self.albumsButton setBackgroundColor:kRiverLightBlue];
-	[self.albumsLabel setTextColor:kRiverBGLightGray];
+	[self.albumsButton.titleLabel setTextColor:kRiverBGLightGray];
 	
 	[resultsTVC setSelectedTab:kSearchResultsAlbums];
 	
@@ -136,21 +154,13 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"embedResultsTable"]) {
 		resultsTVC = segue.destinationViewController;
-		
-		// Initialize result arrays
-		albumResults = [[NSMutableArray alloc] init];
-		artistResults = [[NSMutableArray alloc] init];
-		trackResults = [[NSMutableArray alloc] init];
-		
-        [resultsTVC setTrackResults:trackResults];
-        [resultsTVC setArtistResults:artistResults];
-        [resultsTVC setAlbumResults:albumResults];
 	} else if ([segue.identifier isEqualToString:@"trackDetailSegue"]) {
 		[(TrackDetailViewController*)segue.destinationViewController setTrack:[trackResults objectAtIndex:resultsTVC.selectedRow]];
 	} else if ([segue.identifier isEqualToString:@"artistDetailSegue"]) {
-		[(ArtistDetailViewController*)segue.destinationViewController setArtist:[artistResults objectAtIndex:resultsTVC.selectedRow]];
+		[(ArtistDetailViewController*)segue.destinationViewController setArtistId:[[artistResults objectAtIndex:resultsTVC.selectedRow] objectForKey:@"id"]];
+		[(ArtistDetailViewController*)segue.destinationViewController setArtistName:[[artistResults objectAtIndex:resultsTVC.selectedRow] objectForKey:@"name"]];
 	} else if ([segue.identifier isEqualToString:@"albumDetailSegue"]) {
-		[(AlbumDetailViewController*)segue.destinationViewController setAlbum:[albumResults objectAtIndex:resultsTVC.selectedRow]];
+		[(AlbumDetailViewController*)segue.destinationViewController setAlbumId:[[albumResults objectAtIndex:resultsTVC.selectedRow] objectForKey:@"id"]];
 	}
 }
 
@@ -166,6 +176,8 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
 	[self.searchPlaceholderLabel setHidden:YES];
+	
+	[textField setSelectedTextRange:[textField textRangeFromPosition:textField.beginningOfDocument toPosition:textField.endOfDocument]];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
@@ -180,16 +192,16 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [[RiverLoadingUtility sharedLoader] startLoading:self.view
-										   withFrame:CGRectMake(0, 60, self.view.frame.size.width, self.view.frame.size.height - 100)
-									  withBackground:YES];
+										   withFrame:CGRectMake(0, 60, self.view.frame.size.width, self.view.frame.size.height - 100)];
 	
 	[textField resignFirstResponder];
 	
-    [self searchSpotify:self.searchField.text];
+	[GlobalVars getVar].searchKeyword = self.searchField.text;
+	[self searchSpotify:self.searchField.text];
 	
-    [resultsTVC.tableView reloadData];
+	[resultsTVC.tableView reloadData];
 	
-    return YES;
+	return YES;
 }
 
 

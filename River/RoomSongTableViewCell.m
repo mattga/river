@@ -14,7 +14,7 @@
 #pragma mark -
 #pragma mark Self - Public
 
-- (void)setSong:(Track*)song {
+- (void)setSong:(Song*)song {
     
     if ( _song != song ) {
         _song = song;
@@ -22,7 +22,7 @@
     
     _songLabel.text = _song.title;
     _artistLabel.text = _song.artist;
-    _tokensLabel.text = [NSString stringWithFormat:@"%d", _song.currentTokens];
+    _tokensLabel.text = [NSString stringWithFormat:@"%d", _song.tokens.intValue];
     NSString *albumURL = [self fetchAlbumArtForURL:_song.trackId];
     [_albumArtImageView setImageWithURL:[NSURL URLWithString:albumURL]];
 }

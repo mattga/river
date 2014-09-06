@@ -1,4 +1,4 @@
-//
+ //
 //  RiverAuth.m
 //  River
 //
@@ -20,44 +20,70 @@ static RiverAuthAccount *instance = nil;
     }
 }
 
-+ (void)authorizedRESTCall:(NSString*)endpoint withParams:(NSDictionary*)params callback:(void (^)(NSData *response, NSError* err))block {
-	[self sharedAuth];
++ (void)authorizedRESTCall:(NSString*)endpoint action:(NSString*)action verb:(NSString*)verb _id:(NSString*)_id withParams:(NSDictionary*)params callback:(void (^)(id object, NSError* err))block {
 	
-	// TEMPORARY AUTHORIZATION
 	[self sharedAuth].authToken = @"0";
 	
+	NSData *requestData = nil;
     NSString *url = nil;
-	if ([endpoint isEqualToString:kSPLookup]) {
-		url = [NSString stringWithFormat:@"%@://%@/%@/%@/?uri=%@", kSPWebProtocol, kSPWebHost, kSPLookup, kSPWebVersion, [params objectForKey:@"uri"]];
-		NSString *extras = [params objectForKey:@"extras"];
-		if (extras != nil)
-			url = [url stringByAppendingString:[NSString stringWithFormat:@"&extras=%@", extras]];
-	} else if ([endpoint isEqualToString:kSPSearchTracks]) {
-		url = [NSString stringWithFormat:@"%@://%@/%@?q=%@", kSPWebProtocol, kSPWebHost, kSPSearchTracks, [params objectForKey:@"query"]];
-	} else if ([endpoint isEqualToString:kSPSearchArtists]) {
-		url = [NSString stringWithFormat:@"%@://%@/%@?q=%@", kSPWebProtocol, kSPWebHost, kSPSearchArtists, [params objectForKey:@"query"]];
-	} else if ([endpoint isEqualToString:kSPSearchAlbums]) {
-		url = [NSString stringWithFormat:@"%@://%@/%@?q=%@", kSPWebProtocol, kSPWebHost, kSPSearchAlbums, [params objectForKey:@"query"]];
+	if ([endpoint isEqualToString:kSPRESTSearch] ||
+		[endpoint isEqualToString:kSPRESTAlbums] ||
+		[endpoint isEqualToString:kSPRESTArtists]) {
+		url = [NSString stringWithFormat:@"%@://%@/%@/%@", kSPWebProtocol, kSPWebHost, kSPWebVersion, endpoint];
+		
+		if (_id != nil) {
+			url = [NSString stringWithFormat:@"%@/%@", url, _id];
+		}
+		
+		if (action != nil) {
+			url = [NSString stringWithFormat:@"%@/%@", url, action];
+		}
+		
+		bool first = YES;
+		for (NSString *key in params.allKeys) {
+			if (first) {
+				url = [NSString stringWithFormat:@"%@?%@=%@", url, key, [params objectForKey:key]];
+				first = NO;
+			} else {
+				url = [NSString stringWithFormat:@"%@&%@=%@", url, key, [params objectForKey:key]];
+			}
+		}
 	} else {
-		url = [NSString stringWithFormat:@"%@://%@/%@?authToken=%@", kRiverWebProtocol, kRiverWebHost, endpoint, [self sharedAuth].authToken];
-		for (NSString *key in params) {
-			url = [url stringByAppendingString:[NSString stringWithFormat:@"&%@=%@", key, [params objectForKey:key]]];
+		url = [NSString stringWithFormat:@"%@://%@/%@/%@/%@", kRiverWebProtocol, kRiverWebHost, kRiverWebPath, kRiverWebVersion, endpoint];
+		
+		if (action != nil) {
+			url = [NSString stringWithFormat:@"%@/%@", url, action];
+		}
+		
+		if (_id != nil) {
+			url = [NSString stringWithFormat:@"%@/%@", url, _id];
+		}
+		
+		if (params != nil) {
+			NSError* error = nil;
+			id result = [NSJSONSerialization dataWithJSONObject:params
+														options:kNilOptions error:&error];
+			
+			NSString* jsonString = @"";
+			if (!error)
+			{
+				jsonString = [[NSString alloc] initWithData:result
+												   encoding:NSUTF8StringEncoding];
+				
+				requestData = [NSData dataWithBytes:[jsonString UTF8String] length:[jsonString length]];
+			}
 		}
 	}
     
 	url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
-    if ([endpoint isEqualToString:kRiverRESTGetGroupMates] ||
-        [endpoint isEqualToString:kRiverRESTGetGroupSongs] ||
-        [endpoint isEqualToString:kRiverRESTGetUserPoints] ||
-		[endpoint isEqualToString:kSPLookup] ||
-		[endpoint isEqualToString:kSPSearchTracks] ||
-		[endpoint isEqualToString:kSPSearchArtists] ||
-		[endpoint isEqualToString:kSPSearchAlbums])
-        [request setHTTPMethod:@"GET"];
-    else
-        [request setHTTPMethod:@"POST"];
+	[request setHTTPMethod:verb];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+	
+	if (requestData != nil) {
+		request.HTTPBody = requestData;
+	}
     
     RiverConnection *connection = [[RiverConnection alloc] initWithRequest:request];
 	[connection setCompletionBlock:block];
@@ -65,34 +91,76 @@ static RiverAuthAccount *instance = nil;
 	[connection start];
 }
 
-+ (NSString *)fetchAlbumArtForURL:(NSString *)url {
-	[self sharedAuth];
++ (void)authorizedSyncRESTCall:(NSString*)endpoint action:(NSString*)action verb:(NSString*)verb _id:(NSString*)_id withParams:(NSDictionary*)params callback:(void (^)(id object, NSError* err))block {
+
+	[self sharedAuth].authToken = @"0";
 	
-    NSString *post = @"https://embed.spotify.com/oembed/?url=";
-    post = [post stringByAppendingString:url];
+	NSData *requestData = nil;
+    NSString *url = nil;
+	if ([endpoint isEqualToString:kSPRESTSearch] ||
+		[endpoint isEqualToString:kSPRESTAlbums] ||
+		[endpoint isEqualToString:kSPRESTArtists]) {
+		url = [NSString stringWithFormat:@"%@://%@/%@/%@", kSPWebProtocol, kSPWebHost, kSPWebVersion, endpoint];
+		
+		if (_id != nil) {
+			url = [NSString stringWithFormat:@"%@/%@", url, _id];
+		}
+		
+		if (action != nil) {
+			url = [NSString stringWithFormat:@"%@/%@", url, action];
+		}
+		
+		bool first = YES;
+		for (NSString *key in params.allKeys) {
+			if (first) {
+				url = [NSString stringWithFormat:@"%@?%@=%@", url, key, [params objectForKey:key]];
+				first = NO;
+			} else {
+				url = [NSString stringWithFormat:@"%@&%@=%@", url, key, [params objectForKey:key]];
+			}
+		}
+	} else {
+		url = [NSString stringWithFormat:@"%@://%@/%@/%@/%@", kRiverWebProtocol, kRiverWebHost, kRiverWebPath, kRiverWebVersion, endpoint];
+		
+		if (action != nil) {
+			url = [NSString stringWithFormat:@"%@/%@", url, action];
+		}
+		
+		if (_id != nil) {
+			url = [NSString stringWithFormat:@"%@/%@", url, _id];
+		}
+		
+		if (params != nil) {
+			NSError* error = nil;
+			id result = [NSJSONSerialization dataWithJSONObject:params
+														options:kNilOptions error:&error];
+			
+			NSString* jsonString = @"";
+			if (!error)
+			{
+				jsonString = [[NSString alloc] initWithData:result
+												   encoding:NSUTF8StringEncoding];
+				
+				requestData = [NSData dataWithBytes:[jsonString UTF8String] length:[jsonString length]];
+			}
+		}
+	}
     
-    //    NSLog(@"Posting query: %@", post);
+	url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+	[request setHTTPMethod:verb];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+	
+	if (requestData != nil) {
+		request.HTTPBody = requestData;
+	}
     
-    // Create the request.
-    NSURLRequest *theRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:post]
-                                                cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                            timeoutInterval:60.0];
-    
-    // Create the connection with the request and start loading the data.
-    NSURLResponse* response = nil;
-    NSData* data = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:&response error:nil];
-    
-    NSString* dataAsString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    
-    NSRange endRange = [dataAsString rangeOfString:@"\",\"provider_name"];
-    NSInteger end = endRange.location;
-    NSString *artURL = [dataAsString substringToIndex:end];
-    
-    NSRange startRange = [artURL rangeOfString:@"\"thumbnail_url\":\""];
-    NSInteger start = startRange.location + startRange.length;
-    artURL = [[artURL substringFromIndex:start] stringByReplacingOccurrencesOfString:@"\\/" withString:@"/"];
-    
-    return artURL;
+    RiverConnection *connection = [[RiverConnection alloc] initWithRequest:request];
+	[connection setCompletionBlock:block];
+	
+	[connection startSynchronously];
 }
+
 
 @end

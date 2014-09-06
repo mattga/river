@@ -7,6 +7,8 @@
 //
 
 #import "RiverSessionDelegate.h"
+#import "RiverLoadingUtility.h"
+#import "RiverAlertUtility.h"
 
 #define SP_LIBSPOTIFY_DEBUG_LOGGING 1
 
@@ -23,28 +25,22 @@
 			UINavigationController* navVC = (UINavigationController*)appDelegate.window.rootViewController.childViewControllers.lastObject;
 			[navVC popViewControllerAnimated:YES];
 			
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Hello %@!", aSession.user.displayName]
-                                                            message:@"You can now stream music from a hosted room."
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-            [alert show];
-			
 			if (self.riverDelegate != nil) {
 				[self.riverDelegate spotifyAuthorizedForUser:[RiverAuthAccount sharedAuth].currentUser];
 			}
+			[[RiverLoadingUtility sharedLoader] stopLoading];
+			
+			[RiverAlertUtility showOKAlertWithMessage:@"Success! You can now stream music." onView:appDelegate.window.rootViewController.view];
         }];
     }];
 }
 
 -(void)session:(SPSession *)aSession didFailToLoginWithError:(NSError *)error {
     // Called after a failed login. SPLoginViewController will deal with this for us.
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Failed"
-													message:[error localizedDescription]
-												   delegate:nil
-										  cancelButtonTitle:@"OK"
-										  otherButtonTitles:nil];
-	[alert show];
+	
+	[[RiverLoadingUtility sharedLoader] stopLoading];
+	
+	[RiverAlertUtility showOKAlertWithMessage:[error localizedDescription] onView:[[UIApplication sharedApplication] keyWindow].rootViewController.view];
 }
 
 -(void)sessionDidLogOut:(SPSession *)aSession; {

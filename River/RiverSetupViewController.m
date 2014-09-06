@@ -10,6 +10,7 @@
 #import "GlobalVars.h"
 #import "RiverAuthAccount.h"
 #import "RiverLoadingUtility.h"
+#import "RiverAppDelegate.h"
 
 @interface RiverSetupViewController ()
 
@@ -31,7 +32,7 @@
 	
 	[_usernameLabel setAlpha:0.0f];
 	[_usernameBGImage setAlpha:0.0f];
-
+	
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -81,37 +82,42 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	
-	CGSize screenSize = [UIScreen mainScreen].bounds.size;
 	[[RiverLoadingUtility sharedLoader] startLoading:self.view
-										   withFrame:CGRectMake(0, 0, screenSize.width, screenSize.height - keyboardHeight)
-									  withBackground:YES];
+										   withFrame:CGRectNull];
 	
-	[RiverAuthAccount authorizedRESTCall:kRiverRESTNewUser withParams:@{@"userId" : _usernameField.text} callback:^(NSData *response, NSError *err) {
-		
-		NSString *responseText = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
-		
-		if([responseText isEqualToString:[NSString stringWithFormat:@"Success creating new user %@!", _usernameField.text]]) {
-			[_usernameBGImage setHidden:NO];
-			[_usernameTakenBGImage setHidden:YES];
-			
-			// Write settings to file
-			[GlobalVars getVar].username = _usernameField.text;
-			
-			[RiverAuthAccount sharedAuth].currentUser = [[User alloc] initWithID:_usernameField.text];
-			
-			NSLog(@"Setting username to %@", [GlobalVars getVar].username);
-			[[GlobalVars getVar].settingsDict setValue:[GlobalVars getVar].username forKey:@"username"];
-			[[GlobalVars getVar].settingsDict writeToFile:[GlobalVars getVar].settingsPath atomically:YES];
-			
-			[self performSegueWithIdentifier:@"riverSegue" sender:nil];
-			
-		} else {
-			[_usernameBGImage setHidden:YES];
-			[_usernameTakenBGImage setHidden:NO];
-		}
-		
-		[[RiverLoadingUtility sharedLoader] stopLoading];
-	}];
+	[RiverAuthAccount authorizedRESTCall:kRiverRESTUser
+								  action:nil
+									verb:kRiverPost
+									 _id:nil
+							  withParams:@{@"Username": textField.text}
+								callback:^(NSDictionary *user, NSError *err) {
+									
+									if(!err) {
+										User *u = [[User alloc] init];
+										[u readFromJSONObject:user];
+										
+										if(u.statusCode.intValue == kRiverStatusOK) {
+											[_usernameBGImage setHidden:NO];
+											[_usernameTakenBGImage setHidden:YES];
+											
+											// Write settings to file
+											[RiverAuthAccount sharedAuth].currentUser = [[User alloc] initWithName:_usernameField.text];
+											[RiverAuthAccount sharedAuth].username = _usernameField.text;
+											
+											NSLog(@"Setting username to %@", [RiverAuthAccount sharedAuth].username);
+											[[GlobalVars getVar].settingsDict setValue:[RiverAuthAccount sharedAuth].username forKey:@"username"];
+											[[GlobalVars getVar].settingsDict writeToFile:[GlobalVars getVar].settingsPath atomically:YES];
+											
+											[self performSegueWithIdentifier:@"riverSegue" sender:nil];
+											
+										} else if (u.statusCode.intValue == kRiverStatusAlreadyExists) {
+											[_usernameBGImage setHidden:YES];
+											[_usernameTakenBGImage setHidden:NO];
+										}
+									}
+									
+									[[RiverLoadingUtility sharedLoader] stopLoading];
+								}];
 	
 	return YES;
 }
@@ -120,5 +126,12 @@
     NSDictionary* info = [aNotification userInfo];
     keyboardHeight = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size.height;
 }
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	if ([segue.identifier isEqualToString:@"riverSegue"]) {
+		((RiverAppDelegate*)[[UIApplication sharedApplication] delegate]).window.rootViewController = segue.destinationViewController;
+	}
+}
+
 
 @end

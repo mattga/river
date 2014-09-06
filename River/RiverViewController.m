@@ -41,6 +41,14 @@
 		[[UITextField appearance] setTintColor:kRiverFGDarkGray];
 	else
 		[[UITextField appearance] setTintColor:kRiverLightBlue];
+	
+	if (self.usernameLabel != nil && self.roomLabel != nil) {
+		self.usernameLabel.text = [RiverAuthAccount sharedAuth].username;
+		self.roomLabel.text = ([GlobalVars getVar].memberedRoom==nil ? @"-" : [NSString stringWithFormat:@"%@",[[GlobalVars getVar].memberedRoom roomName]]);
+		if ([GlobalVars getVar].memberedRoom != nil) {
+			[self updateFooter];
+		}
+	}
 }
 
 - (void)didReceiveMemoryWarning
@@ -58,10 +66,11 @@
 	[self.navigationController popViewControllerAnimated:YES];
 }
 
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
-	
-	
-	return YES;
+- (void)updateFooter {
+	self.userTokensLabel.text = [NSString stringWithFormat:@"%d", [[RiverAuthAccount sharedAuth] currentUser].tokens];
 }
+
+
+
 
 @end

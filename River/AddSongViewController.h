@@ -8,16 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "RiverViewController.h"
-#import "SPAlbumsXMLParser.h"
-#import "SPTracksXMLParser.h"
-#import "SPArtistsXMLParser.h"
 #import "RiverAuthAccount.h"
 #import "AddSongTableViewController.h"
 
 @interface AddSongViewController : RiverViewController <UITextFieldDelegate, UIGestureRecognizerDelegate> {
-	NSMutableArray *trackResults;
-	NSMutableArray *artistResults;
-	NSMutableArray *albumResults;
 	
 	bool tracksFetched, artistsFetched, albumsFetched;
 	
@@ -26,14 +20,15 @@
 	unsigned int selectedRow;
 }
 
+@property (strong, nonatomic) NSArray *trackResults;
+@property (strong, nonatomic) NSArray *artistResults;
+@property (strong, nonatomic) NSArray *albumResults;
+
 // UI
 @property (strong, nonatomic) IBOutlet UITextField *searchField;
 @property (weak, nonatomic) IBOutlet UIButton *songsButton;
 @property (weak, nonatomic) IBOutlet UIButton *artistsButton;
 @property (weak, nonatomic) IBOutlet UIButton *albumsButton;
-@property (weak, nonatomic) IBOutlet UILabel *songsLabel;
-@property (weak, nonatomic) IBOutlet UILabel *artistsLabel;
-@property (weak, nonatomic) IBOutlet UILabel *albumsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *searchPlaceholderLabel;
 
 - (void)searchSpotify:(NSString *)searchText;

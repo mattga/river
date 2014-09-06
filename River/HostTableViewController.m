@@ -7,6 +7,7 @@
 //
 
 #import "HostTableViewController.h"
+#import "GlobalVars.h"
 
 @interface HostTableViewController ()
 
@@ -46,9 +47,9 @@
 {
     switch (selectedTab) {
 		case kHostSongsSelected:
-			return songs.count;
+			return [GlobalVars getVar].memberedRoom.songs.count;
 		case kHostMembersSelected:
-			return members.count;
+			return [GlobalVars getVar].memberedRoom.members.count;
 	}
 	return 0;
 }
@@ -59,12 +60,12 @@
 	switch (selectedTab) {
 		case kHostSongsSelected:
 			cell = [tableView dequeueReusableCellWithIdentifier:@"songCell"];
-			[(RoomSongTableViewCell*)cell setSong:[songs objectAtIndex:indexPath.row]];
+			[(RoomSongTableViewCell*)cell setSong:[[GlobalVars getVar].memberedRoom.songs objectAtIndex:indexPath.row]];
 			
 			break;
 		case kHostMembersSelected:
 			cell = [tableView dequeueReusableCellWithIdentifier:@"memberCell"];
-			[(RoomMemberTableViewCell*)cell setMember:[members objectAtIndex:indexPath.row]];
+			[(RoomMemberTableViewCell*)cell setMember:[[GlobalVars getVar].memberedRoom.members objectAtIndex:indexPath.row]];
 			
 			break;
 	}

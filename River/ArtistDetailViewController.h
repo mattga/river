@@ -15,12 +15,16 @@
 	ArtistAlbumsTableViewController *albumsTVC;
 }
 
-@property (strong, nonatomic) NSDictionary *artist;
-@property (strong, nonatomic) NSMutableArray *albums;
+@property (strong, nonatomic) NSString *artistId;
+@property (strong, nonatomic) NSString *artistName;
+@property (strong, nonatomic) NSArray *albums;
+@property (strong, nonatomic) NSMutableArray *albumReleaseDates;
 
 @property (weak, nonatomic) IBOutlet UILabel *artistLabel;
 @property (weak, nonatomic) IBOutlet UILabel *userLabel;
 @property (weak, nonatomic) IBOutlet UILabel *roomLabel;
 @property (weak, nonatomic) IBOutlet UILabel *tokenLabel;
+
+@property (weak, nonatomic) IBOutlet UIView *cardView;
 
 @end

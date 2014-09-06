@@ -7,15 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RiverStatus.h"
+#import "JSONSerializable.h"
 
-@interface User : NSObject
+@interface User : RiverStatus <JSONSerializable>
 
-@property (strong, nonatomic) NSString *userId;
+@property (nonatomic) NSInteger userId;
+@property (strong, nonatomic) NSString *userName;
 @property (nonatomic) NSInteger tokens;
-@property (nonatomic) BOOL isHost;
 
-- (id)initWithID:(NSString*)ID;
-
-+ (User*)userWithJSONObject:(NSDictionary*)dict;
+- (id)initWithName:(NSString*)name;
 
 @end

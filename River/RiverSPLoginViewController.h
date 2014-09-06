@@ -38,13 +38,19 @@
 #import "RiverAuthAccount.h"
 #import "RiverSessionDelegate.h"
 
-@interface RiverSPLoginViewController : RiverViewController <UITextFieldDelegate> {
+@interface RiverSPLoginViewController : RiverViewController <UITextFieldDelegate, UIGestureRecognizerDelegate> {
 	SPSession *session;
 	RiverSessionDelegate *sessionDelegate;
+	bool keyboardIsShown;
 }
 
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
+
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIView *header;
+@property (weak, nonatomic) IBOutlet UIImageView *bgImage;
+@property (weak, nonatomic) IBOutlet UIImageView *spImage;
 
 - (IBAction)loginPressed:(id)sender;
 

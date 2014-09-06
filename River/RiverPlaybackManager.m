@@ -7,72 +7,134 @@
 //
 
 #import "RiverPlaybackManager.h"
+#import "RiverAlertUtility.h"
 #import "GlobalVars.h"
 
 @implementation RiverPlaybackManager
-@synthesize  hostedRoom;
+@synthesize  memberedRoom;
 
 - (id) initWithPlaybackSession:(SPSession *)aSession {
     self = [super initWithPlaybackSession:aSession];
     if (self) {
         // Custom initialization
-		hostedRoom = [GlobalVars getVar].memberedRoom;
+		memberedRoom = [GlobalVars getVar].memberedRoom;
     }
     return self;
 }
 
 - (void)skipSongWithCallback:(void (^)(void))block {
     // Play next song in room
-	Track *endingSong = [hostedRoom.songs objectAtIndex:[GlobalVars getVar].playingIndex];
-    NSLog(@"Song with id %@ ended", endingSong.trackId);
-    
-    Track *nextSong = nil;
-    if([hostedRoom.songs count] > 0) {
-        nextSong = [hostedRoom.songs objectAtIndex:0];
-		if (nextSong.isPlaying) {
-			if ([hostedRoom.songs count] > 1) {
-				nextSong = [hostedRoom.songs objectAtIndex:1];
-			} else {
-				nextSong = nil;
-			}
-		}
+	Song *endingSong;
+	if ([GlobalVars getVar].playingIndex < memberedRoom.songs.count) {
+		endingSong = [memberedRoom.songs objectAtIndex:[GlobalVars getVar].playingIndex];
+		NSLog(@"Song with id %@ ended", endingSong.trackId);
+		[memberedRoom.songs removeObjectAtIndex:[GlobalVars getVar].playingIndex];
     }
 	
-	[RiverAuthAccount authorizedRESTCall:kRiverRESTDeleteSong withParams:@{@"groupId" : hostedRoom.roomID, @"songId" : endingSong.trackId} callback:^(NSData *response, NSError *err) {
-		if (!err) {
-			if (nextSong != nil) {
-				[self streamSong:nextSong.trackId withCallback:block];
-			} else {
-				[self setIsPlaying:NO];
-				block();
-			}
-		}
-	}];
+    Song *nextSong = nil;
+    if([memberedRoom.songs count] > 0) {
+        nextSong = [memberedRoom.songs objectAtIndex:0];
+    }
+	
+	if (endingSong != nil) {
+		[RiverAuthAccount authorizedRESTCall:kRiverRESTSong
+									  action:nil
+										verb:kRiverDelete
+										 _id:[endingSong.trackId substringFromIndex:14]
+								  withParams:@{@"RoomName" : memberedRoom.roomName}
+									callback:^(NSDictionary *object, NSError *err) {
+										
+										if (!err) {
+											RiverStatus *status = [[RiverStatus alloc] init];
+											[status readFromJSONObject:object];
+											
+											if (status.statusCode.intValue == kRiverStatusOK) {
+												if (nextSong != nil) {
+													[RiverAuthAccount authorizedRESTCall:kRiverRESTSong
+																				  action:kRiverActionPlaySong
+																					verb:kRiverPost
+																					 _id:[nextSong.trackId substringFromIndex:14]
+																			  withParams:@{@"RoomName" : memberedRoom.roomName}
+																				callback:^(id object, NSError *err) {
+																					if (!err) {
+																						RiverStatus *status = [[RiverStatus alloc] init];
+																						[status readFromJSONObject:object];
+																						
+																						if (status.statusCode.intValue == kRiverStatusOK) {
+																							[self streamSong:nextSong.trackId withCallback:block];
+																						} else {
+																							[RiverAlertUtility showOKAlertWithMessage:@"Error"
+																															   onView:[[[UIApplication sharedApplication] keyWindow] subviews].lastObject];
+																						}
+																					}
+																				}];
+												} else { // No more songs
+													[self setIsPlaying:NO];
+													[GlobalVars getVar].playingIndex = -1;
+												}
+												if (block) {
+													block();
+												}
+											}
+										}
+									}];
+	}
 }
 
 - (void)sessionDidEndPlayback:(id<SPSessionPlaybackProvider>)aSession {
     // Play next song in room
-	Track *endingSong = [hostedRoom.songs objectAtIndex:[GlobalVars getVar].playingIndex];
-    NSLog(@"Song with id %@ ended", endingSong.trackId);
-    
-    Track *nextSong = nil;
-    if([hostedRoom.songs count] > 0) {
-        nextSong = [hostedRoom.songs objectAtIndex:0];
-		if (nextSong.isPlaying) {
-			if ([hostedRoom.songs count] > 1) {
-				nextSong = [hostedRoom.songs objectAtIndex:1];
-			} else {
-				nextSong = nil;
-			}
-		}
+	Song *endingSong;
+	if ([GlobalVars getVar].playingIndex < memberedRoom.songs.count) {
+		endingSong = [memberedRoom.songs objectAtIndex:[GlobalVars getVar].playingIndex];
+		NSLog(@"Song with id %@ ended", endingSong.trackId);
+		[memberedRoom.songs removeObjectAtIndex:[GlobalVars getVar].playingIndex];
+	}
+	
+    Song *nextSong = nil;
+    if([memberedRoom.songs count] > 0) {
+        nextSong = [memberedRoom.songs objectAtIndex:0];
     }
 	
-	[RiverAuthAccount authorizedRESTCall:kRiverRESTDeleteSong withParams:@{@"groupId" : hostedRoom.roomID, @"songId" : endingSong.trackId} callback:^(NSData *response, NSError *err) {
-		if (!err)
-			if (nextSong != nil) {
-				[self streamSong:nextSong.trackId withCallback:nil];
-		}
-	}];
+	if (endingSong != nil) {
+		[RiverAuthAccount authorizedRESTCall:kRiverRESTSong
+									  action:nil
+										verb:kRiverDelete
+										 _id:[endingSong.trackId substringFromIndex:14]
+								  withParams:@{@"RoomName" : memberedRoom.roomName}
+									callback:^(NSDictionary *object, NSError *err) {
+										
+										if (!err) {
+											RiverStatus *status = [[RiverStatus alloc] init];
+											[status readFromJSONObject:object];
+											
+											if (status.statusCode.intValue == kRiverStatusOK) {
+												if (nextSong != nil) {
+													[RiverAuthAccount authorizedRESTCall:kRiverRESTSong
+																				  action:kRiverActionPlaySong
+																					verb:kRiverPost
+																					 _id:[nextSong.trackId substringFromIndex:14]
+																			  withParams:@{@"RoomName" : memberedRoom.roomName}
+																				callback:^(id object, NSError *err) {
+																					if (!err) {
+																						RiverStatus *status = [[RiverStatus alloc] init];
+																						[status readFromJSONObject:object];
+																						
+																						if (status.statusCode.intValue == kRiverStatusOK) {
+																							[self streamSong:nextSong.trackId withCallback:nil];
+																						} else {
+																							[RiverAlertUtility showOKAlertWithMessage:@"Error"
+																															   onView:[[[UIApplication sharedApplication] keyWindow] subviews].lastObject];
+																						}
+																					}
+																				}];
+												} else { // No more songs
+													[self setIsPlaying:NO];
+													[GlobalVars getVar].playingIndex = -1;
+												}
+											}
+										}
+									}];
+	}
 }
 
 - (void)streamSong:(NSString *)songID withCallback:(void (^)(void))block {
@@ -83,22 +145,38 @@
             [SPAsyncLoading waitUntilLoaded:track timeout:kSPAsyncLoadingDefaultTimeout then:^(NSArray *tracks, NSArray *notLoadedTracks) {
                 [[GlobalVars getVar].playbackManager playTrack:track callback:^(NSError *error) {
                     if (!error) {
-						[RiverAuthAccount authorizedRESTCall:kRiverRESTPlay withParams:@{@"groupId" : hostedRoom.roomID, @"songId" : trackURL} callback:^(NSData *response, NSError *err) {
-							if (!err) {
-								NSLog(@"Streaming song with id %@...", songID);
-								
-								if (block) {
-									block();
-								}
-							}
-						}];
+						[RiverAuthAccount authorizedRESTCall:kRiverRESTSong
+													  action:kRiverActionPlaySong
+														verb:kRiverPost
+														 _id:[[trackURL description] substringFromIndex:14]
+												  withParams:@{@"RoomName" : memberedRoom.roomName}
+													callback:^(id object, NSError *err) {
+														
+														if (!err) {
+															RiverStatus *status = [[RiverStatus alloc] init];
+															[status readFromJSONObject:object];
+															
+															if (status.statusCode.intValue == kRiverStatusOK) {
+																NSLog(@"RiverPlaybackManager :: streamSong() - Streaming %@...", songID);
+																
+																for (int i = 0; i < memberedRoom.songs.count; i++) {
+																	if ([[[memberedRoom.songs objectAtIndex:i] trackId] isEqualToString:songID]) {
+																		[GlobalVars getVar].playingIndex = i;
+																	}
+																}
+															} else {
+																[RiverAlertUtility showOKAlertWithMessage:@"Error"
+																								   onView:[[[UIApplication sharedApplication] keyWindow] subviews].lastObject];
+															}
+															if (block) {
+																block();
+															}
+														}
+													}];
                     } else {
-                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot Play Track"
-                                                                        message:[error localizedDescription]
-                                                                       delegate:nil
-                                                              cancelButtonTitle:@"OK"
-                                                              otherButtonTitles:nil];
-                        [alert show];
+						[RiverAlertUtility showOKAlertWithMessage:[NSString stringWithFormat:@"%@. %@", [error localizedDescription], @"It is most likely not available in your region. Skipping to next song..."]
+														   onView:[[[UIApplication sharedApplication] keyWindow] subviews].lastObject];
+						[self skipSongWithCallback:nil];
 					}
                 }];
             }];

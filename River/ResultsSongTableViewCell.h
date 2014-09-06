@@ -11,6 +11,7 @@
 @interface ResultsSongTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *songLabel;
+@property (weak, nonatomic) IBOutlet UILabel *trackNumberLabel;
 @property (weak, nonatomic) IBOutlet UILabel *artistLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *songImage;
 @property (weak, nonatomic) IBOutlet UIImageView *songPressedImage;

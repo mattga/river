@@ -8,8 +8,10 @@
 
 #import "JoinRoomViewController.h"
 #import "SWRevealViewController.h"
+#import "SideMenuViewController.h"
 #import "RiverLoadingUtility.h"
 #import "GlobalVars.h"
+#import "RiverSyncUtility.h"
 
 @interface JoinRoomViewController ()
 
@@ -30,13 +32,9 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-	[_roomField becomeFirstResponder];
 	
-	[super viewDidAppear:animated];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:_roomField action:@selector(resignFirstResponder)];
+    [self.view addGestureRecognizer:tapGesture];
 }
 
 - (void)didReceiveMemoryWarning
@@ -51,30 +49,56 @@
 
 - (IBAction)joinPressed:(id)sender {
 	
-	[[RiverLoadingUtility sharedLoader] startLoading:self.view withFrame:CGRectNull withBackground:YES];
+	[[RiverLoadingUtility sharedLoader] startLoading:self.view withFrame:CGRectNull];
 
-	Room *room = [[Room alloc] initWithID:_roomField.text];
-    [GlobalVars getVar].memberedRoom = room;
-    
-	[RiverAuthAccount authorizedRESTCall:kRiverRESTJoinGroup withParams:@{@"groupId" : room.roomID, @"userId" : [[RiverAuthAccount sharedAuth] userId]} callback:^(NSData *response, NSError *err) {
-		if (!err) {
-			NSString *responseText = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
-			if([responseText isEqualToString:[NSString stringWithFormat:@"Success adding userId %@", [GlobalVars getVar].username]] ||
-			   [responseText isEqualToString:[NSString stringWithFormat:@"Success User already exists"]]) {
-				
-				//				[RiverAlertUtility showOKAlertWithMessage:[NSString stringWithFormat:@"You have just joined the room %@!", room.roomID]];
-				
-				[self performSegueWithIdentifier:@"goHome" sender:self];
-			} else {
-				[RiverAlertUtility showOKAlertWithMessage:responseText];
-			}
-		}
-		else {
-			[RiverAlertUtility showOKAlertWithMessage:[err localizedDescription]];
-		}
-		
-		[[RiverLoadingUtility sharedLoader] stopLoading];
-	}];
+	Room *room = [[Room alloc] initWithName:_roomField.text];
+
+	[RiverAuthAccount authorizedRESTCall:kRiverRESTRoom
+								  action:kRiverActionJoinRoom
+									verb:kRiverPost
+									 _id:room.roomName
+							  withParams:@{@"Username" : [RiverAuthAccount sharedAuth].username}
+								callback:^(NSDictionary *object, NSError *err) {
+									
+									if (!err) {
+										RiverStatus *status = [[RiverStatus alloc] init];
+										[status readFromJSONObject:object];
+										
+										if (status.statusCode.intValue == kRiverStatusOK) {
+											
+											[GlobalVars getVar].memberedRoom = room;
+											[GlobalVars getVar].playingIndex = -1;
+											
+											[[RiverSyncUtility sharedSyncing] preemptRoomSync];
+											
+											SideMenuViewController *sideMenuVC = (SideMenuViewController*)((SWRevealViewController*)[(RiverViewController*)self revealViewController]).rearViewController;
+											[[sideMenuVC tableView] selectRowAtIndexPath:[NSIndexPath indexPathForRow:kSideMenuShare inSection:0]
+																				animated:NO
+																		  scrollPosition:UITableViewScrollPositionNone];
+											[self.revealViewController.rearViewController performSegueWithIdentifier:@"roomSegue" sender:nil];
+										} else if (status.statusCode.intValue == kRiverStatusNotFound) {
+											[RiverAlertUtility showOKAlertWithMessage:@"Room does not exist!"
+																			   onView:self.view];
+										} else {
+											[RiverAlertUtility showOKAlertWithMessage:@"ERROR"
+																			   onView:self.view];
+										}
+									}
+									else {
+										[RiverAlertUtility showOKAlertWithMessage:[err localizedDescription]
+																		   onView:self.view];
+									}
+									
+									[[RiverLoadingUtility sharedLoader] stopLoading];
+								}];
+}
+
+#pragma mark - Text field delegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+	[_roomField resignFirstResponder];
+	
+	return YES;
 }
 
 

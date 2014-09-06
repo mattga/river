@@ -9,6 +9,9 @@
 #import "DiscoverRoomTableViewController.h"
 #import "RiverLoadingUtility.h"
 #import "RiverAlertUtility.h"
+#import "SideMenuViewController.h"
+#import "SWRevealViewController.h"
+#import "RiverSyncUtility.h"
 
 @interface DiscoverRoomTableViewController ()
 
@@ -44,12 +47,10 @@
 
 - (void)viewDidAppear:(BOOL)animated {
 	
-	[[RiverLoadingUtility sharedLoader] startLoading:self.view withFrame:CGRectNull withBackground:YES];
+	[[RiverLoadingUtility sharedLoader] startLoading:self.view withFrame:CGRectNull];
 	
 	[self reloadRooms];
 	[super viewDidAppear:animated];
-	
-	[[RiverLoadingUtility sharedLoader] stopLoading];
 }
 
 - (void)didReceiveMemoryWarning
@@ -59,30 +60,32 @@
 }
 
 - (void)reloadRooms {
-	
-    NSString *requestString = [NSString stringWithFormat:@"%@://%@/list", kRiverWebProtocol, kRiverWebHost];
-	
-	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestString]];
-	[request setHTTPMethod:@"GET"];
-	
-	RiverConnection *connection = [[RiverConnection alloc] initWithRequest:request];
-	[connection setCompletionBlock:^(NSData *response, NSError *err) {
-		NSMutableArray *array = [[NSMutableArray alloc] init];
-		NSArray *jsonObj = [NSJSONSerialization JSONObjectWithData:response options:0 error:nil];
-		
-		NSString *room;
-		for (int i = 0; i < [jsonObj count]; i++) {
-			room = [[jsonObj objectAtIndex:i] objectForKey:@"groupId"];
-			if ([room isEqualToString:[GlobalVars getVar].memberedRoom.roomID])
-				selectedRoom = i;
-			[array addObject:room];
-		}
-		
-		rooms = array;
-		[self.tableView reloadData];
-	}];
-	
-	[connection start];
+
+	[RiverAuthAccount authorizedRESTCall:kRiverRESTRoom
+								  action:nil
+									verb:kRiverGet
+									 _id:nil
+							  withParams:nil
+								callback:^(NSArray *objects, NSError *err) {
+									rooms = [[NSMutableArray alloc] init];
+									
+									if (!err) {
+										for (unsigned int i = 0; i < objects.count; i++) {
+											NSDictionary *room = [objects objectAtIndex:i];
+											Room *r = [[Room alloc] init];
+											[r readFromJSONObject:room];
+											[rooms addObject:r];
+											
+											if ([r.roomName isEqualToString:[GlobalVars getVar].memberedRoom.roomName]) {
+												selectedRoom = i;
+											}
+										}
+										
+										[self.tableView reloadData];
+									}
+									
+									[[RiverLoadingUtility sharedLoader] stopLoading];
+								}];
 }
 
 - (void)startRefresh {
@@ -115,24 +118,28 @@
 	
     DiscoverRoomTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     
-    cell.roomLabel.text = [rooms objectAtIndex:indexPath.row];
-    if (indexPath.row == selectedRoom || ([GlobalVars getVar].memberedRoom != nil && [cell.roomLabel.text isEqualToString:[GlobalVars getVar].memberedRoom.roomID]))
+    cell.roomLabel.text = [(Room*)[rooms objectAtIndex:indexPath.row] roomName];
+    if (indexPath.row == selectedRoom || ([GlobalVars getVar].memberedRoom != nil && [cell.roomLabel.text isEqualToString:[GlobalVars getVar].memberedRoom.roomName]))
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     else
         cell.accessoryType = UITableViewCellAccessoryNone;
     
+	if (selectedRoom == indexPath.row) {
+		[cell setUserInteractionEnabled:NO];
+	}
+	
     return cell;
 }
 
 #pragma mark - Table view delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	return 49.0f;
+	return 45.0f;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
-	[[RiverLoadingUtility sharedLoader] startLoading:self.view withFrame:CGRectNull withBackground:YES];
+	[[RiverLoadingUtility sharedLoader] startLoading:self.view withFrame:CGRectNull];
 	
     if (selectedRoom > -1 && selectedRoom != indexPath.row	) {
 		// Update cells
@@ -142,28 +149,44 @@
 		[tableView reloadRowsAtIndexPaths:@[oldRow, newRow] withRowAnimation:UITableViewRowAnimationAutomatic];
 	}
 	
-    Room *room = [[Room alloc] initWithID:[rooms objectAtIndex:indexPath.row]];
-    [GlobalVars getVar].memberedRoom = room;
-    
-	[RiverAuthAccount authorizedRESTCall:kRiverRESTJoinGroup withParams:@{@"groupId" : room.roomID, @"userId" : [[RiverAuthAccount sharedAuth] userId]} callback:^(NSData *response, NSError *err) {
-		if (!err) {
-			NSString *responseText = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
-			if([responseText isEqualToString:[NSString stringWithFormat:@"Success adding userId %@", [GlobalVars getVar].username]] ||
-			   [responseText isEqualToString:[NSString stringWithFormat:@"Success User already exists"]]) {
-				
-//				[RiverAlertUtility showOKAlertWithMessage:[NSString stringWithFormat:@"You have just joined the room %@!", room.roomID]];
-				
-				[self performSegueWithIdentifier:@"goHome" sender:self];
-			} else {
-				[RiverAlertUtility showOKAlertWithMessage:responseText];
-			}
-		}
-		else {
-			[RiverAlertUtility showOKAlertWithMessage:[err localizedDescription]];
-		}
-		
-		[[RiverLoadingUtility sharedLoader] stopLoading];
-	}];
+    Room *room = [rooms objectAtIndex:indexPath.row];
+	
+	[RiverAuthAccount authorizedRESTCall:kRiverRESTRoom
+								  action:kRiverActionJoinRoom
+									verb:kRiverPost
+									 _id:room.roomName
+							  withParams:@{@"Username" : [RiverAuthAccount sharedAuth].username}
+								callback:^(NSDictionary *object, NSError *err) {
+									
+									if (!err) {
+										RiverStatus *status = [[RiverStatus alloc] init];
+										[status readFromJSONObject:object];
+										
+										if(status.statusCode.intValue == kRiverStatusOK ||
+										   status.statusCode.intValue == kRiverStatusAlreadyExists) {
+											
+											[GlobalVars getVar].memberedRoom = room;
+											[GlobalVars getVar].playingIndex = -1;
+											
+											[[RiverSyncUtility sharedSyncing] preemptRoomSync];
+											
+											SideMenuViewController *sideMenuVC = (SideMenuViewController*)((SWRevealViewController*)[(RiverTableViewController*)self revealViewController]).rearViewController;
+											[[sideMenuVC tableView] selectRowAtIndexPath:[NSIndexPath indexPathForRow:kSideMenuShare inSection:0]
+																				animated:NO
+																		  scrollPosition:UITableViewScrollPositionNone];
+											[self.revealViewController.rearViewController performSegueWithIdentifier:@"roomSegue" sender:nil];
+										} else {
+											[RiverAlertUtility showOKAlertWithMessage:@"Error"
+																			   onView:self.view];
+										}
+									}
+									else {
+										[RiverAlertUtility showOKAlertWithMessage:[err localizedDescription]
+																		   onView:self.view];
+									}
+									
+									[[RiverLoadingUtility sharedLoader] stopLoading];
+								}];
 }
 
 

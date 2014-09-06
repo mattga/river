@@ -17,8 +17,6 @@
 @property (strong, nonatomic) UIWindow *window;
 
 @property (nonatomic) int syncId;
-@property (strong, nonatomic) NSMutableURLRequest *request;
-@property (strong, nonatomic) NSData *response;
 @property (strong, nonatomic) NSArray *songs;
 @property (strong, nonatomic) NSArray *members;
 

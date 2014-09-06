@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MediaPlayer/MPVolumeView.h>
 #import "CocoaLibSpotify.h"
 #import "SPLoginViewController.h"
 #import "CreateRoomViewController.h"
 #import "LoginWarningDelegate.h"
 #import "Room.h"
 #import "User.h"
-#import "Track.h"
+#import "Song.h"
 #import "RiverPlaybackManager.h"
 #import "RiverViewController.h"
 #import "RiverAppDelegate.h"
@@ -21,7 +22,6 @@
 #import "HostTableViewController.h"
 
 @interface HostViewController : RiverViewController <NSURLConnectionDelegate> {
-	RiverAppDelegate *appDelegate;
 	HostTableViewController *hostTVC;
 	RiverPlaybackManager *playbackManager;
 	Room *hostedRoom;
@@ -35,16 +35,15 @@
 @property (strong, nonatomic) IBOutlet UILabel *trackTime;
 @property (strong, nonatomic) IBOutlet UILabel *trackTimeLeft;
 @property (weak, nonatomic) IBOutlet UIButton *songsButton;
-@property (weak, nonatomic) IBOutlet UILabel *songsLabel;
 @property (weak, nonatomic) IBOutlet UIButton *membersButton;
-@property (weak, nonatomic) IBOutlet UILabel *membersLabel;
 
 // Player UI
 @property (strong, nonatomic) IBOutlet UIButton *streamButton;
 @property (strong, nonatomic) IBOutlet UIButton *stopButton;
 @property (strong, nonatomic) IBOutlet UIButton *nextSong;
 @property (strong, nonatomic) IBOutlet UISlider *trackSlider;
-@property (strong, nonatomic) IBOutlet UISlider *volumeSlider;
+@property (strong, nonatomic) IBOutlet MPVolumeView *volumeSlider;
+@property (weak, nonatomic) IBOutlet UILabel *currentTrack;
 
 // Manual UI
 @property (strong, nonatomic) CreateRoomViewController *createRoomView;
@@ -52,7 +51,6 @@
 @property (strong, nonatomic) UIView *loginWarning;
 
 - (IBAction)setTrackPosition:(id)sender;
-- (IBAction)setVolume:(id)sender;
 - (IBAction)skipPressed:(id)sender;
 - (IBAction)pausePressed:(id)sender;
 - (IBAction)playPressed:(id)sender;

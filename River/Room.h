@@ -7,16 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RiverStatus.h"
+#import "JSONSerializable.h"
 
-@interface Room : NSObject
+@interface Room : RiverStatus <JSONSerializable>
 
-@property (strong, nonatomic) NSString *roomID;
-@property (strong, nonatomic) NSString *host;
+@property (nonatomic) NSInteger roomId;
+@property (strong, nonatomic) NSString *roomName;
+@property (strong, nonatomic) NSString *hostId;
 @property (strong, nonatomic) NSMutableArray *songs;
 @property (strong, nonatomic) NSMutableArray *members;
 @property (nonatomic) NSUInteger currentSong;
 @property (nonatomic) NSUInteger currentTokens;
 
-- (id)initWithID:(NSString*)ID;
+- (id)initWithName:(NSString*)ID;
 
 @end

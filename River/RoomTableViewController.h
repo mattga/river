@@ -16,7 +16,7 @@
 @interface RoomTableViewController : RiverTableViewController {
     RiverAppDelegate *appDelegate;
 	Room *memberedRoom;
-	Track *selectedTrack;
+	Song *selectedTrack;
 	RiverAlertView *bidAlert;
 }
 

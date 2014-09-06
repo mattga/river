@@ -8,14 +8,14 @@
 
 #import "RiverAlertUtility.h"
 
-#define ALERT_TEXTVIEW_ADDITION			5
+#define ALERT_TEXTVIEW_ADDITION			20
 #define ALERT_TEXTVIEW_PADDING			10
 #define ALERT_INPUT_PADDING				30
 #define ALERT_BUTTON_HEIGHT				40
 
 @implementation RiverAlertUtility
 
-+ (RiverAlertView*)showOKAlertWithMessage:(NSString*)message {
++ (RiverAlertView*)showOKAlertWithMessage:(NSString*)message onView:(UIView*)view {
 
 	RiverAlertView *alertView = [[RiverAlertView alloc] initWithContents:@"RiverOKAlertView"];
 	
@@ -27,6 +27,7 @@
 	CGSize screen = [UIScreen mainScreen].bounds.size;
 	CGSize size = CGSizeMake(alertView.frame.size.width,
 							 (ALERT_TEXTVIEW_PADDING*2) + textFrame.size.height + ALERT_TEXTVIEW_ADDITION + ALERT_BUTTON_HEIGHT);
+												   
 	CGRect frame = CGRectMake((screen.width/2) - (size.width/2),
 					   (screen.height/3) - (size.height/2),
 					   size.width,
@@ -41,14 +42,19 @@
 												  textFrame.size.width,
 												  textFrame.size.height + ALERT_TEXTVIEW_ADDITION);
 	alertView.frame = frame;
+	[alertView setAlpha:0.0f];
 	
-	UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+	if (view == nil) {
+		UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+		view = window.rootViewController.view;
+	}
+	[view addSubview:alertView];
 	
 	[UIView animateWithDuration:.5
 						  delay:0
 						options:UIViewAnimationOptionCurveLinear
 					 animations:^{
-						 [window.rootViewController.view addSubview:alertView];
+						 [alertView setAlpha:1.0f];
 					 }
 					 completion:^(BOOL finished) {
 						 
@@ -57,14 +63,14 @@
 	return alertView;
 }
 
-+ (RiverAlertView *)showOKCancelAlertWithMessage:(NSString *)message okTarget:(id)target okAction:(SEL)action {
++ (RiverAlertView *)showOKCancelAlertWithMessage:(NSString *)message onView:(UIView*)view okTarget:(id)target okAction:(SEL)action {
 	
 	// TODO: showOKCancelAlertWithMessage
 	
 	return nil;
 }
 
-+ (RiverAlertView*)showInputAlertWithMessage:(NSString*)message params:(NSDictionary*)params okTarget:(id)target okAction:(SEL)action {
++ (RiverAlertView*)showInputAlertWithMessage:(NSString*)message onView:(UIView*)view params:(NSDictionary*)params okTarget:(id)target okAction:(SEL)action {
 	
 	RiverAlertView *alertView = [[RiverAlertView alloc] initWithContents:@"RiverInputAlertView"];
 	
@@ -103,8 +109,11 @@
 		[[alertView okButton] addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
 	}
 	
-	UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-	[window.rootViewController.view addSubview:alertView];
+	if (view == nil) {
+		UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+		view = window.rootViewController.view;
+	}
+	[view addSubview:alertView];
 	
 	[UIView animateWithDuration:.5
 						  delay:0
@@ -117,18 +126,6 @@
 					 }];
 	
 	return alertView;
-}
-
-+ (UIAlertView *)showErrorWithMessage:(NSString *)message {
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
-													 message:message
-													delegate:nil
-										   cancelButtonTitle:@"OK"
-										   otherButtonTitles:nil];
-	
-	[alert show];
-	
-	return alert;
 }
 
 @end

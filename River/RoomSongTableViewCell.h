@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Track.h"
+#import "Song.h"
 #import "GlobalVars.h"
 
 @interface RoomSongTableViewCell : UITableViewCell {
@@ -15,14 +15,14 @@
 }
 
 @property (strong, nonatomic) NSMutableData *responseData;
-@property (strong, nonatomic) Track *song;
+@property (strong, nonatomic) Song *song;
 
 @property (weak, nonatomic) IBOutlet UILabel *tokensLabel;
 @property (weak, nonatomic) IBOutlet UILabel *songLabel;
 @property (weak, nonatomic) IBOutlet UILabel *artistLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *albumArtImageView;
 
-- (void)setSong:(Track*)song;
+- (void)setSong:(Song*)song;
 
 
 @end

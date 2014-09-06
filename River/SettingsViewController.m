@@ -16,7 +16,10 @@
 @implementation SettingsViewController
 
 - (void)viewDidLoad {
-	_usernameField.text =[GlobalVars getVar].username;
+	
+    [super viewDidLoad];
+	
+	_usernameField.text = [RiverAuthAccount sharedAuth].username;
 	
 	if ([[SPSession sharedSession] connectionState] != SP_CONNECTION_STATE_LOGGED_IN) {
 		_loginButton.hidden = NO;
@@ -26,7 +29,19 @@
 		_logoutButton.hidden = NO;
 	}
 	
-    [super viewDidLoad];
+    // Register KVO on synchronizer background thread
+    appDelegate = (RiverAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [self addObserver:self forKeyPath:@"appDelegate.syncId" options:0 context:nil];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"appDelegate.syncId"]) {
+		[(RiverViewController*)self performSelectorOnMainThread:@selector(updateFooter) withObject:nil waitUntilDone:NO];
+    }
+}
+
+- (void)dealloc {
+    [self removeObserver:self forKeyPath:@"appDelegate.syncId"];
 }
 
 - (IBAction)logoutPressed:(id)sender {
@@ -39,7 +54,7 @@
 }
 
 - (IBAction)loginPressed:(id)sender {
-	UIStoryboard *loginSB = [UIStoryboard storyboardWithName:@"LoginStoryboard_iPhone" bundle:[NSBundle mainBundle]];
+	UIStoryboard *loginSB = [UIStoryboard storyboardWithName:@"RiverStoryboard_iPhone" bundle:[NSBundle mainBundle]];
 	RiverSPLoginViewController *login = [loginSB instantiateViewControllerWithIdentifier:@"SpotifyLogin"];
 	[(RiverSessionDelegate*)[SPSession sharedSession].delegate setRiverDelegate:self];
 	
@@ -52,35 +67,40 @@
 	
 	CGSize screenSize = [UIScreen mainScreen].bounds.size;
 	[[RiverLoadingUtility sharedLoader] startLoading:self.view
-										   withFrame:CGRectMake(0, 0, screenSize.width, screenSize.height)
-									  withBackground:YES];
+										   withFrame:CGRectMake(0, 0, screenSize.width, screenSize.height)];
 	
-	[RiverAuthAccount authorizedRESTCall:kRiverRESTNewUser withParams:@{@"userId" : _usernameField.text} callback:^(NSData *response, NSError *err) {
-		
-		NSString *responseText = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
-		
-		if([responseText isEqualToString:[NSString stringWithFormat:@"Success creating new user %@!", _usernameField.text]]) {
-			[_usernameBGImage setHidden:NO];
-			[_usernameTakenBGImage setHidden:YES];
-			
-			// Write settings to file
-			[GlobalVars getVar].username = _usernameField.text;
-			
-			[RiverAuthAccount sharedAuth].currentUser = [[User alloc] initWithID:_usernameField.text];
-			
-			NSLog(@"Setting username to %@", [GlobalVars getVar].username);
-			[[GlobalVars getVar].settingsDict setValue:[GlobalVars getVar].username forKey:@"username"];
-			[[GlobalVars getVar].settingsDict writeToFile:[GlobalVars getVar].settingsPath atomically:YES];
-			
-		} else {
-			[_usernameBGImage setHidden:YES];
-			[_usernameTakenBGImage setHidden:NO];
-			
-			_usernameField.text = [GlobalVars getVar].username;
-		}
-		
-		[[RiverLoadingUtility sharedLoader] stopLoading];
-	}];
+	[RiverAuthAccount authorizedRESTCall:kRiverRESTUser
+								  action:nil
+									verb:kRiverPut
+									 _id:[RiverAuthAccount sharedAuth].username
+							  withParams:@{@"Username" : textField.text}
+								callback:^(NSDictionary *user, NSError *err) {
+									
+									if(!err) {
+										User *u = [[User alloc] init];
+										[u readFromJSONObject:user];
+										
+										if(u.statusCode.intValue == kRiverStatusOK) {
+											[_usernameBGImage setHidden:NO];
+											[_usernameTakenBGImage setHidden:YES];
+											
+											// Write settings to file
+											[RiverAuthAccount sharedAuth].username = _usernameField.text;
+											
+											[RiverAuthAccount sharedAuth].currentUser = [[User alloc] initWithName:_usernameField.text];
+											
+											NSLog(@"Setting username to %@", [RiverAuthAccount sharedAuth].username);
+											[[GlobalVars getVar].settingsDict setValue:[RiverAuthAccount sharedAuth].username forKey:@"username"];
+											[[GlobalVars getVar].settingsDict writeToFile:[GlobalVars getVar].settingsPath atomically:YES];
+											
+										} else if (u.statusCode.intValue == kRiverStatusAlreadyExists) {
+											[_usernameBGImage setHidden:YES];
+											[_usernameTakenBGImage setHidden:NO];
+										}
+									}
+									
+									[[RiverLoadingUtility sharedLoader] stopLoading];
+								}];
 	
 	return YES;
 }

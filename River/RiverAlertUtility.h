@@ -12,9 +12,8 @@
 
 @interface RiverAlertUtility : NSObject
 
-+ (RiverAlertView*)showOKAlertWithMessage:(NSString*)message;
-+ (RiverAlertView*)showOKCancelAlertWithMessage:(NSString*)message okTarget:(id)target okAction:(SEL)action;
-+ (RiverAlertView*)showInputAlertWithMessage:(NSString*)message params:(NSDictionary*)params okTarget:(id)target okAction:(SEL)action;
-+ (RiverAlertView*)showErrorWithMessage:(NSString*)message;
++ (RiverAlertView*)showOKAlertWithMessage:(NSString*)message onView:(UIView*)view;
++ (RiverAlertView*)showOKCancelAlertWithMessage:(NSString*)message onView:(UIView*)view okTarget:(id)target okAction:(SEL)action;
++ (RiverAlertView*)showInputAlertWithMessage:(NSString*)message onView:(UIView*)view params:(NSDictionary*)params okTarget:(id)target okAction:(SEL)action;
 
 @end

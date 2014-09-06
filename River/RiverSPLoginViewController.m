@@ -33,12 +33,14 @@
  */
 
 #import "RiverSPLoginViewController.h"
+#import "RiverLoadingUtility.h"
 
 @interface RiverSPLoginViewController ()
 
 @end
 
 @implementation RiverSPLoginViewController
+@synthesize scrollView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -54,13 +56,37 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 	
+	UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resignFirstResponders)];
+	[self.view addGestureRecognizer:tapGesture];
+	
 	session = [SPSession sharedSession];
 	sessionDelegate = session.delegate;
 	
 	self.usernameField.delegate = self;
 	self.passwordField.delegate = self;
 	
+	scrollView.contentSize = CGSizeMake(320.0f, 600.0f);
 }
+
+- (void)viewDidAppear:(BOOL)animated {
+	
+    keyboardIsShown = NO;
+	[self registerForKeyboardNotifications];
+	
+	[super viewDidAppear:animated];
+}
+
+- (void)resignFirstResponders {
+	[self.usernameField resignFirstResponder];
+	[self.passwordField resignFirstResponder];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.passwordField.text = nil;
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -68,28 +94,64 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)registerForKeyboardNotifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(keyboardWasShown:)
+												 name:UIKeyboardDidShowNotification object:nil];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(keyboardWillBeHidden:)
+												 name:UIKeyboardWillHideNotification object:nil];
+	
+}
 
+- (void)keyboardWasShown:(NSNotification*)aNotification
+{
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+	
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
+    scrollView.contentInset = contentInsets;
+    scrollView.scrollIndicatorInsets = contentInsets;
+	
+    CGRect aRect = self.view.frame;
+    aRect.size.height -= kbSize.height;
+	CGPoint origin = [self.passwordField.superview convertPoint:self.passwordField.frame.origin toView:self.view];
+	
+    if (!CGRectContainsPoint(aRect, origin) ) {
+		[scrollView setContentOffset:CGPointMake(0.0, origin.y-kbSize.height) animated:YES];
+    }
+}
+
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+{
+    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+	
+	[UIView animateWithDuration:.4 animations:^{
+		scrollView.contentInset = contentInsets;
+		scrollView.scrollIndicatorInsets = contentInsets;
+	}];
+}
 
 - (IBAction)loginPressed:(id)sender {
 	if (self.usernameField.text.length == 0 || self.passwordField.text.length == 0) {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Failed"
-														message:@"Please enter your username and password."
-													   delegate:nil
-											  cancelButtonTitle:@"OK"
-											  otherButtonTitles:nil];
-		[alert show];
+		[RiverAlertUtility showOKAlertWithMessage:@"Please enter your username and password." onView:self.view];
 	} else {
+		[[RiverLoadingUtility sharedLoader] startLoading:self.view withFrame:CGRectNull];
+		
 		[session attemptLoginWithUserName:self.usernameField.text
-								  password:self.passwordField.text];
+								 password:self.passwordField.text];
 	}
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	if (textField == self.passwordField)
 		[self loginPressed:nil];
+	else
+		[self.passwordField becomeFirstResponder];
 	
 	return YES;
 }
-
 
 @end

@@ -7,10 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <SDWebImage/UIImageView+WebCache.h>
+#import <SDWebImage/SDWebImageDownloader.h>
 
 @interface ArtistAlbumsTableViewController : UITableViewController
 
-@property (strong, nonatomic) NSMutableArray *albums;
 
 @end

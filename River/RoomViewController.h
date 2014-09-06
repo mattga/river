@@ -12,16 +12,16 @@
 #import "RiverViewController.h"
 #import "Room.h"
 #import "User.h"
-#import "Track.h"
+#import "Song.h"
 #import "RiverAppDelegate.h"
-#import "GlobalVars.h"
 #import "RiverAuthAccount.h"
 #import "RoomSongTableViewCell.h"
 #import "SPTracksXMLParser.h"
 
 @interface RoomViewController : RiverViewController {
-    GlobalVars *vars;
-	Track *playingSong;
+    UITableViewController *roomTVC;
+	GlobalVars *vars;
+	Song *playingSong;
 	BOOL playingViewDown;
 }
 
@@ -30,9 +30,6 @@
 @property (strong, nonatomic) Room *memberedRoom;
 
 // UI
-@property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *roomLabel;
-@property (weak, nonatomic) IBOutlet UILabel *userTokensLabel;
 @property (weak, nonatomic) IBOutlet UIButton *addSongButton;
 @property (weak, nonatomic) IBOutlet UIView *playlistContainer;
 @property (weak, nonatomic) IBOutlet UIView *containerAnimateView;

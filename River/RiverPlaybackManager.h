@@ -9,14 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "RiverAuthAccount.h"
 #import "CocoaLibSpotify.h"
-#import "Track.h"
+#import "Constants.h"
+#import "Song.h"
 #import "Room.h"
 
 @interface RiverPlaybackManager : SPPlaybackManager <SPSessionPlaybackDelegate> {
 }
 
 // Passed in data
-@property (strong, nonatomic) Room *hostedRoom;
+@property (strong, nonatomic) Room *memberedRoom;
 
 - (void)streamSong:(NSString *)songID withCallback:(void (^)(void))block;
 - (void)skipSongWithCallback:(void (^)(void))block;

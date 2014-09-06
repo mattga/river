@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-#define RIVER_LOADING_IMAGE_SIZE 42
+#define RIVER_LOADING_IMAGE_SIZE				42
+#define RIVER_LOADING_SQUARE_SIZE				100
+#define RIVER_LOADING_SQUARE_CORNER_RADIUS		10
 
 @interface RiverLoadingUtility : NSObject {
 	NSMutableArray *images;
@@ -16,7 +18,7 @@
 
 + (RiverLoadingUtility*)sharedLoader;
 
-- (void)startLoading:(UIView*)onView withFrame:(CGRect)spinnerRect withBackground:(BOOL)showsBgView;
+- (void)startLoading:(UIView*)onView withFrame:(CGRect)spinnerRect;
 - (void)stopLoading;
 
 @end

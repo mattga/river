@@ -8,6 +8,8 @@
 
 #import "AddSongTableViewController.h"
 #import "RiverAuthAccount.h"
+#import "AddSongViewController.h"
+#import "SPJSONParser.h"
 
 @interface AddSongTableViewController ()
 
@@ -15,7 +17,6 @@
 
 @implementation AddSongTableViewController
 @synthesize selectedTab, selectedRow;
-@synthesize trackResults, artistResults, albumResults;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -49,11 +50,11 @@
 {
     switch (selectedTab) {
 		case kSearchResultsSongs:
-			return trackResults.count;
+			return [(AddSongViewController*)self.parentViewController trackResults].count;
 		case kSearchResultsArtists:
-			return artistResults.count;
+			return [(AddSongViewController*)self.parentViewController artistResults].count;
 		case kSearchResultsAlbums:
-			return albumResults.count;
+			return [(AddSongViewController*)self.parentViewController albumResults].count;
 	}
 	return 0;
 }
@@ -65,45 +66,55 @@
 	if (selectedTab == kSearchResultsSongs) {
 		
 		cell = [tableView dequeueReusableCellWithIdentifier:@"resultsSongCell"];
-		dict = [trackResults objectAtIndex:indexPath.row];
+		dict = [[(AddSongViewController*)self.parentViewController trackResults] objectAtIndex:indexPath.row];
 		
-		[(ResultsSongTableViewCell*)cell songLabel].text = [dict objectForKey:@"track_name"];
-		[(ResultsSongTableViewCell*)cell artistLabel].text = [dict objectForKey:@"artist_name"];
+		[(ResultsSongTableViewCell*)cell songLabel].text = [dict objectForKey:@"name"];
+		[(ResultsSongTableViewCell*)cell artistLabel].text = [[[dict objectForKey:@"artists"] firstObject] objectForKey:@"name"];
 		[[(ResultsSongTableViewCell*)cell albumArtImage] setImage:nil];
 		
 		dispatch_queue_t thread = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
 		dispatch_async(thread, ^{
-			NSString *url= [RiverAuthAccount fetchAlbumArtForURL:[[trackResults objectAtIndex:indexPath.row] objectForKey:@"track_href"]];
+			NSURL *url = [SPJSONParser imageURLFromSPJSON:[dict objectForKey:@"album"] withSize:kRiverAlbumArtSmall];
 			dispatch_async(dispatch_get_main_queue(), ^{
 				UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
 				if (cell) {
-					[[(ResultsSongTableViewCell*)cell albumArtImage] setImageWithURL:[NSURL URLWithString:url]];
+					[[(ResultsSongTableViewCell*)cell albumArtImage] setImageWithURL:url];
 				}
 			});
 		});
 	} else if (selectedTab == kSearchResultsArtists) {
 		
 		cell = [tableView dequeueReusableCellWithIdentifier:@"resultsArtistCell"];
-		dict = [artistResults objectAtIndex:indexPath.row];
+		dict = [[(AddSongViewController*)self.parentViewController artistResults] objectAtIndex:indexPath.row];
 		
-		[(ResultsArtistTableViewCell*)cell artistLabel].text = [dict objectForKey:@"artist_name"];
+		[(ResultsArtistTableViewCell*)cell artistLabel].text = [dict objectForKey:@"name"];
+		[[(ResultsArtistTableViewCell*)cell artistSPImage] setImage:nil];
 		
+		dispatch_queue_t thread = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+		dispatch_async(thread, ^{
+			NSURL *url= [SPJSONParser imageURLFromSPJSON:dict withSize:60];
+			dispatch_async(dispatch_get_main_queue(), ^{
+				UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+				if (cell) {
+					[[(ResultsArtistTableViewCell*)cell artistSPImage] setImageWithURL:url];
+				}
+			});
+		});
 	} else if (selectedTab == kSearchResultsAlbums) {
 		
 		cell = [tableView dequeueReusableCellWithIdentifier:@"resultsAlbumCell"];
-		dict = [albumResults objectAtIndex:indexPath.row];
+		dict = [[(AddSongViewController*)self.parentViewController albumResults] objectAtIndex:indexPath.row];
 		
-		[(ResultsAlbumTableViewCell*)cell albumLabel].text = [dict objectForKey:@"album_name"];
-		[(ResultsAlbumTableViewCell*)cell artistLabel].text = [dict objectForKey:@"artist_name"];
+		[(ResultsAlbumTableViewCell*)cell albumLabel].text = [dict objectForKey:@"name"];
 		[[(ResultsSongTableViewCell*)cell albumArtImage] setImage:nil];
 		
 		dispatch_queue_t thread = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
 		dispatch_async(thread, ^{
-			NSString *url= [RiverAuthAccount fetchAlbumArtForURL:[[albumResults objectAtIndex:indexPath.row] objectForKey:@"album_href"]];
+			NSURL *url= [SPJSONParser imageURLFromSPJSON:dict withSize:60];
 			dispatch_async(dispatch_get_main_queue(), ^{
 				UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
 				if (cell) {
-					[[(ResultsSongTableViewCell*)cell albumArtImage] setImageWithURL:[NSURL URLWithString:url]];
+					[[(ResultsSongTableViewCell*)cell albumArtImage] setImageWithURL:url];
 				}
 			});
 		});
@@ -121,7 +132,7 @@
 		case kSearchResultsArtists:
 			return 50.0f;
 		case kSearchResultsAlbums:
-			return 60.0f;
+			return 50.0f;
 	}
 	return 20.0f;
 }

@@ -11,20 +11,18 @@
 #import "RiverSessionDelegate.h"
 #import "RiverPlaybackManager.h"
 #import "User.h"
-#import "Track.h"
+#import "Song.h"
 
 @interface GlobalVars : NSObject
 
 // User's rooms
-@property (strong, nonatomic) Room *hostedRoom;
-@property (strong, nonatomic) Room *memberedRoom;
-@property (nonatomic) int playingIndex;
+@property (strong, atomic) Room *memberedRoom;
+@property (atomic) int playingIndex;
 
 // User's settings
 @property (strong, nonatomic) NSDictionary *settingsDict;
 @property (strong, nonatomic) NSString *settingsPath;
-@property (strong, nonatomic) NSString *username;
-@property (strong, nonatomic) User *user;
+@property (strong, nonatomic) NSString *searchKeyword;
 
 // Streaming globals
 @property (strong, nonatomic) NSDictionary *trackDetail;

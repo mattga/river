@@ -13,7 +13,7 @@
 #import "ResultsArtistTableViewCell.h"
 #import "ResultsSongTableViewCell.h"
 
-@interface AddSongTableViewController : UITableViewController {
+@interface AddSongTableViewController : RiverTableViewController {
 	
 }
 
@@ -21,8 +21,5 @@
 
 // Passed data
 @property (nonatomic) NSInteger selectedTab;
-@property (nonatomic, strong) NSMutableArray *trackResults;
-@property (nonatomic, strong) NSMutableArray *artistResults;
-@property (nonatomic, strong) NSMutableArray *albumResults;
 
 @end

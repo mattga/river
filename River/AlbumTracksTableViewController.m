@@ -7,6 +7,7 @@
 //
 
 #import "AlbumTracksTableViewController.h"
+#import "AlbumDetailViewController.h"
 #import "ResultsSongTableViewCell.h"
 #import "TrackDetailViewController.h"
 
@@ -15,7 +16,6 @@
 @end
 
 @implementation AlbumTracksTableViewController
-@synthesize tracks;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -46,13 +46,16 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return tracks.count;
+    return [(AlbumDetailViewController*)self.parentViewController tracks].count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"albumTrackCell"];
 	
-	[[(ResultsSongTableViewCell*)cell songLabel] setText:[[tracks objectAtIndex:indexPath.row] objectForKey:@"track_name"]];
+	NSDictionary *track = [[(AlbumDetailViewController*)self.parentViewController tracks] objectAtIndex:indexPath.row];
+	
+	[[(ResultsSongTableViewCell*)cell trackNumberLabel] setText:[NSString stringWithFormat:@"%d", [[track objectForKey:@"track_number"] intValue]]];
+	[[(ResultsSongTableViewCell*)cell songLabel] setText:[track objectForKey:@"name"]];
 	
 	return cell;
 }

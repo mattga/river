@@ -24,7 +24,7 @@ static SideMenuTableViewCell *selectedCell;
 - (void)awakeFromNib
 {
 	_selectedView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-	[_selectedView setBackgroundColor:kRiverBGLightGray];
+//	[_selectedView setBackgroundColor:kRiverBGLightGray];
 	
 	CGRect labelFrame = CGRectMake(_menuItemLabel.frame.origin.x, _menuItemLabel.frame.origin.y, _menuItemLabel.frame.size.width, _menuItemLabel.frame.size.height);
 	CGRect imageFrame = CGRectMake(_image.frame.origin.x, _image.frame.origin.y, _image.frame.size.width, _image.frame.size.height);
@@ -33,6 +33,9 @@ static SideMenuTableViewCell *selectedCell;
 	label.font = [UIFont fontWithName:kGothamBold size:_menuItemLabel.font.pointSize];
 	label.text = _menuItemLabel.text;
 	label.textColor = kRiverLightBlue;
+	
+	UIView *leftHighlight = [[UIView alloc] initWithFrame:CGRectMake(1, 2, 3, 40)];
+	leftHighlight.backgroundColor = kRiverLightBlue;
 	
 	UIImageView *image = [[UIImageView alloc] initWithFrame:imageFrame];
 	switch (_image.tag) {
@@ -58,6 +61,8 @@ static SideMenuTableViewCell *selectedCell;
 	
 	[_selectedView addSubview:label];
 	[_selectedView addSubview:image];
+	[_selectedView addSubview:leftHighlight];
+	[_selectedView setBackgroundColor:[UIColor colorWithRed:0.132 green:0.180 blue:0.202 alpha:1.000]];
 	
 	if (selectedCell == nil) {
 		selectedCell = self;

@@ -16,14 +16,19 @@
 }
 
 // Passed data
+@property (strong, nonatomic) NSString *albumId;
 @property (strong, nonatomic) NSDictionary *album;
-@property (strong, nonatomic) NSMutableArray *tracks;
+@property (strong, nonatomic) NSArray *tracks;
 
-@property (weak, nonatomic) IBOutlet UILabel *albumInfoLabel;
+@property (weak, nonatomic) IBOutlet UILabel *albumLabel;
+@property (weak, nonatomic) IBOutlet UILabel *artistLabel;
+@property (weak, nonatomic) IBOutlet UILabel *releasedLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *albumArtImage;
 
 @property (weak, nonatomic) IBOutlet UILabel *roomLabel;
 @property (weak, nonatomic) IBOutlet UILabel *userLabel;
 @property (weak, nonatomic) IBOutlet UILabel *tokenLabel;
+
+@property (weak, nonatomic) IBOutlet UIView *cardView;
 
 @end

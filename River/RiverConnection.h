@@ -7,19 +7,22 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JSONSerializable.h"
 
 @interface RiverConnection : NSObject <NSURLConnectionDelegate> {
     NSURLConnection *internalConnection;
+	NSData *syncResponseData;
     NSMutableData *responseDATA;
 }
 
 - (id)initWithRequest:(NSURLRequest *)req;
 
 @property (nonatomic, copy) NSURLRequest *request;
-@property (nonatomic, copy) void (^completionBlock)(NSData *response, NSError *err);
+@property (nonatomic, copy) void (^completionBlock)(id object, NSError *err);
 @property (nonatomic, strong) NSOperationQueue *queue;
 
 - (void)start;
+- (void)startSynchronously;
 
 
 @end
