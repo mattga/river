@@ -1,16 +1,16 @@
 //
-//  RiverConnection.m
-//  River
+//  MGConnection.m
+//  ArtConsultant
 //
-//  Created by Matthew Gardner on 4/25/14.
-//  Copyright (c) 2014 mdg. All rights reserved.
+//  Created by Matthew Gardner on 7/29/14.
+//  Copyright (c) 2014 mgkb. All rights reserved.
 //
 
-#import "RiverConnection.h"
+#import "MGConnection.h"
 
 static NSMutableArray *sharedConnectionList = nil;
 
-@implementation RiverConnection
+@implementation MGConnection
 @synthesize request, completionBlock;
 
 - (id)initWithRequest:(NSURLRequest *)req
@@ -25,8 +25,8 @@ static NSMutableArray *sharedConnectionList = nil;
 
 - (void)start
 {
-    NSLog(@"RiverConnection::start(), request: %@ %@", request.HTTPMethod, request.URL.absoluteString);
-    NSLog(@"RiverConnection::start(), requestData: %@", [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding]);
+    NSLog(@"MGConnection::start(), request: %@ %@", request.HTTPMethod, request.URL.absoluteString);
+    NSLog(@"MGConnection::start(), requestData: %@", [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding]);
     
     responseDATA = [[NSMutableData alloc] init];
     
@@ -40,18 +40,21 @@ static NSMutableArray *sharedConnectionList = nil;
 }
 
 - (void)startSynchronously {
-//    NSLog(@"RiverConnection::startSynchronously(), request: %@ %@", request.HTTPMethod, request.URL.absoluteString);
-//    NSLog(@"RiverConnection::startSynchronously(), requestData: %@", [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding]);
+	NSLog(@"MGConnection::startSynchronously(), request: %@ %@", request.HTTPMethod, request.URL.absoluteString);
+	NSLog(@"MGConnection::startSynchronously(), requestData: %@", [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding]);
 	
 	NSError *error = nil;
 	syncResponseData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
-	NSDictionary *d = nil;
+	id d = nil;
 	
 	if (syncResponseData) {
-		
-		d = [NSJSONSerialization JSONObjectWithData:syncResponseData
-														  options:0
-															error:nil];
+		if (self.notJson) {
+			d = syncResponseData;
+		} else {
+			d = [NSJSONSerialization JSONObjectWithData:syncResponseData
+												options:0
+												  error:nil];
+		}
 	}
 	
 	if([self completionBlock])
@@ -59,8 +62,8 @@ static NSMutableArray *sharedConnectionList = nil;
 		[self completionBlock](d, error);
 	}
 	
-//	NSString *responseString = [[NSString alloc] initWithData:syncResponseData encoding:NSUTF8StringEncoding];
-//    NSLog(@"RiverConnection::startSynchronously(), response \n%@", responseString);
+	NSString *responseString = [[NSString alloc] initWithData:syncResponseData encoding:NSUTF8StringEncoding];
+	NSLog(@"RiverConnection::startSynchronously(), response \n%@", responseString);
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
@@ -72,13 +75,17 @@ static NSMutableArray *sharedConnectionList = nil;
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
 	NSString *responseString = [[NSString alloc] initWithData:responseDATA encoding:NSUTF8StringEncoding];
-    NSLog(@"RiverConnection::finishedLoading(), response \n%@", responseString);
+    NSLog(@"MGConnection::finishedLoading(), response \n%@", responseString);
 	id jsonObject = nil;
 	
-    if (responseDATA) {
-		jsonObject = [NSJSONSerialization JSONObjectWithData:responseDATA
-													 options:0
-													   error:nil];
+	if (responseDATA) {
+		if (self.notJson) {
+			jsonObject = responseDATA;
+		} else {
+			jsonObject = [NSJSONSerialization JSONObjectWithData:responseDATA
+														 options:0
+														   error:nil];
+		}
 	}
 	
     if([self completionBlock])
@@ -97,5 +104,6 @@ static NSMutableArray *sharedConnectionList = nil;
     
     [sharedConnectionList removeObject:self];
 }
+
 
 @end

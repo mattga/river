@@ -1,15 +1,14 @@
 //
-//  RiverConnection.h
-//  River
+//  MGConnection.h
+//  ArtConsultant
 //
-//  Created by Matthew Gardner on 4/25/14.
-//  Copyright (c) 2014 mdg. All rights reserved.
+//  Created by Matthew Gardner on 7/29/14.
+//  Copyright (c) 2014 mgkb. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "JSONSerializable.h"
 
-@interface RiverConnection : NSObject <NSURLConnectionDelegate> {
+@interface MGConnection : NSObject {
     NSURLConnection *internalConnection;
 	NSData *syncResponseData;
     NSMutableData *responseDATA;
@@ -17,6 +16,7 @@
 
 - (id)initWithRequest:(NSURLRequest *)req;
 
+@property (nonatomic) BOOL notJson;
 @property (nonatomic, copy) NSURLRequest *request;
 @property (nonatomic, copy) void (^completionBlock)(id object, NSError *err);
 @property (nonatomic, strong) NSOperationQueue *queue;
