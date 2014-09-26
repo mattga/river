@@ -10,26 +10,26 @@
 	<string>River</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>609EFDFCD07957C07E401531A676768A68B0795A</key>
+		<string>ssh://bitbucket.org/mattga/river.git</string>
 		<key>AA1C6D47-0CC3-40F0-B38A-3B22F3A67E68</key>
 		<string>https://github.com/spotify/cocoalibspotify.git</string>
-		<key>E3B3C0E1-3862-4E65-865B-06A5C35B6EB0</key>
-		<string>ssh://bitbucket.org/mattga/river.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>River.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>AA1C6D47-0CC3-40F0-B38A-3B22F3A67E68</key>
-		<string>../../../../API/cocoalibspotify</string>
-		<key>E3B3C0E1-3862-4E65-865B-06A5C35B6EB0</key>
+		<key>609EFDFCD07957C07E401531A676768A68B0795A</key>
 		<string>../..</string>
+		<key>AA1C6D47-0CC3-40F0-B38A-3B22F3A67E68</key>
+		<string>../../../API/cocoalibspotify</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>ssh://bitbucket.org/mattga/river.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>E3B3C0E1-3862-4E65-865B-06A5C35B6EB0</string>
+	<string>609EFDFCD07957C07E401531A676768A68B0795A</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -44,7 +44,7 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>E3B3C0E1-3862-4E65-865B-06A5C35B6EB0</string>
+			<string>609EFDFCD07957C07E401531A676768A68B0795A</string>
 			<key>IDESourceControlWCCName</key>
 			<string>River</string>
 		</dict>
