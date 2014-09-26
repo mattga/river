@@ -14,6 +14,7 @@
 
 @property (nonatomic) NSInteger userId;
 @property (strong, nonatomic) NSString *userName;
+@property (strong, nonatomic) NSString *email;
 @property (nonatomic) NSInteger tokens;
 
 - (id)initWithName:(NSString*)name;

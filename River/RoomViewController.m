@@ -7,7 +7,6 @@
 //
 
 #import "RoomViewController.h"
-#import "SideMenuViewController.h"
 
 @interface RoomViewController ()
 
@@ -27,9 +26,6 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	
-	// Set reveal VC delegate
-	self.revealViewController.delegate = (id<SWRevealViewControllerDelegate>)[UIApplication sharedApplication].delegate;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -136,17 +132,11 @@
 	if ([segue.identifier isEqualToString:@"embedRoomTable"]) {
 		roomTVC = segue.destinationViewController;
 	} else if ([segue.identifier isEqualToString:@"hostSegue"]) {
-		[[(SideMenuViewController*)self.revealViewController.rearViewController tableView] selectRowAtIndexPath:[NSIndexPath indexPathForRow:kSideMenuHost inSection:0]
-																											animated:YES
-																									  scrollPosition:UITableViewScrollPositionNone];
 		
 		UIStoryboard *loginSB = [UIStoryboard storyboardWithName:@"RiverStoryboard_iPhone" bundle:[NSBundle mainBundle]];
 		UIViewController *login = [loginSB instantiateViewControllerWithIdentifier:@"SpotifyLogin"];
 		[self.navigationController pushViewController:login animated:YES];
 	} else if ([segue.identifier isEqualToString:@"joinSegue"]) {
-		[[(SideMenuViewController*)self.revealViewController.rearViewController tableView] selectRowAtIndexPath:[NSIndexPath indexPathForRow:kSideMenuJoin inSection:0]
-																											animated:YES
-																									  scrollPosition:UITableViewScrollPositionNone];
 	}
 }
 

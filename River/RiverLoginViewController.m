@@ -23,27 +23,45 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+- (BOOL)validateInput {
+	
+	if ([[self.emailField.text stringByReplacingOccurrencesOfString:@" " withString:@""] isEqualToString:@""]) {
+		[RiverAlertUtility showErrorMessage:@"Please provide your email."];
+		return NO;
+	}
+	if ([[self.passwordField.text stringByReplacingOccurrencesOfString:@" " withString:@""] isEqualToString:@""]) {
+		[RiverAlertUtility showErrorMessage:@"Please provide a password"];
+		return NO;
+	}
+	
+	NSString *emailRegex = @"[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
+	NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+	if (![emailTest evaluateWithObject:self.emailField.text]) {
+		[RiverAlertUtility showErrorMessage:@"Invalid email."];
+		return NO;
+	}
+	
+	return YES;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (IBAction)loginPressed:(id)sender {
+	if ([self validateInput]) {
+		[RiverAuthController authorizedRESTCall:kRiverWebApiUser
+										 action:kRiverWebApiActionAuthenticate
+										   verb:kRiverWebApiVerbPost
+											_id:0
+									 withParams:@{@"Email":self.emailField.text, @"Password":self.passwordField.text}
+									   callback:^(NSDictionary *object, NSError *err) {
+										   if (!err) {
+											   RiverStatus *status = [[RiverStatus alloc] init];
+											   [status readFromJSONObject:object];
+											   
+											   if (status.statusCode.intValue == kRiverStatusOK) {
+												   [self performSegueWithIdentifier:@"linkSpotifySegue" sender:nil];
+											   }
+										   }
+									   }];
+	}
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

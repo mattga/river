@@ -10,8 +10,8 @@
 #import "RiverTableViewController.h"
 #import "DiscoverRoomTableViewCell.h"
 #import "GlobalVars.h"
-#import "RiverAuthAccount.h"
-#import "RiverConnection.h"
+#import "RiverAuthController.h"
+#import "MGConnection.h"
 
 @interface DiscoverRoomTableViewController : RiverTableViewController
 

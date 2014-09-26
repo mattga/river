@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RiverViewController.h"
 
-@interface RiverChooseAuthViewController : UIViewController
+@interface RiverChooseAuthViewController : RiverViewController
 
 @end

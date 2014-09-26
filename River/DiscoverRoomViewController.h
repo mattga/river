@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "RiverViewController.h"
-#import "RiverConnection.h"
+#import "MGConnection.h"
 #import "DiscoverRoomTableViewController.h"
-#import "SWRevealViewController.h"
 #import "GlobalVars.h"
 #import "Room.h"
 
@@ -22,12 +21,5 @@
 @property (strong, nonatomic) NSMutableData *responseData;
 @property (weak, nonatomic) IBOutlet UIButton *discoverButton;
 @property (weak, nonatomic) IBOutlet UIButton *joinButton;
-@property (weak, nonatomic) IBOutlet UIView *joinContainer;
-@property (weak, nonatomic) IBOutlet UIView *discoverContainer;
-
-@property (strong, nonatomic) IBOutlet UIImageView *noRoomsImageView;
-
-- (IBAction)discoverSelected:(id)sender;
-- (IBAction)joinSelected:(id)sender;
 
 @end

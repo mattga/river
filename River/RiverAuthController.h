@@ -7,30 +7,28 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RiverConnection.h"
+#import "MGConnection.h"
 #import "Constants.h"
 #import "User.h"
-
-@interface RiverAuthAccount : NSObject
-
-@property (nonatomic, strong) NSString *deviceToken;
-@property (nonatomic, strong) NSString *username;
-// TODO: Authentication with REST calls
-@property (nonatomic, strong) NSString *authToken;
-@property (nonatomic, strong) User *currentUser;
-
-+ (RiverAuthAccount*) sharedAuth;
-+ (void)authorizedRESTCall:(NSString*)endpoint action:(NSString*)action verb:(NSString*)verb _id:(NSString*)_id withParams:(NSDictionary*)params callback:(void (^)(id object, NSError* err))block;
-+ (void)authorizedSyncRESTCall:(NSString*)endpoint action:(NSString*)action verb:(NSString*)verb _id:(NSString*)_id withParams:(NSDictionary*)params callback:(void (^)(id object, NSError* err))block;
-//+ (NSString *)fetchAlbumArtForURL:(NSString *)url;
-
-// TODO: Auth delegate for callback
-
-@end
 
 
 @protocol RiverAuthDelegate <NSObject>
 
+- (void)userAuthorized:(NSString*)action;
+//- (void)facebookUserAuthorized:(FBSession*)session;
+//- (void)facebookUserAuthFailed:(FBSession*)session;
 - (void)spotifyAuthorizedForUser:(User*)user;
+
+@end
+
+
+@interface RiverAuthController : NSObject
+
+@property (weak, nonatomic) id<RiverAuthDelegate> authDelegate;
+@property (nonatomic, strong) User *currentUser;
+
++ (RiverAuthController*) sharedAuth;
++ (void)authorizedRESTCall:(NSString*)endpoint action:(NSString*)action verb:(NSString*)verb _id:(NSString*)_id withParams:(NSDictionary*)params callback:(void (^)(id object, NSError* err))block;
++ (void)authorizedSyncRESTCall:(NSString*)endpoint action:(NSString*)action verb:(NSString*)verb _id:(NSString*)_id withParams:(NSDictionary*)params callback:(void (^)(id object, NSError* err))block;
 
 @end

@@ -59,14 +59,14 @@
     [self.albumArtImage setImageWithURL:url];
     
 	// Set footer labels
-	[self.userLabel setText:[[RiverAuthAccount sharedAuth] currentUser].userName];
+	[self.userLabel setText:[[RiverAuthController sharedAuth] currentUser].userName];
 	[self.roomLabel setText:[GlobalVars getVar].memberedRoom.roomName];
-	[self.tokenLabel setText:[NSString stringWithFormat:@"%d", [[RiverAuthAccount sharedAuth] currentUser].tokens]];
+	[self.tokenLabel setText:[NSString stringWithFormat:@"%d", [[RiverAuthController sharedAuth] currentUser].tokens]];
 }
 
 - (void)fetchAlbumDetails {
 	if (self.albumId) {
-		[RiverAuthAccount authorizedRESTCall:kSPRESTAlbums
+		[RiverAuthController authorizedRESTCall:kSPRESTAlbums
 									  action:nil
 										verb:kRiverGet
 										 _id:self.albumId

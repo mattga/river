@@ -55,30 +55,6 @@
     [self removeObserver:self forKeyPath:@"appDelegate.syncId"];
 }
 
-- (IBAction)discoverSelected:(id)sender {
-	[_discoverButton setBackgroundColor:kRiverLightBlue];
-	[_discoverButton setTitleColor:kRiverBGLightGray forState:UIControlStateNormal];
-	
-	[_joinButton setBackgroundColor:kRiverBGLightGray];
-	[_joinButton setTitleColor:kRiverLightBlue forState:UIControlStateNormal];
-	
-	[_discoverContainer setHidden:NO];
-	[_joinContainer setHidden:YES];
-	
-	[discoverTVC.tableView reloadData];
-}
-
-- (IBAction)joinSelected:(id)sender {
-	[_joinButton setBackgroundColor:kRiverLightBlue];
-	[_joinButton setTitleColor:kRiverBGLightGray forState:UIControlStateNormal];
-	
-	[_discoverButton setBackgroundColor:kRiverBGLightGray];
-	[_discoverButton setTitleColor:kRiverLightBlue forState:UIControlStateNormal];
-	
-	[_joinContainer setHidden:NO];
-	[_discoverContainer setHidden:YES];
-}
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue.identifier isEqualToString:@"embedDiscoverTable"]) {
 		discoverTVC = segue.destinationViewController;

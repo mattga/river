@@ -7,7 +7,7 @@
 //
 
 #import "AddSongTableViewController.h"
-#import "RiverAuthAccount.h"
+#import "RiverAuthController.h"
 #import "AddSongViewController.h"
 #import "SPJSONParser.h"
 

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "RiverViewController.h"
-#import "RiverAuthAccount.h"
+#import "RiverAuthController.h"
 #import "AddSongTableViewController.h"
 
 @interface AddSongViewController : RiverViewController <UITextFieldDelegate, UIGestureRecognizerDelegate> {
@@ -25,11 +25,10 @@
 @property (strong, nonatomic) NSArray *albumResults;
 
 // UI
-@property (strong, nonatomic) IBOutlet UITextField *searchField;
 @property (weak, nonatomic) IBOutlet UIButton *songsButton;
 @property (weak, nonatomic) IBOutlet UIButton *artistsButton;
 @property (weak, nonatomic) IBOutlet UIButton *albumsButton;
-@property (weak, nonatomic) IBOutlet UILabel *searchPlaceholderLabel;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
 - (void)searchSpotify:(NSString *)searchText;
 - (IBAction)songsPressed:(id)sender;

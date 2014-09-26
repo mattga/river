@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RiverViewController.h"
 
-@interface RiverSignupViewController : UIViewController
+@interface RiverSignupViewController : RiverViewController
+
+@property (weak, nonatomic) IBOutlet UITextField *displayNameField;
+@property (weak, nonatomic) IBOutlet UITextField *emailField;
+@property (weak, nonatomic) IBOutlet UITextField *passwordField;
+
+- (IBAction)continuePressed:(id)sender;
 
 @end

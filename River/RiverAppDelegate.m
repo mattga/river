@@ -8,9 +8,8 @@
 
 #import "RiverAppDelegate.h"
 #import "CocoaLibSpotify.h"
-#import "RiverSetupViewController.h"
 #import "RiverFrontViewController.h"
-#import "RiverAuthAccount.h"
+#import "RiverAuthController.h"
 #import "GlobalVars.h"
 #import "Song.h"
 #import "User.h"
@@ -22,8 +21,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-	
     // Register for push notifications
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
      (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeNone)];
@@ -53,19 +50,8 @@
 	}
 	
 	// Get username
-	[[RiverAuthAccount sharedAuth] setUsername:user.userName];
-	[[RiverAuthAccount sharedAuth] setCurrentUser:user];
-    if(user.userName == nil || [user.userName isEqualToString:@""]) {
-        NSLog(@"No username set...presenting username configuration view...");
-        // Present River setup view if no username is set
-        if([RiverAuthAccount sharedAuth].username == nil || [[RiverAuthAccount sharedAuth].username isEqualToString:@""]) {
-            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"RiverStoryboard_iPhone" bundle:nil];
-            UIViewController *vc = [sb instantiateViewControllerWithIdentifier:@"RiverSetupViewController"];
-            self.window.rootViewController = vc;
-        }
-    } else
-        NSLog(@"Username: '%@'", user.userName);
-    
+	[[RiverAuthController sharedAuth] setCurrentUser:user];
+	
     // Initialize spotify session
 	NSString *userAgent = [[[NSBundle mainBundle] infoDictionary] valueForKey:(__bridge NSString *)kCFBundleIdentifierKey];
 	NSData *appKey = [NSData dataWithBytes:&g_appkey length:g_appkey_size];
@@ -179,14 +165,6 @@
 	
     // Resign as first responder
     [self resignFirstResponder];
-}
-
-#pragma mark - SW Reveal Delegate
-
-- (void)revealController:(SWRevealViewController *)revealController willMoveToPosition:(FrontViewPosition)position {
-	if (position == 4) {
-		[revealController.view endEditing:YES];
-	}
 }
 
 @end

@@ -26,11 +26,11 @@
 			[navVC popViewControllerAnimated:YES];
 			
 			if (self.riverDelegate != nil) {
-				[self.riverDelegate spotifyAuthorizedForUser:[RiverAuthAccount sharedAuth].currentUser];
+				[self.riverDelegate spotifyAuthorizedForUser:[RiverAuthController sharedAuth].currentUser];
 			}
 			[[RiverLoadingUtility sharedLoader] stopLoading];
 			
-			[RiverAlertUtility showOKAlertWithMessage:@"Success! You can now stream music." onView:appDelegate.window.rootViewController.view];
+			[RiverAlertUtility showOKAlertWithMessage:@"Success! You can now stream music."];
         }];
     }];
 }
@@ -40,7 +40,7 @@
 	
 	[[RiverLoadingUtility sharedLoader] stopLoading];
 	
-	[RiverAlertUtility showOKAlertWithMessage:[error localizedDescription] onView:[[UIApplication sharedApplication] keyWindow].rootViewController.view];
+	[RiverAlertUtility showOKAlertWithMessage:[error localizedDescription]];
 }
 
 -(void)sessionDidLogOut:(SPSession *)aSession; {

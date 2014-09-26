@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "CocoaLibSpotify.h"
-#import "SWRevealViewController.h"
 
-@interface RiverAppDelegate : UIResponder <UIApplicationDelegate, SWRevealViewControllerDelegate> {
+@interface RiverAppDelegate : UIResponder <UIApplicationDelegate> {
     
 }
 

@@ -66,7 +66,7 @@ static UIView *loadingView;
 	loaderOverlay.backgroundColor = [UIColor clearColor];
 	
 	UIView *loaderRoundedSquare = [[UIView alloc] init];
-	loaderRoundedSquare.backgroundColor = kRiverFGDarkGray_55;
+	loaderRoundedSquare.backgroundColor = kRiverDarkGray;
 	loaderRoundedSquare.layer.cornerRadius = RIVER_LOADING_SQUARE_CORNER_RADIUS;
 	
 	if (CGRectIsNull(spinnerRect)) {

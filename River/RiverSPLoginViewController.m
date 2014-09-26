@@ -136,7 +136,7 @@
 
 - (IBAction)loginPressed:(id)sender {
 	if (self.usernameField.text.length == 0 || self.passwordField.text.length == 0) {
-		[RiverAlertUtility showOKAlertWithMessage:@"Please enter your username and password." onView:self.view];
+		[RiverAlertUtility showOKAlertWithMessage:@"Please enter your username and password."];
 	} else {
 		[[RiverLoadingUtility sharedLoader] startLoading:self.view withFrame:CGRectNull];
 		

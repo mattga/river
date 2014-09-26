@@ -9,8 +9,6 @@
 #import "DiscoverRoomTableViewController.h"
 #import "RiverLoadingUtility.h"
 #import "RiverAlertUtility.h"
-#import "SideMenuViewController.h"
-#import "SWRevealViewController.h"
 #import "RiverSyncUtility.h"
 
 @interface DiscoverRoomTableViewController ()
@@ -61,7 +59,7 @@
 
 - (void)reloadRooms {
 
-	[RiverAuthAccount authorizedRESTCall:kRiverRESTRoom
+	[RiverAuthController authorizedRESTCall:kRiverWebApiRoom
 								  action:nil
 									verb:kRiverGet
 									 _id:nil
@@ -151,11 +149,11 @@
 	
     Room *room = [rooms objectAtIndex:indexPath.row];
 	
-	[RiverAuthAccount authorizedRESTCall:kRiverRESTRoom
+	[RiverAuthController authorizedRESTCall:kRiverWebApiRoom
 								  action:kRiverActionJoinRoom
 									verb:kRiverPost
 									 _id:room.roomName
-							  withParams:@{@"Username" : [RiverAuthAccount sharedAuth].username}
+							  withParams:@{@"Username" : [RiverAuthController sharedAuth].currentUser.userName}
 								callback:^(NSDictionary *object, NSError *err) {
 									
 									if (!err) {
@@ -169,20 +167,12 @@
 											[GlobalVars getVar].playingIndex = -1;
 											
 											[[RiverSyncUtility sharedSyncing] preemptRoomSync];
-											
-											SideMenuViewController *sideMenuVC = (SideMenuViewController*)((SWRevealViewController*)[(RiverTableViewController*)self revealViewController]).rearViewController;
-											[[sideMenuVC tableView] selectRowAtIndexPath:[NSIndexPath indexPathForRow:kSideMenuShare inSection:0]
-																				animated:NO
-																		  scrollPosition:UITableViewScrollPositionNone];
-											[self.revealViewController.rearViewController performSegueWithIdentifier:@"roomSegue" sender:nil];
 										} else {
-											[RiverAlertUtility showOKAlertWithMessage:@"Error"
-																			   onView:self.view];
+											[RiverAlertUtility showOKAlertWithMessage:@"Error"];
 										}
 									}
 									else {
-										[RiverAlertUtility showOKAlertWithMessage:[err localizedDescription]
-																		   onView:self.view];
+										[RiverAlertUtility showOKAlertWithMessage:[err localizedDescription]];
 									}
 									
 									[[RiverLoadingUtility sharedLoader] stopLoading];

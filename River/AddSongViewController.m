@@ -30,9 +30,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-    // Register delegate for search field
-    [self.searchField setDelegate:self];
-	
 	UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
 								   initWithTarget:self.view
 								   action:@selector(endEditing:)];
@@ -42,12 +39,23 @@
 	NSString *searchKeyword = [GlobalVars getVar].searchKeyword;
 	if (searchKeyword != nil && ![searchKeyword isEqualToString:@""]) {
 
-		self.searchField.text = searchKeyword;
-		[self.searchPlaceholderLabel setHidden:YES];
+		self.searchBar.text = searchKeyword;
 		[self searchSpotify:searchKeyword];
 		
 		[resultsTVC.tableView reloadData];
 	}
+	
+	self.songsButton.layer.cornerRadius = 20;
+	[self.songsButton setTitleColor:kRiverDarkGray forState:UIControlStateNormal];
+	[self.songsButton setTitleColor:kRiverWhite forState:UIControlStateSelected];
+	
+	self.albumsButton.layer.cornerRadius = 20;
+	[self.albumsButton setTitleColor:kRiverDarkGray forState:UIControlStateNormal];
+	[self.albumsButton setTitleColor:kRiverWhite forState:UIControlStateSelected];
+	
+	self.artistsButton.layer.cornerRadius = 20;
+	[self.artistsButton setTitleColor:kRiverDarkGray forState:UIControlStateNormal];
+	[self.artistsButton setTitleColor:kRiverWhite forState:UIControlStateSelected];
 }
 
 - (void)didReceiveMemoryWarning
@@ -57,7 +65,7 @@
 }
 
 - (void)searchSpotify:(NSString *)searchText {
-	[RiverAuthAccount authorizedRESTCall:kSPRESTSearch
+	[RiverAuthController authorizedRESTCall:kSPRESTSearch
 								  action:nil
 									verb:kRiverGet
 									 _id:nil
@@ -74,7 +82,7 @@
 									}
 								}];
 	
-	[RiverAuthAccount authorizedRESTCall:kSPRESTSearch
+	[RiverAuthController authorizedRESTCall:kSPRESTSearch
 								  action:nil
 									verb:kRiverGet
 									 _id:nil
@@ -91,7 +99,7 @@
 									}
 								}];
 	
-	[RiverAuthAccount authorizedRESTCall:kSPRESTSearch
+	[RiverAuthController authorizedRESTCall:kSPRESTSearch
 								  action:nil
 									verb:kRiverGet
 									 _id:nil
@@ -111,12 +119,12 @@
 
 - (IBAction)songsPressed:(id)sender {
 	
-	[self.songsButton setBackgroundColor:kRiverLightBlue];
-	[self.songsButton.titleLabel setTextColor:kRiverBGLightGray];
-	[self.artistsButton setBackgroundColor:kRiverBGLightGray];
-	[self.artistsButton.titleLabel setTextColor:kRiverLightBlue];
-	[self.albumsButton setBackgroundColor:kRiverBGLightGray];
-	[self.albumsButton.titleLabel setTextColor:kRiverLightBlue];
+	self.songsButton.selected = YES;
+	self.artistsButton.selected = NO;
+	self.albumsButton.selected = NO;
+	[self.songsButton setBackgroundColor:kRiverDarkGray];
+	[self.artistsButton setBackgroundColor:kRiverWhite];
+	[self.albumsButton setBackgroundColor:kRiverWhite];
 	
 	[resultsTVC setSelectedTab:kSearchResultsSongs];
 	
@@ -125,12 +133,12 @@
 
 - (IBAction)artistsPressed:(id)sender {
 	
-	[self.songsButton setBackgroundColor:kRiverBGLightGray];
-	[self.songsButton.titleLabel setTextColor:kRiverLightBlue];
-	[self.artistsButton setBackgroundColor:kRiverLightBlue];
-	[self.songsButton.titleLabel setTextColor:kRiverBGLightGray];
-	[self.albumsButton setBackgroundColor:kRiverBGLightGray];
-	[self.albumsButton.titleLabel setTextColor:kRiverLightBlue];
+	self.songsButton.selected = NO;
+	self.artistsButton.selected = YES;
+	self.albumsButton.selected = NO;
+	[self.songsButton setBackgroundColor:kRiverWhite];
+	[self.artistsButton setBackgroundColor:kRiverDarkGray];
+	[self.albumsButton setBackgroundColor:kRiverWhite];
 	
 	[resultsTVC setSelectedTab:kSearchResultsArtists];
 	
@@ -139,12 +147,12 @@
 
 - (IBAction)albumsPressed:(id)sender {
 	
-	[self.songsButton setBackgroundColor:kRiverBGLightGray];
-	[self.songsButton.titleLabel setTextColor:kRiverLightBlue];
-	[self.artistsButton setBackgroundColor:kRiverBGLightGray];
-	[self.artistsButton.titleLabel setTextColor:kRiverLightBlue];
-	[self.albumsButton setBackgroundColor:kRiverLightBlue];
-	[self.albumsButton.titleLabel setTextColor:kRiverBGLightGray];
+	self.songsButton.selected = NO;
+	self.artistsButton.selected = NO;
+	self.albumsButton.selected = YES;
+	[self.songsButton setBackgroundColor:kRiverWhite];
+	[self.artistsButton setBackgroundColor:kRiverWhite];
+	[self.albumsButton setBackgroundColor:kRiverDarkGray];
 	
 	[resultsTVC setSelectedTab:kSearchResultsAlbums];
 	
@@ -167,7 +175,7 @@
 #pragma mark - Gesture recognizer delegate
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
-	if ([self.searchField isFirstResponder])
+	if ([self.searchBar isFirstResponder])
 		return YES;
 	return NO;
 }
@@ -175,7 +183,6 @@
 #pragma mark - Text field delegate
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-	[self.searchPlaceholderLabel setHidden:YES];
 	
 	[textField setSelectedTextRange:[textField textRangeFromPosition:textField.beginningOfDocument toPosition:textField.endOfDocument]];
 }
@@ -186,7 +193,6 @@
 	
 	if ([text isEqualToString:@""]) {
 		[textField setText:@""];
-		[self.searchPlaceholderLabel setHidden:NO];
 	}
 }
 
@@ -196,8 +202,8 @@
 	
 	[textField resignFirstResponder];
 	
-	[GlobalVars getVar].searchKeyword = self.searchField.text;
-	[self searchSpotify:self.searchField.text];
+	[GlobalVars getVar].searchKeyword = self.searchBar.text;
+	[self searchSpotify:self.searchBar.text];
 	
 	[resultsTVC.tableView reloadData];
 	

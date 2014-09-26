@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "CocoaLibSpotify.h"
-#import "RiverAuthAccount.h"
+#import "RiverAuthController.h"
 
 @interface RiverSessionDelegate : NSObject <SPSessionDelegate>
 

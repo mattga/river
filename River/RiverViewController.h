@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *roomLabel;
 @property (weak, nonatomic) IBOutlet UILabel *userTokensLabel;
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
 
 - (IBAction)backPressed:(id)sender;
 

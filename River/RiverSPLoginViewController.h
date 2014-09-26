@@ -35,7 +35,7 @@
 #import <UIKit/UIKit.h>
 #import "RiverViewController.h"
 #import "CocoaLibSpotify.h"
-#import "RiverAuthAccount.h"
+#import "RiverAuthController.h"
 #import "RiverSessionDelegate.h"
 
 @interface RiverSPLoginViewController : RiverViewController <UITextFieldDelegate, UIGestureRecognizerDelegate> {

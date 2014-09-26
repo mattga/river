@@ -37,7 +37,7 @@
     }
 	
 	if (endingSong != nil) {
-		[RiverAuthAccount authorizedRESTCall:kRiverRESTSong
+		[RiverAuthController authorizedRESTCall:kRiverWebApiSong
 									  action:nil
 										verb:kRiverDelete
 										 _id:[endingSong.trackId substringFromIndex:14]
@@ -50,7 +50,7 @@
 											
 											if (status.statusCode.intValue == kRiverStatusOK) {
 												if (nextSong != nil) {
-													[RiverAuthAccount authorizedRESTCall:kRiverRESTSong
+													[RiverAuthController authorizedRESTCall:kRiverWebApiSong
 																				  action:kRiverActionPlaySong
 																					verb:kRiverPost
 																					 _id:[nextSong.trackId substringFromIndex:14]
@@ -63,8 +63,7 @@
 																						if (status.statusCode.intValue == kRiverStatusOK) {
 																							[self streamSong:nextSong.trackId withCallback:block];
 																						} else {
-																							[RiverAlertUtility showOKAlertWithMessage:@"Error"
-																															   onView:[[[UIApplication sharedApplication] keyWindow] subviews].lastObject];
+																							[RiverAlertUtility showOKAlertWithMessage:@"Error"];
 																						}
 																					}
 																				}];
@@ -96,7 +95,7 @@
     }
 	
 	if (endingSong != nil) {
-		[RiverAuthAccount authorizedRESTCall:kRiverRESTSong
+		[RiverAuthController authorizedRESTCall:kRiverWebApiSong
 									  action:nil
 										verb:kRiverDelete
 										 _id:[endingSong.trackId substringFromIndex:14]
@@ -109,7 +108,7 @@
 											
 											if (status.statusCode.intValue == kRiverStatusOK) {
 												if (nextSong != nil) {
-													[RiverAuthAccount authorizedRESTCall:kRiverRESTSong
+													[RiverAuthController authorizedRESTCall:kRiverWebApiSong
 																				  action:kRiverActionPlaySong
 																					verb:kRiverPost
 																					 _id:[nextSong.trackId substringFromIndex:14]
@@ -122,8 +121,7 @@
 																						if (status.statusCode.intValue == kRiverStatusOK) {
 																							[self streamSong:nextSong.trackId withCallback:nil];
 																						} else {
-																							[RiverAlertUtility showOKAlertWithMessage:@"Error"
-																															   onView:[[[UIApplication sharedApplication] keyWindow] subviews].lastObject];
+																							[RiverAlertUtility showOKAlertWithMessage:@"Error"];
 																						}
 																					}
 																				}];
@@ -145,7 +143,7 @@
             [SPAsyncLoading waitUntilLoaded:track timeout:kSPAsyncLoadingDefaultTimeout then:^(NSArray *tracks, NSArray *notLoadedTracks) {
                 [[GlobalVars getVar].playbackManager playTrack:track callback:^(NSError *error) {
                     if (!error) {
-						[RiverAuthAccount authorizedRESTCall:kRiverRESTSong
+						[RiverAuthController authorizedRESTCall:kRiverWebApiSong
 													  action:kRiverActionPlaySong
 														verb:kRiverPost
 														 _id:[[trackURL description] substringFromIndex:14]
@@ -165,8 +163,7 @@
 																	}
 																}
 															} else {
-																[RiverAlertUtility showOKAlertWithMessage:@"Error"
-																								   onView:[[[UIApplication sharedApplication] keyWindow] subviews].lastObject];
+																[RiverAlertUtility showOKAlertWithMessage:@"Error"];
 															}
 															if (block) {
 																block();
@@ -174,8 +171,7 @@
 														}
 													}];
                     } else {
-						[RiverAlertUtility showOKAlertWithMessage:[NSString stringWithFormat:@"%@. %@", [error localizedDescription], @"It is most likely not available in your region. Skipping to next song..."]
-														   onView:[[[UIApplication sharedApplication] keyWindow] subviews].lastObject];
+						[RiverAlertUtility showOKAlertWithMessage:[NSString stringWithFormat:@"%@. %@", [error localizedDescription], @"It is most likely not available in your region. Skipping to next song..."]];
 						[self skipSongWithCallback:nil];
 					}
                 }];

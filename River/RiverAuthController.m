@@ -6,15 +6,15 @@
 //  Copyright (c) 2014 mdg. All rights reserved.
 //
 
-#import "RiverAuthAccount.h"
+#import "RiverAuthController.h"
 
-@implementation RiverAuthAccount
-static RiverAuthAccount *instance = nil;
+@implementation RiverAuthController
+static RiverAuthController *instance = nil;
 
-+ (RiverAuthAccount*) sharedAuth {
++ (RiverAuthController*) sharedAuth {
     @synchronized(self) {
         if (instance == nil) {
-            instance = [RiverAuthAccount alloc];
+            instance = [RiverAuthController alloc];
         }
         return instance;
     }
@@ -22,47 +22,36 @@ static RiverAuthAccount *instance = nil;
 
 + (void)authorizedRESTCall:(NSString*)endpoint action:(NSString*)action verb:(NSString*)verb _id:(NSString*)_id withParams:(NSDictionary*)params callback:(void (^)(id object, NSError* err))block {
 	
-	[self sharedAuth].authToken = @"0";
-	
 	NSData *requestData = nil;
     NSString *url = nil;
-	if ([endpoint isEqualToString:kSPRESTSearch] ||
-		[endpoint isEqualToString:kSPRESTAlbums] ||
-		[endpoint isEqualToString:kSPRESTArtists]) {
-		url = [NSString stringWithFormat:@"%@://%@/%@/%@", kSPWebProtocol, kSPWebHost, kSPWebVersion, endpoint];
-		
-		if (_id != nil) {
-			url = [NSString stringWithFormat:@"%@/%@", url, _id];
-		}
-		
-		if (action != nil) {
-			url = [NSString stringWithFormat:@"%@/%@", url, action];
-		}
-		
-		bool first = YES;
-		for (NSString *key in params.allKeys) {
-			if (first) {
-				url = [NSString stringWithFormat:@"%@?%@=%@", url, key, [params objectForKey:key]];
-				first = NO;
-			} else {
-				url = [NSString stringWithFormat:@"%@&%@=%@", url, key, [params objectForKey:key]];
+	
+	url = [NSString stringWithFormat:@"%@://%@/%@/%@", kRiverWebProtocol, kRiverWebHost, kRiverWebPath, endpoint];
+	
+	if (_id != nil) {
+		url = [NSString stringWithFormat:@"%@/%@", url, _id];
+	}
+	
+	if (action != nil) {
+		url = [NSString stringWithFormat:@"%@/%@", url, action];
+	}
+	
+	if (params != nil && params.count > 0) {
+		if ([verb isEqualToString:kRiverWebApiVerbGet]) {
+			bool firstDone = NO;
+			
+			for (NSString *key in [params keyEnumerator]) {
+				if (!firstDone) {
+					url = [NSString stringWithFormat:@"%@?%@=%@", url, key, [params objectForKey:key]];
+					firstDone = YES;
+				} else {
+					url = [NSString stringWithFormat:@"%@&%@=%@", url, key, [params objectForKey:key]];
+				}
 			}
-		}
-	} else {
-		url = [NSString stringWithFormat:@"%@://%@/%@/%@/%@", kRiverWebProtocol, kRiverWebHost, kRiverWebPath, kRiverWebVersion, endpoint];
-		
-		if (action != nil) {
-			url = [NSString stringWithFormat:@"%@/%@", url, action];
-		}
-		
-		if (_id != nil) {
-			url = [NSString stringWithFormat:@"%@/%@", url, _id];
-		}
-		
-		if (params != nil) {
+		} else {
 			NSError* error = nil;
 			id result = [NSJSONSerialization dataWithJSONObject:params
-														options:kNilOptions error:&error];
+														options:kNilOptions
+														  error:&error];
 			
 			NSString* jsonString = @"";
 			if (!error)
@@ -80,60 +69,48 @@ static RiverAuthAccount *instance = nil;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
 	[request setHTTPMethod:verb];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-	
-	if (requestData != nil) {
+	if (requestData) {
 		request.HTTPBody = requestData;
 	}
     
-    RiverConnection *connection = [[RiverConnection alloc] initWithRequest:request];
+    MGConnection *connection = [[MGConnection alloc] initWithRequest:request];
 	[connection setCompletionBlock:block];
 	
 	[connection start];
 }
 
 + (void)authorizedSyncRESTCall:(NSString*)endpoint action:(NSString*)action verb:(NSString*)verb _id:(NSString*)_id withParams:(NSDictionary*)params callback:(void (^)(id object, NSError* err))block {
-
-	[self sharedAuth].authToken = @"0";
 	
 	NSData *requestData = nil;
     NSString *url = nil;
-	if ([endpoint isEqualToString:kSPRESTSearch] ||
-		[endpoint isEqualToString:kSPRESTAlbums] ||
-		[endpoint isEqualToString:kSPRESTArtists]) {
-		url = [NSString stringWithFormat:@"%@://%@/%@/%@", kSPWebProtocol, kSPWebHost, kSPWebVersion, endpoint];
-		
-		if (_id != nil) {
-			url = [NSString stringWithFormat:@"%@/%@", url, _id];
-		}
-		
-		if (action != nil) {
-			url = [NSString stringWithFormat:@"%@/%@", url, action];
-		}
-		
-		bool first = YES;
-		for (NSString *key in params.allKeys) {
-			if (first) {
-				url = [NSString stringWithFormat:@"%@?%@=%@", url, key, [params objectForKey:key]];
-				first = NO;
-			} else {
-				url = [NSString stringWithFormat:@"%@&%@=%@", url, key, [params objectForKey:key]];
+	
+	url = [NSString stringWithFormat:@"%@://%@/%@/%@", kRiverWebProtocol, kRiverWebHost, kRiverWebPath, endpoint];
+	
+	if (_id != nil) {
+		url = [NSString stringWithFormat:@"%@/%@", url, _id];
+	}
+	
+	if (action != nil) {
+		url = [NSString stringWithFormat:@"%@/%@", url, action];
+	}
+	
+	if (params != nil && params.count > 0) {
+		if ([verb isEqualToString:kRiverWebApiVerbGet]) {
+			bool firstDone = NO;
+			
+			for (NSString *key in [params keyEnumerator]) {
+				if (!firstDone) {
+					url = [NSString stringWithFormat:@"%@?%@=%@", url, key, [params objectForKey:key]];
+					firstDone = YES;
+				} else {
+					url = [NSString stringWithFormat:@"%@&%@=%@", url, key, [params objectForKey:key]];
+				}
 			}
-		}
-	} else {
-		url = [NSString stringWithFormat:@"%@://%@/%@/%@/%@", kRiverWebProtocol, kRiverWebHost, kRiverWebPath, kRiverWebVersion, endpoint];
-		
-		if (action != nil) {
-			url = [NSString stringWithFormat:@"%@/%@", url, action];
-		}
-		
-		if (_id != nil) {
-			url = [NSString stringWithFormat:@"%@/%@", url, _id];
-		}
-		
-		if (params != nil) {
+		} else {
 			NSError* error = nil;
 			id result = [NSJSONSerialization dataWithJSONObject:params
-														options:kNilOptions error:&error];
+														options:kNilOptions
+														  error:&error];
 			
 			NSString* jsonString = @"";
 			if (!error)
@@ -151,12 +128,11 @@ static RiverAuthAccount *instance = nil;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
 	[request setHTTPMethod:verb];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-	
-	if (requestData != nil) {
+	if (requestData) {
 		request.HTTPBody = requestData;
 	}
     
-    RiverConnection *connection = [[RiverConnection alloc] initWithRequest:request];
+    MGConnection *connection = [[MGConnection alloc] initWithRequest:request];
 	[connection setCompletionBlock:block];
 	
 	[connection startSynchronously];

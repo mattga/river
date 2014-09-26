@@ -49,14 +49,14 @@
 	[self.artistLabel setText:artistName];
 	
 	// Set footer labels
-	[self.userLabel setText:[[RiverAuthAccount sharedAuth] currentUser].userName];
+	[self.userLabel setText:[[RiverAuthController sharedAuth] currentUser].userName];
 	[self.roomLabel setText:[GlobalVars getVar].memberedRoom.roomName];
-	[self.tokenLabel setText:[NSString stringWithFormat:@"%d", [[RiverAuthAccount sharedAuth] currentUser].tokens]];
+	[self.tokenLabel setText:[NSString stringWithFormat:@"%d", [[RiverAuthController sharedAuth] currentUser].tokens]];
 	
 }
 
 - (void)fetchArtistDetails {
-	[RiverAuthAccount authorizedRESTCall:kSPRESTArtists
+	[RiverAuthController authorizedRESTCall:kSPRESTArtists
 								  action:kSPRESTAlbums
 									verb:kRiverGet
 									 _id:artistId
@@ -71,7 +71,7 @@
 										for (int i = 0; i < self.albums.count; i++) {
 											NSDictionary *album = [self.albums objectAtIndex:i];
 											
-											[RiverAuthAccount authorizedRESTCall:kSPRESTAlbums
+											[RiverAuthController authorizedRESTCall:kSPRESTAlbums
 																		  action:nil
 																			verb:kRiverGet
 																			 _id:[album objectForKey:@"id"]

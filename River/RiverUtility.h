@@ -10,4 +10,7 @@
 
 @interface RiverUtility : NSObject
 
++ (NSDate*)parseCSharpDateTime:(NSString*)rawData;
++ (BOOL)isJsonNull:(NSDictionary*)dict forKey:(NSString*)key;
+
 @end

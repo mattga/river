@@ -9,7 +9,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "TrackDetailViewController.h"
 #import "GlobalVars.h"
-#import "RiverAuthAccount.h"
+#import "RiverAuthController.h"
 #import "SPJSONParser.h"
 #import "RiverSyncUtility.h"
 
@@ -47,11 +47,11 @@
 	// Populate labels...
 	memberedRoom = [GlobalVars getVar].memberedRoom;
 	
-	self.usernameLabel.text = [RiverAuthAccount sharedAuth].username;
+	self.usernameLabel.text = [RiverAuthController sharedAuth].currentUser.userName;
     if(memberedRoom != nil) {
         NSLog(@"membered room %@",[GlobalVars getVar].memberedRoom.roomName);
         self.roomLabel.text = [GlobalVars getVar].memberedRoom.roomName;
-        self.tokenLabel.text = [NSString stringWithFormat:@"%d",[RiverAuthAccount sharedAuth].currentUser.tokens];
+        self.tokenLabel.text = [NSString stringWithFormat:@"%d",[RiverAuthController sharedAuth].currentUser.tokens];
     } else {
         self.roomLabel.text = @"-";
         self.tokenLabel.text = @"-";
@@ -77,7 +77,7 @@
 }
 
 - (void)fetchAlbumDetails {
-	[RiverAuthAccount authorizedRESTCall:kSPRESTAlbums
+	[RiverAuthController authorizedRESTCall:kSPRESTAlbums
 								  action:nil
 									verb:kRiverGet
 									 _id:[[track objectForKey:@"album"] objectForKey:@"id"]
@@ -109,13 +109,11 @@
 	if (bid < 10) {
 		[bidAlert removeFromSuperview];
 		
-        [RiverAlertUtility showOKAlertWithMessage:@"Requesting a song requires a minimum of 10 tokens!"
-										   onView:self.view];
+        [RiverAlertUtility showOKAlertWithMessage:@"Requesting a song requires a minimum of 10 tokens!"];
     } else if([GlobalVars getVar].memberedRoom == nil) {
 		[bidAlert removeFromSuperview];
 		
-        [RiverAlertUtility showOKAlertWithMessage:@"You must join a room before requesting a song."
-										   onView:self.view];
+        [RiverAlertUtility showOKAlertWithMessage:@"You must join a room before requesting a song."];
 	} else {
 		[button setEnabled:NO];
 		
@@ -145,12 +143,12 @@
 			[dict setObject:@((int)bid) forKey:@"Tokens"];
 		}
 		
-		[RiverAuthAccount authorizedRESTCall:kRiverRESTRoom
+		[RiverAuthController authorizedRESTCall:kRiverWebApiRoom
 									  action:kRiverActionAddSong
 										verb:kRiverPost
 										 _id:@"1"
 								  withParams:@{@"RoomName" : memberedRoom.roomName,
-											   @"Users" : @[@{@"User" : @{@"Username" : [RiverAuthAccount sharedAuth].username}}],
+											   @"Users" : @[@{@"User" : @{@"Username" : [RiverAuthController sharedAuth].currentUser.userName}}],
 											   @"Songs" : @[dict]}
 									callback:^(NSDictionary *object, NSError *err) {
 										
@@ -167,20 +165,17 @@
 												
 												[self.navigationController popToRootViewControllerAnimated:YES];
 												
-												[RiverAlertUtility showOKAlertWithMessage:[NSString stringWithFormat:@"%d tokens added to %@", bid, [track objectForKey:@"track_name"]]
-																				   onView:self.view];
+												[RiverAlertUtility showOKAlertWithMessage:[NSString stringWithFormat:@"%d tokens added to %@", bid, [track objectForKey:@"track_name"]]];
 											} else if (status.statusCode.intValue == kRiverStatusOK) {
 												
 												[[RiverSyncUtility sharedSyncing] preemptRoomSync];
 												
 												[self.navigationController popToRootViewControllerAnimated:YES];
 												
-												[RiverAlertUtility showOKAlertWithMessage:[NSString stringWithFormat:@"%@ has been added with %d tokens.", [track objectForKey:@"track_name"], bid]
-																				   onView:self.view];
+												[RiverAlertUtility showOKAlertWithMessage:[NSString stringWithFormat:@"%@ has been added with %d tokens.", [track objectForKey:@"track_name"], bid]];
 											} else {
 												
-												[RiverAlertUtility showOKAlertWithMessage:@"ERROR"
-																				   onView:self.view];
+												[RiverAlertUtility showOKAlertWithMessage:@"ERROR"];
 											}
 											
 											[button setEnabled:YES];

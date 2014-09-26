@@ -8,7 +8,7 @@
 
 #import "ArtistAlbumsTableViewController.h"
 #import "ResultsAlbumTableViewCell.h"
-#import "RiverAuthAccount.h"
+#import "RiverAuthController.h"
 #import "AlbumDetailViewController.h"
 #import "ArtistDetailViewController.h"
 #import "SPJSONParser.h"
