@@ -57,7 +57,7 @@
 		UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"River_iPhone" bundle:[NSBundle mainBundle]];
 		UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"AuthView"];
 		UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
-		
+		self.window.rootViewController = nvc;
 	}
 	
     // Initialize spotify session

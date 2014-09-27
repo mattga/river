@@ -35,11 +35,6 @@
 		A906F33D198D2FBF002D23C2 /* libCocoaLibSpotify.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A906F338198D2FA1002D23C2 /* libCocoaLibSpotify.a */; };
 		A90B836418CC4D0D001FB537 /* RiverPlaybackManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A90B836318CC4D0D001FB537 /* RiverPlaybackManager.m */; };
 		A90E970C1969BE7F00AC906D /* SPJSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = A90E970B1969BE7F00AC906D /* SPJSONParser.m */; };
-<<<<<<< HEAD
-=======
-		A91F30F918C8744200EC10E6 /* RiverSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A91F30F818C8744200EC10E6 /* RiverSetupViewController.m */; };
-		A91FB7DB190A45B7001C8024 /* RiverConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = A91FB7DA190A45B7001C8024 /* RiverConnection.m */; };
->>>>>>> master
 		A92548BD1972FB6D00AC1D98 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A92548BC1972FB6D00AC1D98 /* MediaPlayer.framework */; };
 		A92A2A00190DA45B00348C07 /* RoomTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A92A29FF190DA45B00348C07 /* RoomTableViewController.m */; };
 		A92EB61E193321CD0036974C /* RiverFrontViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A92EB61D193321CD0036974C /* RiverFrontViewController.m */; };
@@ -50,33 +45,23 @@
 		A9539A52191CB431007E032D /* ResultsSongTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9539A51191CB431007E032D /* ResultsSongTableViewCell.m */; };
 		A9539A55191CB442007E032D /* ResultsArtistTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9539A54191CB442007E032D /* ResultsArtistTableViewCell.m */; };
 		A9539A58191CB44C007E032D /* ResultsAlbumTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9539A57191CB44C007E032D /* ResultsAlbumTableViewCell.m */; };
-<<<<<<< HEAD
 		A966137519BD132E007166D1 /* RiverChooseAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A966137419BD132E007166D1 /* RiverChooseAuthViewController.m */; };
 		A966137819BD579E007166D1 /* MGConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = A966137719BD579E007166D1 /* MGConnection.m */; };
 		A966137B19BD592A007166D1 /* RiverLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A966137A19BD592A007166D1 /* RiverLoginViewController.m */; };
 		A966137E19BD593C007166D1 /* RiverSignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A966137D19BD593C007166D1 /* RiverSignupViewController.m */; };
 		A966138119BD8288007166D1 /* RiverUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = A966138019BD8288007166D1 /* RiverUtility.m */; };
-=======
->>>>>>> master
 		A96BACBC18C81FB000FC7A74 /* settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = A96BACBB18C81FB000FC7A74 /* settings.plist */; };
 		A981E89A19628D4400EEDD61 /* RiverStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = A981E89919628D4400EEDD61 /* RiverStatus.m */; };
 		A984AF9E19C2530E0052E2D5 /* btn_header_plus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A984AF9D19C2530E0052E2D5 /* btn_header_plus@2x.png */; };
 		A984AFA219C256B30052E2D5 /* playbackcontrols.png in Resources */ = {isa = PBXBuildFile; fileRef = A984AFA119C256B30052E2D5 /* playbackcontrols.png */; };
 		A986EE79190CF13800F1483E /* RiverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A986EE78190CF13800F1483E /* RiverViewController.m */; };
 		A987A74C192B1EA100450A8D /* RiverAlertUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = A987A74B192B1EA100450A8D /* RiverAlertUtility.m */; };
-<<<<<<< HEAD
 		A98C5DF918CE6F3900A8C632 /* ArtistDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C5DF818CE6F3900A8C632 /* ArtistDetailViewController.m */; };
 		A990BB7F18F7B4990097151D /* River_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A990BB7E18F7B4990097151D /* River_iPhone.storyboard */; };
-=======
-		A98A59EE192F467E0031D65E /* RiverLoadingUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = A98A59ED192F467E0031D65E /* RiverLoadingUtility.m */; };
-		A98C5DF918CE6F3900A8C632 /* ArtistDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C5DF818CE6F3900A8C632 /* ArtistDetailViewController.m */; };
-		A990BB7F18F7B4990097151D /* RiverStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A990BB7E18F7B4990097151D /* RiverStoryboard_iPhone.storyboard */; };
->>>>>>> master
 		A997BD8218C6487700A9497C /* TrackDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A997BD8118C6487700A9497C /* TrackDetailViewController.m */; };
 		A9A2F291191FE8E300D5406C /* ArtistAlbumsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A2F290191FE8E300D5406C /* ArtistAlbumsTableViewController.m */; };
 		A9A668321928191D006B80FB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A9A6676E1928191D006B80FB /* InfoPlist.strings */; };
 		A9A668E61928191D006B80FB /* RiverSessionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A6682E1928191D006B80FB /* RiverSessionDelegate.m */; };
-<<<<<<< HEAD
 		A9A8011519D71B6400095C93 /* RiverChooseSPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8011419D71B6400095C93 /* RiverChooseSPViewController.m */; };
 		A9A8012319D7362D00095C93 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A9A8012019D7362D00095C93 /* SVProgressHUD.bundle */; };
 		A9A8012419D7362D00095C93 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8012219D7362D00095C93 /* SVProgressHUD.m */; };
@@ -109,10 +94,6 @@
 		A9B2F4D119C0D6B400DE4AFC /* sp_ico_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9B2F4B719C0D6B400DE4AFC /* sp_ico_logo@2x.png */; };
 		A9B2F4D319C0E51A00DE4AFC /* ico_shakedevice@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9B2F4D219C0E51A00DE4AFC /* ico_shakedevice@2x.png */; };
 		A9B2F4D519C0E5EB00DE4AFC /* ico_search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9B2F4D419C0E5EB00DE4AFC /* ico_search@2x.png */; };
-=======
-		A9A735FB19299C81007EC80B /* SideMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A735FA19299C81007EC80B /* SideMenuTableViewCell.m */; };
-		A9A9806E1921EED000E5E60F /* AlbumTracksTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A9806D1921EED000E5E60F /* AlbumTracksTableViewController.m */; };
->>>>>>> master
 		A9B944FD18D07F0600CA0240 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9B944FC18D07F0600CA0240 /* SDWebImage.framework */; };
 		A9B944FF18D07FF300CA0240 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9B944FE18D07FF300CA0240 /* CoreImage.framework */; };
 		A9B9450118D07FFA00CA0240 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9B9450018D07FFA00CA0240 /* ImageIO.framework */; };
@@ -120,19 +101,11 @@
 		A9BDE17F18B967300064E181 /* RoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BDE17E18B967300064E181 /* RoomViewController.m */; };
 		A9BDE18518B974BE0064E181 /* JoinRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BDE18418B974BE0064E181 /* JoinRoomViewController.m */; };
 		A9BDE18818B974E10064E181 /* DiscoverRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BDE18718B974E10064E181 /* DiscoverRoomViewController.m */; };
-<<<<<<< HEAD
-=======
-		A9BED22019325E7000C2EC01 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BED21F19325E7000C2EC01 /* SettingsViewController.m */; };
->>>>>>> master
 		A9C4341C18C9B60F004CA912 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9C4341B18C9B60F004CA912 /* Images.xcassets */; };
 		A9C78FEA193393A900E79E4D /* RiverAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C78FE9193393A900E79E4D /* RiverAlertView.m */; };
 		A9C78FED19340C3000E79E4D /* UITextView+MGCustomFont.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C78FEC19340C3000E79E4D /* UITextView+MGCustomFont.m */; };
 		A9CA314918CEBC56006A4B66 /* AlbumDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9CA314818CEBC56006A4B66 /* AlbumDetailViewController.m */; };
-<<<<<<< HEAD
 		A9D511D3190A311F00BD69D7 /* RiverAuthController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D511D2190A311F00BD69D7 /* RiverAuthController.m */; };
-=======
-		A9D511D3190A311F00BD69D7 /* RiverAuthAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D511D2190A311F00BD69D7 /* RiverAuthAccount.m */; };
->>>>>>> master
 		A9D9BDA21925D68800543808 /* RiverSPLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D9BDA11925D68800543808 /* RiverSPLoginViewController.m */; };
 		A9DAF58918CD31C500B3B916 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DAF58818CD31C500B3B916 /* User.m */; };
 		A9DAF58D18CD32D900B3B916 /* Song.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DAF58C18CD32D900B3B916 /* Song.m */; };
@@ -213,11 +186,6 @@
 		A90B836318CC4D0D001FB537 /* RiverPlaybackManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RiverPlaybackManager.m; sourceTree = "<group>"; };
 		A90E970A1969BE7F00AC906D /* SPJSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPJSONParser.h; sourceTree = "<group>"; };
 		A90E970B1969BE7F00AC906D /* SPJSONParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPJSONParser.m; sourceTree = "<group>"; };
-<<<<<<< HEAD
-=======
-		A91F30F718C8744200EC10E6 /* RiverSetupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RiverSetupViewController.h; sourceTree = "<group>"; };
-		A91F30F818C8744200EC10E6 /* RiverSetupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RiverSetupViewController.m; sourceTree = "<group>"; };
->>>>>>> master
 		A91FB7D7190A428E001C8024 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		A92548BC1972FB6D00AC1D98 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		A92A29FE190DA45B00348C07 /* RoomTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomTableViewController.h; sourceTree = "<group>"; };
@@ -238,7 +206,6 @@
 		A9539A54191CB442007E032D /* ResultsArtistTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultsArtistTableViewCell.m; sourceTree = "<group>"; };
 		A9539A56191CB44C007E032D /* ResultsAlbumTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultsAlbumTableViewCell.h; sourceTree = "<group>"; };
 		A9539A57191CB44C007E032D /* ResultsAlbumTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultsAlbumTableViewCell.m; sourceTree = "<group>"; };
-<<<<<<< HEAD
 		A966137319BD132E007166D1 /* RiverChooseAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RiverChooseAuthViewController.h; sourceTree = "<group>"; };
 		A966137419BD132E007166D1 /* RiverChooseAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RiverChooseAuthViewController.m; sourceTree = "<group>"; };
 		A966137619BD579E007166D1 /* MGConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGConnection.h; sourceTree = "<group>"; };
@@ -249,8 +216,6 @@
 		A966137D19BD593C007166D1 /* RiverSignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RiverSignupViewController.m; sourceTree = "<group>"; };
 		A966137F19BD8288007166D1 /* RiverUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RiverUtility.h; sourceTree = "<group>"; };
 		A966138019BD8288007166D1 /* RiverUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RiverUtility.m; sourceTree = "<group>"; };
-=======
->>>>>>> master
 		A96BACBB18C81FB000FC7A74 /* settings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = settings.plist; sourceTree = "<group>"; };
 		A981E89819628D4400EEDD61 /* RiverStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RiverStatus.h; sourceTree = "<group>"; };
 		A981E89919628D4400EEDD61 /* RiverStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RiverStatus.m; sourceTree = "<group>"; };
@@ -261,17 +226,9 @@
 		A986EE78190CF13800F1483E /* RiverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RiverViewController.m; sourceTree = "<group>"; };
 		A987A74A192B1EA100450A8D /* RiverAlertUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RiverAlertUtility.h; sourceTree = "<group>"; };
 		A987A74B192B1EA100450A8D /* RiverAlertUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RiverAlertUtility.m; sourceTree = "<group>"; };
-<<<<<<< HEAD
 		A98C5DF718CE6F3900A8C632 /* ArtistDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtistDetailViewController.h; sourceTree = "<group>"; };
 		A98C5DF818CE6F3900A8C632 /* ArtistDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArtistDetailViewController.m; sourceTree = "<group>"; };
 		A990BB7E18F7B4990097151D /* River_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = River_iPhone.storyboard; sourceTree = "<group>"; };
-=======
-		A98A59EC192F467E0031D65E /* RiverLoadingUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RiverLoadingUtility.h; sourceTree = "<group>"; };
-		A98A59ED192F467E0031D65E /* RiverLoadingUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RiverLoadingUtility.m; sourceTree = "<group>"; };
-		A98C5DF718CE6F3900A8C632 /* ArtistDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtistDetailViewController.h; sourceTree = "<group>"; };
-		A98C5DF818CE6F3900A8C632 /* ArtistDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArtistDetailViewController.m; sourceTree = "<group>"; };
-		A990BB7E18F7B4990097151D /* RiverStoryboard_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RiverStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
->>>>>>> master
 		A997BD8018C6487700A9497C /* TrackDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackDetailViewController.h; sourceTree = "<group>"; };
 		A997BD8118C6487700A9497C /* TrackDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackDetailViewController.m; sourceTree = "<group>"; };
 		A9A2F28F191FE8E300D5406C /* ArtistAlbumsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtistAlbumsTableViewController.h; sourceTree = "<group>"; };
@@ -279,7 +236,6 @@
 		A9A6676F1928191D006B80FB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
 		A9A6682D1928191D006B80FB /* RiverSessionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RiverSessionDelegate.h; sourceTree = "<group>"; };
 		A9A6682E1928191D006B80FB /* RiverSessionDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RiverSessionDelegate.m; sourceTree = "<group>"; };
-<<<<<<< HEAD
 		A9A8011319D71B6400095C93 /* RiverChooseSPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RiverChooseSPViewController.h; sourceTree = "<group>"; };
 		A9A8011419D71B6400095C93 /* RiverChooseSPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RiverChooseSPViewController.m; sourceTree = "<group>"; };
 		A9A8012019D7362D00095C93 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
@@ -315,12 +271,6 @@
 		A9B2F4B719C0D6B400DE4AFC /* sp_ico_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sp_ico_logo@2x.png"; path = "Assets/sp_ico_logo@2x.png"; sourceTree = "<group>"; };
 		A9B2F4D219C0E51A00DE4AFC /* ico_shakedevice@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ico_shakedevice@2x.png"; path = "Assets/ico_shakedevice@2x.png"; sourceTree = "<group>"; };
 		A9B2F4D419C0E5EB00DE4AFC /* ico_search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ico_search@2x.png"; path = "Assets/ico_search@2x.png"; sourceTree = "<group>"; };
-=======
-		A9A735F919299C81007EC80B /* SideMenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SideMenuTableViewCell.h; sourceTree = "<group>"; };
-		A9A735FA19299C81007EC80B /* SideMenuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideMenuTableViewCell.m; sourceTree = "<group>"; };
-		A9A9806C1921EED000E5E60F /* AlbumTracksTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlbumTracksTableViewController.h; sourceTree = "<group>"; };
-		A9A9806D1921EED000E5E60F /* AlbumTracksTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumTracksTableViewController.m; sourceTree = "<group>"; };
->>>>>>> master
 		A9B944FC18D07F0600CA0240 /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDWebImage.framework; sourceTree = "<group>"; };
 		A9B944FE18D07FF300CA0240 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		A9B9450018D07FFA00CA0240 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -332,11 +282,6 @@
 		A9BDE18418B974BE0064E181 /* JoinRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoinRoomViewController.m; sourceTree = "<group>"; };
 		A9BDE18618B974E10064E181 /* DiscoverRoomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscoverRoomViewController.h; sourceTree = "<group>"; };
 		A9BDE18718B974E10064E181 /* DiscoverRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscoverRoomViewController.m; sourceTree = "<group>"; };
-<<<<<<< HEAD
-=======
-		A9BED21E19325E7000C2EC01 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
-		A9BED21F19325E7000C2EC01 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
->>>>>>> master
 		A9C4341B18C9B60F004CA912 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A9C78FE8193393A900E79E4D /* RiverAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RiverAlertView.h; sourceTree = "<group>"; };
 		A9C78FE9193393A900E79E4D /* RiverAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RiverAlertView.m; sourceTree = "<group>"; };
@@ -344,13 +289,8 @@
 		A9C78FEC19340C3000E79E4D /* UITextView+MGCustomFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+MGCustomFont.m"; sourceTree = "<group>"; };
 		A9CA314718CEBC56006A4B66 /* AlbumDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlbumDetailViewController.h; sourceTree = "<group>"; };
 		A9CA314818CEBC56006A4B66 /* AlbumDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumDetailViewController.m; sourceTree = "<group>"; };
-<<<<<<< HEAD
 		A9D511D1190A311F00BD69D7 /* RiverAuthController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RiverAuthController.h; sourceTree = "<group>"; };
 		A9D511D2190A311F00BD69D7 /* RiverAuthController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RiverAuthController.m; sourceTree = "<group>"; };
-=======
-		A9D511D1190A311F00BD69D7 /* RiverAuthAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RiverAuthAccount.h; sourceTree = "<group>"; };
-		A9D511D2190A311F00BD69D7 /* RiverAuthAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RiverAuthAccount.m; sourceTree = "<group>"; };
->>>>>>> master
 		A9D9BDA01925D68800543808 /* RiverSPLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RiverSPLoginViewController.h; sourceTree = "<group>"; };
 		A9D9BDA11925D68800543808 /* RiverSPLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RiverSPLoginViewController.m; sourceTree = "<group>"; };
 		A9DAF58718CD31C500B3B916 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
@@ -509,30 +449,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-<<<<<<< HEAD
-=======
-		A903FA6218B668D600FC1D7D /* res */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = res;
-			sourceTree = "<group>";
-		};
-		A903FAAE18B669A500FC1D7D /* SideMenu */ = {
-			isa = PBXGroup;
-			children = (
-				A903FA2918B668B600FC1D7D /* SideMenuViewController.h */,
-				A903FA2A18B668B600FC1D7D /* SideMenuViewController.m */,
-				A903FAAF18B669A500FC1D7D /* SWRevealViewController.h */,
-				A903FAB018B669A500FC1D7D /* SWRevealViewController.m */,
-				A9A735F919299C81007EC80B /* SideMenuTableViewCell.h */,
-				A9A735FA19299C81007EC80B /* SideMenuTableViewCell.m */,
-			);
-			name = SideMenu;
-			path = SWRevealViewController;
-			sourceTree = "<group>";
-		};
->>>>>>> master
 		A906F333198D2FA1002D23C2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -617,7 +533,6 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
-<<<<<<< HEAD
 		A966134B19BB78C9007166D1 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
@@ -633,8 +548,6 @@
 			name = Assets;
 			sourceTree = "<group>";
 		};
-=======
->>>>>>> master
 		A986EE76190CF11D00F1483E /* Custom */ = {
 			isa = PBXGroup;
 			children = (
@@ -720,7 +633,6 @@
 			path = en.lproj;
 			sourceTree = "<group>";
 		};
-<<<<<<< HEAD
 		A9A8011E19D7362D00095C93 /* SVProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
@@ -772,8 +684,6 @@
 			path = Assets/Fonts;
 			sourceTree = "<group>";
 		};
-=======
->>>>>>> master
 		A9D511CE190A30FC00BD69D7 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
@@ -798,11 +708,7 @@
 				A9A8011319D71B6400095C93 /* RiverChooseSPViewController.h */,
 				A9A8011419D71B6400095C93 /* RiverChooseSPViewController.m */,
 			);
-<<<<<<< HEAD
 			name = View;
-=======
-			name = ViewControllers;
->>>>>>> master
 			sourceTree = "<group>";
 		};
 		A9DB79211917772E00198DD6 /* Host Flow */ = {
@@ -938,7 +844,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-<<<<<<< HEAD
 				A9B2F4B919C0D6B400DE4AFC /* AppIcon29x29@2x.png in Resources */,
 				A9B2F4BA19C0D6B400DE4AFC /* AppIcon40x40.png in Resources */,
 				A984AF9E19C2530E0052E2D5 /* btn_header_plus@2x.png in Resources */,
@@ -976,14 +881,6 @@
 				A9B2F4C119C0D6B400DE4AFC /* AppIcon60x60@2x.png in Resources */,
 				A9B2F4CA19C0D6B400DE4AFC /* Gotham-BoldItalic.otf in Resources */,
 				A9B2F4BC19C0D6B400DE4AFC /* AppIcon50x50.png in Resources */,
-=======
-				A9A668321928191D006B80FB /* InfoPlist.strings in Resources */,
-				A9C4341C18C9B60F004CA912 /* Images.xcassets in Resources */,
-				A990BB7F18F7B4990097151D /* RiverStoryboard_iPhone.storyboard in Resources */,
-				A906F33C198D2FAC002D23C2 /* SPLoginResources.bundle in Resources */,
-				A96BACBC18C81FB000FC7A74 /* settings.plist in Resources */,
-				A903F9DA18B6684600FC1D7D /* InfoPlist.strings in Resources */,
->>>>>>> master
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
