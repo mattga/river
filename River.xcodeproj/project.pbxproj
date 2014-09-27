@@ -56,13 +56,15 @@
 		A984AFA219C256B30052E2D5 /* playbackcontrols.png in Resources */ = {isa = PBXBuildFile; fileRef = A984AFA119C256B30052E2D5 /* playbackcontrols.png */; };
 		A986EE79190CF13800F1483E /* RiverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A986EE78190CF13800F1483E /* RiverViewController.m */; };
 		A987A74C192B1EA100450A8D /* RiverAlertUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = A987A74B192B1EA100450A8D /* RiverAlertUtility.m */; };
-		A98A59EE192F467E0031D65E /* RiverLoadingUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = A98A59ED192F467E0031D65E /* RiverLoadingUtility.m */; };
 		A98C5DF918CE6F3900A8C632 /* ArtistDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C5DF818CE6F3900A8C632 /* ArtistDetailViewController.m */; };
-		A990BB7F18F7B4990097151D /* RiverStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A990BB7E18F7B4990097151D /* RiverStoryboard_iPhone.storyboard */; };
+		A990BB7F18F7B4990097151D /* River_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A990BB7E18F7B4990097151D /* River_iPhone.storyboard */; };
 		A997BD8218C6487700A9497C /* TrackDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A997BD8118C6487700A9497C /* TrackDetailViewController.m */; };
 		A9A2F291191FE8E300D5406C /* ArtistAlbumsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A2F290191FE8E300D5406C /* ArtistAlbumsTableViewController.m */; };
 		A9A668321928191D006B80FB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A9A6676E1928191D006B80FB /* InfoPlist.strings */; };
 		A9A668E61928191D006B80FB /* RiverSessionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A6682E1928191D006B80FB /* RiverSessionDelegate.m */; };
+		A9A8011519D71B6400095C93 /* RiverChooseSPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8011419D71B6400095C93 /* RiverChooseSPViewController.m */; };
+		A9A8012319D7362D00095C93 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A9A8012019D7362D00095C93 /* SVProgressHUD.bundle */; };
+		A9A8012419D7362D00095C93 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A8012219D7362D00095C93 /* SVProgressHUD.m */; };
 		A9A9806E1921EED000E5E60F /* AlbumTracksTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A9806D1921EED000E5E60F /* AlbumTracksTableViewController.m */; };
 		A9B2F4B819C0D6B400DE4AFC /* AppIcon29x29.png in Resources */ = {isa = PBXBuildFile; fileRef = A9B2F49D19C0D6B400DE4AFC /* AppIcon29x29.png */; };
 		A9B2F4B919C0D6B400DE4AFC /* AppIcon29x29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9B2F49E19C0D6B400DE4AFC /* AppIcon29x29@2x.png */; };
@@ -224,11 +226,9 @@
 		A986EE78190CF13800F1483E /* RiverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RiverViewController.m; sourceTree = "<group>"; };
 		A987A74A192B1EA100450A8D /* RiverAlertUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RiverAlertUtility.h; sourceTree = "<group>"; };
 		A987A74B192B1EA100450A8D /* RiverAlertUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RiverAlertUtility.m; sourceTree = "<group>"; };
-		A98A59EC192F467E0031D65E /* RiverLoadingUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RiverLoadingUtility.h; sourceTree = "<group>"; };
-		A98A59ED192F467E0031D65E /* RiverLoadingUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RiverLoadingUtility.m; sourceTree = "<group>"; };
 		A98C5DF718CE6F3900A8C632 /* ArtistDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtistDetailViewController.h; sourceTree = "<group>"; };
 		A98C5DF818CE6F3900A8C632 /* ArtistDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArtistDetailViewController.m; sourceTree = "<group>"; };
-		A990BB7E18F7B4990097151D /* RiverStoryboard_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RiverStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
+		A990BB7E18F7B4990097151D /* River_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = River_iPhone.storyboard; sourceTree = "<group>"; };
 		A997BD8018C6487700A9497C /* TrackDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackDetailViewController.h; sourceTree = "<group>"; };
 		A997BD8118C6487700A9497C /* TrackDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackDetailViewController.m; sourceTree = "<group>"; };
 		A9A2F28F191FE8E300D5406C /* ArtistAlbumsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtistAlbumsTableViewController.h; sourceTree = "<group>"; };
@@ -236,6 +236,11 @@
 		A9A6676F1928191D006B80FB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
 		A9A6682D1928191D006B80FB /* RiverSessionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RiverSessionDelegate.h; sourceTree = "<group>"; };
 		A9A6682E1928191D006B80FB /* RiverSessionDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RiverSessionDelegate.m; sourceTree = "<group>"; };
+		A9A8011319D71B6400095C93 /* RiverChooseSPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RiverChooseSPViewController.h; sourceTree = "<group>"; };
+		A9A8011419D71B6400095C93 /* RiverChooseSPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RiverChooseSPViewController.m; sourceTree = "<group>"; };
+		A9A8012019D7362D00095C93 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		A9A8012119D7362D00095C93 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		A9A8012219D7362D00095C93 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 		A9A9806C1921EED000E5E60F /* AlbumTracksTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlbumTracksTableViewController.h; sourceTree = "<group>"; };
 		A9A9806D1921EED000E5E60F /* AlbumTracksTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumTracksTableViewController.m; sourceTree = "<group>"; };
 		A9B2F49D19C0D6B400DE4AFC /* AppIcon29x29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon29x29.png; sourceTree = "<group>"; };
@@ -405,7 +410,7 @@
 				A91FB7D2190A3E0D001C8024 /* Parser */,
 				A903F9DE18B6684600FC1D7D /* RiverAppDelegate.h */,
 				A903F9DF18B6684600FC1D7D /* RiverAppDelegate.m */,
-				A990BB7E18F7B4990097151D /* RiverStoryboard_iPhone.storyboard */,
+				A990BB7E18F7B4990097151D /* River_iPhone.storyboard */,
 				A987A747192B194100450A8D /* Room Flow */,
 				A96BACBB18C81FB000FC7A74 /* settings.plist */,
 				A903F9D618B6684600FC1D7D /* Supporting Files */,
@@ -609,10 +614,9 @@
 		A9A667651927EEE3006B80FB /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				A9A8011E19D7362D00095C93 /* SVProgressHUD */,
 				A987A74A192B1EA100450A8D /* RiverAlertUtility.h */,
 				A987A74B192B1EA100450A8D /* RiverAlertUtility.m */,
-				A98A59EC192F467E0031D65E /* RiverLoadingUtility.h */,
-				A98A59ED192F467E0031D65E /* RiverLoadingUtility.m */,
 				A9045BEE197C56EC00219A5C /* RiverSyncUtility.h */,
 				A9045BEF197C56EC00219A5C /* RiverSyncUtility.m */,
 				A966137F19BD8288007166D1 /* RiverUtility.h */,
@@ -628,6 +632,17 @@
 			);
 			path = en.lproj;
 			sourceTree = "<group>";
+		};
+		A9A8011E19D7362D00095C93 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				A9A8012019D7362D00095C93 /* SVProgressHUD.bundle */,
+				A9A8012119D7362D00095C93 /* SVProgressHUD.h */,
+				A9A8012219D7362D00095C93 /* SVProgressHUD.m */,
+			);
+			name = SVProgressHUD;
+			path = "SVProgressHUD-master/SVProgressHUD";
+			sourceTree = SOURCE_ROOT;
 		};
 		A9B2F49C19C0D6B400DE4AFC /* App Icon [Squared] */ = {
 			isa = PBXGroup;
@@ -672,14 +687,14 @@
 		A9D511CE190A30FC00BD69D7 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
-				A9D9BD9D1925D65A00543808 /* ViewControllers */,
+				A9D9BD9D1925D65A00543808 /* View */,
 				A9D511D1190A311F00BD69D7 /* RiverAuthController.h */,
 				A9D511D2190A311F00BD69D7 /* RiverAuthController.m */,
 			);
 			name = Auth;
 			sourceTree = "<group>";
 		};
-		A9D9BD9D1925D65A00543808 /* ViewControllers */ = {
+		A9D9BD9D1925D65A00543808 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				A9D9BDA01925D68800543808 /* RiverSPLoginViewController.h */,
@@ -690,8 +705,10 @@
 				A966137A19BD592A007166D1 /* RiverLoginViewController.m */,
 				A966137C19BD593C007166D1 /* RiverSignupViewController.h */,
 				A966137D19BD593C007166D1 /* RiverSignupViewController.m */,
+				A9A8011319D71B6400095C93 /* RiverChooseSPViewController.h */,
+				A9A8011419D71B6400095C93 /* RiverChooseSPViewController.m */,
 			);
-			name = ViewControllers;
+			name = View;
 			sourceTree = "<group>";
 		};
 		A9DB79211917772E00198DD6 /* Host Flow */ = {
@@ -835,12 +852,13 @@
 				A9B2F4D519C0E5EB00DE4AFC /* ico_search@2x.png in Resources */,
 				A9B2F4D319C0E51A00DE4AFC /* ico_shakedevice@2x.png in Resources */,
 				A9B2F4C619C0D6B400DE4AFC /* iTunesArtwork.png in Resources */,
+				A9A8012319D7362D00095C93 /* SVProgressHUD.bundle in Resources */,
 				A9A668321928191D006B80FB /* InfoPlist.strings in Resources */,
 				A9B2F4CC19C0D6B400DE4AFC /* Gotham-BookItalic.otf in Resources */,
 				A9B2F4CE19C0D6B400DE4AFC /* Gotham-LightItalic.otf in Resources */,
 				A9C4341C18C9B60F004CA912 /* Images.xcassets in Resources */,
 				A9B2F4C019C0D6B400DE4AFC /* AppIcon60x60.png in Resources */,
-				A990BB7F18F7B4990097151D /* RiverStoryboard_iPhone.storyboard in Resources */,
+				A990BB7F18F7B4990097151D /* River_iPhone.storyboard in Resources */,
 				A906F33C198D2FAC002D23C2 /* SPLoginResources.bundle in Resources */,
 				A9B2F4BE19C0D6B400DE4AFC /* AppIcon57x57.png in Resources */,
 				A9B2F4BB19C0D6B400DE4AFC /* AppIcon40x40@2x.png in Resources */,
@@ -895,6 +913,7 @@
 				A9DB79241917779500198DD6 /* RoomMemberTableViewCell.m in Sources */,
 				A966137519BD132E007166D1 /* RiverChooseAuthViewController.m in Sources */,
 				A9539A4A191C9767007E032D /* AddSongTableViewController.m in Sources */,
+				A9A8012419D7362D00095C93 /* SVProgressHUD.m in Sources */,
 				A9D511D3190A311F00BD69D7 /* RiverAuthController.m in Sources */,
 				A90E970C1969BE7F00AC906D /* SPJSONParser.m in Sources */,
 				A9E0CF5518BB1E1900F7F9B8 /* CreateRoomViewController.m in Sources */,
@@ -902,6 +921,7 @@
 				A9A2F291191FE8E300D5406C /* ArtistAlbumsTableViewController.m in Sources */,
 				A903FA5C18B668B600FC1D7D /* SPAlbumsXMLParser.m in Sources */,
 				A981E89A19628D4400EEDD61 /* RiverStatus.m in Sources */,
+				A9A8011519D71B6400095C93 /* RiverChooseSPViewController.m in Sources */,
 				A92EB61E193321CD0036974C /* RiverFrontViewController.m in Sources */,
 				A903F9E018B6684600FC1D7D /* RiverAppDelegate.m in Sources */,
 				A966137E19BD593C007166D1 /* RiverSignupViewController.m in Sources */,
@@ -929,7 +949,6 @@
 				A9C78FEA193393A900E79E4D /* RiverAlertView.m in Sources */,
 				A9A668E61928191D006B80FB /* RiverSessionDelegate.m in Sources */,
 				A9415F26190E177100AC137C /* RiverTableViewController.m in Sources */,
-				A98A59EE192F467E0031D65E /* RiverLoadingUtility.m in Sources */,
 				A966138119BD8288007166D1 /* RiverUtility.m in Sources */,
 				A9539A55191CB442007E032D /* ResultsArtistTableViewCell.m in Sources */,
 				A9CA314918CEBC56006A4B66 /* AlbumDetailViewController.m in Sources */,

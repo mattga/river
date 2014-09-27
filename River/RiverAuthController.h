@@ -30,5 +30,6 @@
 + (RiverAuthController*) sharedAuth;
 + (void)authorizedRESTCall:(NSString*)endpoint action:(NSString*)action verb:(NSString*)verb _id:(NSString*)_id withParams:(NSDictionary*)params callback:(void (^)(id object, NSError* err))block;
 + (void)authorizedSyncRESTCall:(NSString*)endpoint action:(NSString*)action verb:(NSString*)verb _id:(NSString*)_id withParams:(NSDictionary*)params callback:(void (^)(id object, NSError* err))block;
++ (void)authorizedSPQuery:(NSString*)endpoint action:(NSString*)action _id:(NSString*)_id verb:(NSString*)verb withParams:(NSDictionary*)params callback:(void (^)(id object, NSError* err))block;
 
 @end

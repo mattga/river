@@ -35,7 +35,7 @@
 		[[UITextField appearance] setTintColor:kRiverLightBlue];
 	
 	if (self.usernameLabel != nil && self.roomLabel != nil) {
-		self.usernameLabel.text = [RiverAuthController sharedAuth].currentUser.userName;
+		self.usernameLabel.text = [RiverAuthController sharedAuth].currentUser.DisplayName;
 		self.roomLabel.text = ([GlobalVars getVar].memberedRoom==nil ? @"-" : [NSString stringWithFormat:@"%@",[[GlobalVars getVar].memberedRoom roomName]]);
 		if ([GlobalVars getVar].memberedRoom != nil) {
 			[self updateFooter];
@@ -58,7 +58,7 @@
 }
 
 - (void)updateFooter {
-	self.userTokensLabel.text = [NSString stringWithFormat:@"%d", [[RiverAuthController sharedAuth] currentUser].tokens];
+	self.userTokensLabel.text = [NSString stringWithFormat:@"%d", [[RiverAuthController sharedAuth] currentUser].Tokens];
 }
 
 

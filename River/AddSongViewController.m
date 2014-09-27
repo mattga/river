@@ -12,7 +12,7 @@
 #import "TrackDetailViewController.h"
 #import "ArtistDetailViewController.h"
 #import "AlbumDetailViewController.h"
-#import "RiverLoadingUtility.h"
+#import "SVProgressHUD.h"
 #import "SPJSONParser.h"
 
 
@@ -20,15 +20,15 @@
 @synthesize trackResults, albumResults, artistResults;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+	if (self) {
 		
-    }
-    return self;
+	}
+	return self;
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+	[super viewDidLoad];
 	
 	UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
 								   initWithTarget:self.view
@@ -38,7 +38,7 @@
 	
 	NSString *searchKeyword = [GlobalVars getVar].searchKeyword;
 	if (searchKeyword != nil && ![searchKeyword isEqualToString:@""]) {
-
+		
 		self.searchBar.text = searchKeyword;
 		[self searchSpotify:searchKeyword];
 		
@@ -60,61 +60,65 @@
 
 - (void)didReceiveMemoryWarning
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+	[super didReceiveMemoryWarning];
+	// Dispose of any resources that can be recreated.
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+	[self searchSpotify:searchBar.text];
 }
 
 - (void)searchSpotify:(NSString *)searchText {
-	[RiverAuthController authorizedRESTCall:kSPRESTSearch
-								  action:nil
-									verb:kRiverGet
-									 _id:nil
-							  withParams:@{@"q" : searchText, @"type" : @"track"}
-								callback:^(NSDictionary *object, NSError *err) {
-									trackResults = [SPJSONParser tracksFromSPJSON:object];
-									
-									if (resultsTVC.selectedTab == kSearchResultsSongs)
-										[resultsTVC.tableView reloadData];
-									
-									tracksFetched = YES;
-									if (tracksFetched && artistsFetched && albumsFetched) {
-										[[RiverLoadingUtility sharedLoader] stopLoading];
-									}
-								}];
+	[RiverAuthController authorizedSPQuery:kSPSearch
+									action:nil
+									   _id:nil
+									  verb:kRiverGet
+								withParams:@{@"q" : searchText, @"type" : @"track"}
+								  callback:^(NSDictionary *object, NSError *err) {
+									  trackResults = [SPJSONParser tracksFromSPJSON:object];
+									  
+									  if (resultsTVC.selectedTab == kSearchResultsSongs)
+										  [resultsTVC.tableView reloadData];
+									  
+									  tracksFetched = YES;
+									  if (tracksFetched && artistsFetched && albumsFetched) {
+										  [SVProgressHUD dismiss];
+									  }
+								  }];
 	
-	[RiverAuthController authorizedRESTCall:kSPRESTSearch
-								  action:nil
-									verb:kRiverGet
-									 _id:nil
-							  withParams:@{@"q" : searchText, @"type" : @"artist"}
-								callback:^(NSDictionary *object, NSError *err) {
-									artistResults = [SPJSONParser artistsFromSPJSON:object];
-									
-									if (resultsTVC.selectedTab == kSearchResultsArtists)
-										[resultsTVC.tableView reloadData];
-									
-									artistsFetched = YES;
-									if (tracksFetched && artistsFetched && albumsFetched) {
-										[[RiverLoadingUtility sharedLoader] stopLoading];
-									}
-								}];
+	[RiverAuthController authorizedSPQuery:kSPSearch
+									action:nil
+									   _id:nil
+									  verb:kRiverGet
+								withParams:@{@"q" : searchText, @"type" : @"artist"}
+								  callback:^(NSDictionary *object, NSError *err) {
+									  artistResults = [SPJSONParser artistsFromSPJSON:object];
+									  
+									  if (resultsTVC.selectedTab == kSearchResultsArtists)
+										  [resultsTVC.tableView reloadData];
+									  
+									  artistsFetched = YES;
+									  if (tracksFetched && artistsFetched && albumsFetched) {
+										  [SVProgressHUD dismiss];
+									  }
+								  }];
 	
-	[RiverAuthController authorizedRESTCall:kSPRESTSearch
-								  action:nil
-									verb:kRiverGet
-									 _id:nil
-							  withParams:@{@"q" : searchText, @"type" : @"album"}
-								callback:^(NSDictionary *object, NSError *err) {
-									albumResults = [SPJSONParser albumsFromSPJSON:object];
-									
-									if (resultsTVC.selectedTab == kSearchResultsAlbums)
-										[resultsTVC.tableView reloadData];
-									
-									albumsFetched = YES;
-									if (tracksFetched && artistsFetched && albumsFetched) {
-										[[RiverLoadingUtility sharedLoader] stopLoading];
-									}
-								}];
+	[RiverAuthController authorizedSPQuery:kSPSearch
+									action:nil
+									   _id:nil
+									  verb:kRiverGet
+								withParams:@{@"q" : searchText, @"type" : @"album"}
+								  callback:^(NSDictionary *object, NSError *err) {
+									  albumResults = [SPJSONParser albumsFromSPJSON:object];
+									  
+									  if (resultsTVC.selectedTab == kSearchResultsAlbums)
+										  [resultsTVC.tableView reloadData];
+									  
+									  albumsFetched = YES;
+									  if (tracksFetched && artistsFetched && albumsFetched) {
+										  [SVProgressHUD dismiss];
+									  }
+								  }];
 }
 
 - (IBAction)songsPressed:(id)sender {
@@ -160,7 +164,7 @@
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"embedResultsTable"]) {
+	if ([segue.identifier isEqualToString:@"embedResultsTable"]) {
 		resultsTVC = segue.destinationViewController;
 	} else if ([segue.identifier isEqualToString:@"trackDetailSegue"]) {
 		[(TrackDetailViewController*)segue.destinationViewController setTrack:[trackResults objectAtIndex:resultsTVC.selectedRow]];
@@ -197,9 +201,8 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [[RiverLoadingUtility sharedLoader] startLoading:self.view
-										   withFrame:CGRectMake(0, 60, self.view.frame.size.width, self.view.frame.size.height - 100)];
 	
+	[SVProgressHUD show];
 	[textField resignFirstResponder];
 	
 	[GlobalVars getVar].searchKeyword = self.searchBar.text;

@@ -7,7 +7,7 @@
 //
 
 #import "RiverSessionDelegate.h"
-#import "RiverLoadingUtility.h"
+#import "SVProgressHUD.h"
 #import "RiverAlertUtility.h"
 
 #define SP_LIBSPOTIFY_DEBUG_LOGGING 1
@@ -28,7 +28,7 @@
 			if (self.riverDelegate != nil) {
 				[self.riverDelegate spotifyAuthorizedForUser:[RiverAuthController sharedAuth].currentUser];
 			}
-			[[RiverLoadingUtility sharedLoader] stopLoading];
+			[SVProgressHUD dismiss];
 			
 			[RiverAlertUtility showOKAlertWithMessage:@"Success! You can now stream music."];
         }];
@@ -38,7 +38,7 @@
 -(void)session:(SPSession *)aSession didFailToLoginWithError:(NSError *)error {
     // Called after a failed login. SPLoginViewController will deal with this for us.
 	
-	[[RiverLoadingUtility sharedLoader] stopLoading];
+	[SVProgressHUD dismiss];
 	
 	[RiverAlertUtility showOKAlertWithMessage:[error localizedDescription]];
 }

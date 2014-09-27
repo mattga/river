@@ -10,7 +10,7 @@
 #import "GlobalVars.h"
 #import "RiverAuthController.h"
 #import "User.h"
-#import "RiverLoadingUtility.h"
+#import "SVProgressHUD.h"
 #import "RiverSyncUtility.h"
 
 #define SP_LIBSPOTIFY_DEBUG_LOGGING 1
@@ -32,7 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-	self.usernameLabel.text = [RiverAuthController sharedAuth].currentUser.userName;
+	self.usernameLabel.text = [RiverAuthController sharedAuth].currentUser.DisplayName;
     self.roomLabel.text = ([GlobalVars getVar].memberedRoom==nil ? @"-" : [NSString stringWithFormat:@"%@",[GlobalVars getVar].memberedRoom]);
 	
     // Register KVO on synchronizer background thread
@@ -68,14 +68,14 @@
 
 - (IBAction)createPressed:(id)sender {
 	
-	[[RiverLoadingUtility sharedLoader] startLoading:self.view withFrame:CGRectNull];
+	[SVProgressHUD show];
 	
 	[RiverAuthController authorizedRESTCall:kRiverWebApiRoom
 								  action:nil
 									verb:kRiverPost
 									 _id:nil
 							  withParams:@{@"RoomName" : self.roomField.text,
-										   @"Users" : @[@{@"User" : @{@"Username" : [RiverAuthController sharedAuth].currentUser.userName}}]}
+										   @"Users" : @[@{@"User" : @{@"Username" : [RiverAuthController sharedAuth].currentUser.DisplayName}}]}
 								callback:^(NSDictionary *object, NSError *err) {
 									
 									if (!err) {
@@ -98,7 +98,7 @@
 										[RiverAlertUtility showOKAlertWithMessage:[err localizedDescription]];
 									}
 									
-									[[RiverLoadingUtility sharedLoader] stopLoading];
+									[SVProgressHUD dismiss];
 								}];
 
 }

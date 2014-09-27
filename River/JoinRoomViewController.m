@@ -7,7 +7,7 @@
 //
 
 #import "JoinRoomViewController.h"
-#import "RiverLoadingUtility.h"
+#import "SVProgressHUD.h"
 #import "GlobalVars.h"
 #import "RiverSyncUtility.h"
 
@@ -47,7 +47,7 @@
 
 - (IBAction)joinPressed:(id)sender {
 	
-	[[RiverLoadingUtility sharedLoader] startLoading:self.view withFrame:CGRectNull];
+	[SVProgressHUD show];
 
 	Room *room = [[Room alloc] initWithName:_roomField.text];
 
@@ -55,7 +55,7 @@
 								  action:kRiverActionJoinRoom
 									verb:kRiverPost
 									 _id:room.roomName
-							  withParams:@{@"Username" : [RiverAuthController sharedAuth].currentUser.userName}
+							  withParams:@{@"Username" : [RiverAuthController sharedAuth].currentUser.DisplayName}
 								callback:^(NSDictionary *object, NSError *err) {
 									
 									if (!err) {
@@ -78,7 +78,7 @@
 										[RiverAlertUtility showOKAlertWithMessage:[err localizedDescription]];
 									}
 									
-									[[RiverLoadingUtility sharedLoader] stopLoading];
+									[SVProgressHUD dismiss];
 								}];
 }
 

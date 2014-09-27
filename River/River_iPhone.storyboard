@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="ePo-xS-vdf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="4co-F7-SLX">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -265,19 +264,19 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="rnt-nz-3Ap" kind="relationship" relationship="viewControllers" id="56O-eX-v3D"/>
-                        <segue destination="usV-vk-vXq" kind="relationship" relationship="viewControllers" id="A5C-6J-AyF"/>
-                        <segue destination="A6L-eR-gjj" kind="relationship" relationship="viewControllers" id="kcn-Xa-pK5"/>
+                        <segue destination="ePo-xS-vdf" kind="relationship" relationship="viewControllers" id="OQm-Bs-n5d"/>
+                        <segue destination="kP2-gU-ZqN" kind="relationship" relationship="viewControllers" id="6Xz-T8-dFa"/>
+                        <segue destination="vsS-ad-BgO" kind="relationship" relationship="viewControllers" id="c43-ic-XJN"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2rp-aw-dUL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-312" y="2665"/>
         </scene>
-        <!--View Controller-->
+        <!--River ChooseSP View Controller-->
         <scene sceneID="Vbs-IT-4Gb">
             <objects>
-                <viewController id="Gmx-q4-LzN" sceneMemberID="viewController">
+                <viewController id="Gmx-q4-LzN" customClass="RiverChooseSPViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QiF-qa-EDH"/>
                         <viewControllerLayoutGuide type="bottom" id="cYB-Vo-Sdi"/>
@@ -294,6 +293,9 @@
                                         <state key="normal" image="btn_header_back.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="backPressed:" destination="Gmx-q4-LzN" eventType="touchUpInside" id="C6d-GM-CJ7"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -328,6 +330,9 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="characterWrap" translatesAutoresizingMaskIntoConstraints="NO" id="SVY-hF-BRo">
                                 <rect key="frame" x="66" y="414" width="201" height="30"/>
                                 <state key="normal" title="No Spotify Premium Account"/>
+                                <connections>
+                                    <action selector="noSPPressed:" destination="Gmx-q4-LzN" eventType="touchUpInside" id="vrT-gb-RA9"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -337,6 +342,23 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vds-rU-GHR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="711" y="3880"/>
+        </scene>
+        <!--My Room-->
+        <scene sceneID="X8E-sd-aKE">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="kP2-gU-ZqN" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="My Room" image="AppIcon29x29.png" id="nPo-uO-flM"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="IPa-cr-Clj">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="usV-vk-vXq" kind="relationship" relationship="rootViewController" id="4jh-Bw-v6R"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kxN-ST-2IY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-34" y="1452"/>
         </scene>
         <!--River View Controller-->
         <scene sceneID="oow-6u-vg2">
@@ -374,7 +396,7 @@
                                 </subviews>
                             </view>
                             <containerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YQ6-sb-KAg">
-                                <rect key="frame" x="0.0" y="60" width="320" height="508"/>
+                                <rect key="frame" x="0.0" y="60" width="320" height="459"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <connections>
                                     <segue destination="a10-tw-QAU" kind="embed" id="sML-N6-0dq"/>
@@ -387,7 +409,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iMs-Op-EG4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="625" y="2337"/>
+            <point key="canvasLocation" x="795" y="2330"/>
         </scene>
         <!--Host-->
         <scene sceneID="Vn8-Qd-cr5">
@@ -545,7 +567,7 @@
             </objects>
             <point key="canvasLocation" x="2603" y="2975"/>
         </scene>
-        <!--Host-->
+        <!--View Controller-->
         <scene sceneID="trn-Oh-0pO">
             <objects>
                 <viewController id="A6L-eR-gjj" sceneMemberID="viewController">
@@ -616,18 +638,35 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Host" image="AppIcon29x29.png" id="BjB-YZ-ZSe"/>
+                    <navigationItem key="navigationItem" id="ijg-TA-YFr"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sP9-ts-elK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="222" y="2337"/>
+            <point key="canvasLocation" x="416" y="2330"/>
+        </scene>
+        <!--Host-->
+        <scene sceneID="cvR-qB-808">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="vsS-ad-BgO" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Host" image="AppIcon29x29.png" id="vAt-LC-5i5"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="uEJ-Hm-uJh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="A6L-eR-gjj" kind="relationship" relationship="rootViewController" id="lv8-QL-wR1"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AcJ-Nq-myd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="62" y="2330"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="Qfe-BH-loX">
             <objects>
                 <tableViewController id="a10-tw-QAU" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="69" sectionHeaderHeight="22" sectionFooterHeight="22" id="yPj-cM-iR3">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="508"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="459"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -841,7 +880,7 @@
         <!--River Choose Auth View Controller-->
         <scene sceneID="Uqe-Xs-6Nj">
             <objects>
-                <viewController storyboardIdentifier="authView" id="7Ff-0v-bQy" customClass="RiverChooseAuthViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AuthView" id="7Ff-0v-bQy" customClass="RiverChooseAuthViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QxD-Dp-V94"/>
                         <viewControllerLayoutGuide type="bottom" id="xDD-2v-YN8"/>
@@ -1021,24 +1060,23 @@
             </objects>
             <point key="canvasLocation" x="3023" y="2974.5"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Join-->
         <scene sceneID="CvG-p1-2CV">
             <objects>
                 <navigationController definesPresentationContext="YES" navigationBarHidden="YES" id="ePo-xS-vdf" sceneMemberID="viewController">
-                    <nil key="simulatedTopBarMetrics"/>
-                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBarItem key="tabBarItem" title="Join" image="AppIcon29x29.png" id="8kR-oE-wPZ"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="i24-jR-0YA">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="4co-F7-SLX" kind="relationship" relationship="rootViewController" id="5Oh-Wf-RRU"/>
+                        <segue destination="rnt-nz-3Ap" kind="relationship" relationship="rootViewController" id="WFl-RR-RBa"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FAA-zG-c98" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-749" y="2665"/>
+            <point key="canvasLocation" x="123" y="3005"/>
         </scene>
-        <!--My Room-->
+        <!--Room View Controller-->
         <scene sceneID="kx0-b5-ROz">
             <objects>
                 <viewController id="usV-vk-vXq" customClass="RoomViewController" sceneMemberID="viewController">
@@ -1047,7 +1085,7 @@
                         <viewControllerLayoutGuide type="bottom" id="2ga-Cy-Tg7"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="sSV-Eu-0QR">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xWB-w7-iQG" userLabel="View - Header">
@@ -1084,33 +1122,13 @@
                                     <constraint firstItem="gUG-AX-OWo" firstAttribute="top" secondItem="xWB-w7-iQG" secondAttribute="top" constant="20" id="ymJ-eb-op5"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Current song" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6qV-4G-rlJ">
-                                <rect key="frame" x="20" y="129" width="100" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Room &amp; User info" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yiB-Kc-P8K">
-                                <rect key="frame" x="20" y="105" width="136" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Attractive layout for:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="duU-Ib-8Ko">
-                                <rect key="frame" x="20" y="76" width="155" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="+ view for when no room...or remove tab" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="0me-3B-BUo">
-                                <rect key="frame" x="20" y="182" width="280" height="42"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Song queue" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qG9-5i-dZX">
-                                <rect key="frame" x="20" y="153" width="93" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="HOME" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="duU-Ib-8Ko">
+                                <rect key="frame" x="20" y="76" width="51" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <containerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uqC-6L-3iV">
-                                <rect key="frame" x="0.0" y="242" width="320" height="276"/>
+                                <rect key="frame" x="0.0" y="242" width="320" height="277"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <connections>
                                     <segue destination="Icu-bB-b03" kind="embed" id="dA7-ri-ARG"/>
@@ -1124,19 +1142,17 @@
                             <constraint firstItem="xWB-w7-iQG" firstAttribute="leading" secondItem="sSV-Eu-0QR" secondAttribute="leadingMargin" constant="-16" id="LxW-hM-Kov"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="My Room" image="AppIcon29x29.png" id="YoO-72-5Dk"/>
                     <navigationItem key="navigationItem" id="O8f-eb-Goz"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="addSongButton" destination="gUG-AX-OWo" id="cQ5-ua-qLj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cO5-QC-E2u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="222" y="1655"/>
+            <point key="canvasLocation" x="352" y="1452"/>
         </scene>
-        <!--Join-->
+        <!--Discover Room View Controller-->
         <scene sceneID="BxT-NJ-kgS">
             <objects>
                 <viewController id="rnt-nz-3Ap" customClass="DiscoverRoomViewController" sceneMemberID="viewController">
@@ -1216,7 +1232,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Join" image="AppIcon29x29.png" id="qkc-2M-a4z"/>
                     <navigationItem key="navigationItem" id="Qct-dg-s3B"/>
                     <connections>
                         <outlet property="discoverButton" destination="iUW-nA-tiX" id="9Ka-p7-vR2"/>
@@ -1225,7 +1240,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oC1-dS-Cqc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="222" y="3005"/>
+            <point key="canvasLocation" x="526" y="3005"/>
         </scene>
         <!--River View Controller-->
         <scene sceneID="Vs9-xh-6DQ">
@@ -1280,7 +1295,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yne-ee-MUH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="711" y="3005"/>
+            <point key="canvasLocation" x="932" y="3005"/>
         </scene>
         <!--River View Controller-->
         <scene sceneID="z0o-eh-rhw">
@@ -1324,7 +1339,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K7Y-pB-rM8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1141" y="3005"/>
+            <point key="canvasLocation" x="1281" y="3005"/>
         </scene>
         <!--Discover Room Table View Controller-->
         <scene sceneID="7nf-yx-Xjl">
@@ -1374,7 +1389,7 @@
             </objects>
             <point key="canvasLocation" x="1757" y="3005"/>
         </scene>
-        <!--Item-->
+        <!--Add Song View Controller-->
         <scene sceneID="KNh-Oy-aNr">
             <objects>
                 <viewController id="hPA-sZ-acX" customClass="AddSongViewController" sceneMemberID="viewController">
@@ -1383,7 +1398,7 @@
                         <viewControllerLayoutGuide type="bottom" id="8YG-wS-O7K"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="UQD-Ug-Cix">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DWg-jE-ADd" userLabel="View - Header">
@@ -1410,14 +1425,14 @@
                                 </subviews>
                             </view>
                             <containerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JxQ-oE-dtP">
-                                <rect key="frame" x="0.0" y="144" width="320" height="374"/>
+                                <rect key="frame" x="0.0" y="148" width="320" height="371"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <connections>
                                     <segue destination="jqh-ez-F4Q" kind="embed" identifier="embedResultsTable" id="hJP-pX-t6z"/>
                                 </connections>
                             </containerView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kgU-8V-j5d">
-                                <rect key="frame" x="0.0" y="104" width="320" height="40"/>
+                                <rect key="frame" x="0.0" y="100" width="320" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I4D-4s-yf6">
                                         <rect key="frame" x="5" y="0.0" width="100" height="40"/>
@@ -1435,21 +1450,6 @@
                                             <action selector="songsPressed:" destination="hPA-sZ-acX" eventType="touchUpInside" id="lTf-OE-N6c"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dLk-VE-07o">
-                                        <rect key="frame" x="215" y="0.0" width="100" height="40"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <state key="normal" title="Albums">
-                                            <color key="titleColor" red="0.180392161" green="0.2274509817" blue="0.24313725529999999" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="Gotham-Book"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="albumsPressed:" destination="hPA-sZ-acX" eventType="touchUpInside" id="l2r-pU-vJ1"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aQA-Ye-udr">
                                         <rect key="frame" x="110" y="0.0" width="100" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -1465,26 +1465,40 @@
                                             <action selector="artistsPressed:" destination="hPA-sZ-acX" eventType="touchUpInside" id="4Sy-YD-QcA"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dLk-VE-07o">
+                                        <rect key="frame" x="212" y="0.0" width="100" height="40"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="Albums">
+                                            <color key="titleColor" red="0.180392161" green="0.2274509817" blue="0.24313725529999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="Gotham-Book"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="albumsPressed:" destination="hPA-sZ-acX" eventType="touchUpInside" id="l2r-pU-vJ1"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
-                            <searchBar contentMode="redraw" fixedFrame="YES" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="0an-di-PoG">
-                                <rect key="frame" x="0.0" y="56" width="320" height="44"/>
+                            <searchBar contentMode="redraw" fixedFrame="YES" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="0cq-fL-r2S">
+                                <rect key="frame" x="0.0" y="55" width="320" height="44"/>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <outlet property="delegate" destination="hPA-sZ-acX" id="QYd-lO-XbU"/>
+                                    <outlet property="delegate" destination="hPA-sZ-acX" id="Jpx-D8-2zT"/>
                                 </connections>
                             </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="hl0-Cg-jHY"/>
                     <navigationItem key="navigationItem" id="1bU-6x-r9J"/>
                     <connections>
                         <outlet property="albumsButton" destination="dLk-VE-07o" id="zm5-mb-gEL"/>
                         <outlet property="artistsButton" destination="aQA-Ye-udr" id="02E-Jn-TGb"/>
-                        <outlet property="searchBar" destination="0an-di-PoG" id="NxP-FG-n9w"/>
-                        <outlet property="searchDisplayController" destination="dAX-DW-me3" id="rQt-R3-mXz"/>
+                        <outlet property="searchBar" destination="0cq-fL-r2S" id="xQF-Fv-ymE"/>
                         <outlet property="songsButton" destination="I4D-4s-yf6" id="lmY-d6-asn"/>
                         <segue destination="KUs-Od-tqL" kind="push" identifier="trackDetailSegue" id="1XS-AL-8xU"/>
                         <segue destination="tqs-18-CIs" kind="push" identifier="artistDetailSegue" id="mc1-7m-WQI"/>
@@ -1492,13 +1506,8 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Awd-Rl-auS" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="dAX-DW-me3">
-                    <connections>
-                        <outlet property="delegate" destination="hPA-sZ-acX" id="J7Y-cz-Y9A"/>
-                    </connections>
-                </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1141" y="1655"/>
+            <point key="canvasLocation" x="1199" y="1763"/>
         </scene>
         <!--Track Detail View Controller-->
         <scene sceneID="f9v-Ik-ldf">
@@ -1512,71 +1521,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ugp-PV-aGQ">
-                                <rect key="frame" x="0.0" y="60" width="320" height="468"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AIj-3B-hjx">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="458"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vk6-fC-Ywv">
-                                                <rect key="frame" x="20" y="20" width="280" height="400"/>
-                                                <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="le1-i4-Wqa">
-                                                        <rect key="frame" x="0.0" y="0.0" width="280" height="280"/>
-                                                    </imageView>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Song" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B5k-o0-Tl2">
-                                                        <rect key="frame" x="11" y="290" width="263" height="29"/>
-                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
-                                                        <color key="textColor" red="0.180392161" green="0.2274509817" blue="0.24313725529999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="Gotham-Book"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </label>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Artist" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zh2-aY-igI">
-                                                        <rect key="frame" x="11" y="320" width="210" height="21"/>
-                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
-                                                        <color key="textColor" red="0.180392161" green="0.2274509817" blue="0.24313725529999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="Gotham-Book"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </label>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Album" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MbK-E3-ngV">
-                                                        <rect key="frame" x="11" y="342" width="210" height="21"/>
-                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
-                                                        <color key="textColor" red="0.180392161" green="0.2274509817" blue="0.24313725529999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="Gotham-Book"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </label>
-                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="#:##" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="h0I-jj-TkT">
-                                                        <rect key="frame" x="11" y="366" width="196" height="21"/>
-                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
-                                                        <color key="textColor" red="0.180392161" green="0.2274509817" blue="0.24313725529999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="Gotham-Book"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fjq-h6-WW9">
-                                                        <rect key="frame" x="229" y="321" width="40" height="40"/>
-                                                        <state key="normal" image="btn_addsong.png">
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <state key="highlighted" image="btn_addsong_pressed.png"/>
-                                                        <connections>
-                                                            <action selector="requestSong:" destination="KUs-Od-tqL" eventType="touchUpInside" id="lYE-6t-BhU"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                        </subviews>
-                                    </view>
-                                </subviews>
-                            </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gic-vc-CJA" userLabel="View - Header">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                                 <subviews>
@@ -1599,6 +1543,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="320" id="KqC-oj-Znf"/>
                                     <constraint firstAttribute="height" constant="60" id="rxT-R3-XpF"/>
@@ -1640,30 +1585,85 @@
                                     <constraint firstAttribute="height" constant="40" id="kdF-fq-WaN"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AIj-3B-hjx">
+                                <rect key="frame" x="0.0" y="55" width="320" height="458"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vk6-fC-Ywv">
+                                        <rect key="frame" x="20" y="20" width="280" height="400"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="le1-i4-Wqa">
+                                                <rect key="frame" x="0.0" y="0.0" width="280" height="280"/>
+                                            </imageView>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Song" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B5k-o0-Tl2">
+                                                <rect key="frame" x="0.0" y="288" width="263" height="29"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                <color key="textColor" red="0.180392161" green="0.2274509817" blue="0.24313725529999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="Gotham-Book"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Artist" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zh2-aY-igI">
+                                                <rect key="frame" x="0.0" y="321" width="210" height="21"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                                <color key="textColor" red="0.180392161" green="0.2274509817" blue="0.24313725529999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="Gotham-Book"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Album" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MbK-E3-ngV">
+                                                <rect key="frame" x="0.0" y="340" width="210" height="21"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                                <color key="textColor" red="0.180392161" green="0.2274509817" blue="0.24313725529999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="Gotham-Book"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="#:##" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="h0I-jj-TkT">
+                                                <rect key="frame" x="0.0" y="361" width="196" height="21"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                                <color key="textColor" red="0.180392161" green="0.2274509817" blue="0.24313725529999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="Gotham-Book"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fjq-h6-WW9">
+                                                <rect key="frame" x="232" y="321" width="40" height="40"/>
+                                                <state key="normal" image="btn_addsong.png">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="highlighted" image="btn_addsong_pressed.png"/>
+                                                <connections>
+                                                    <action selector="requestSong:" destination="KUs-Od-tqL" eventType="touchUpInside" id="lYE-6t-BhU"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="ugp-PV-aGQ" secondAttribute="trailing" id="Awf-MV-UaG"/>
                             <constraint firstItem="2bp-Ce-zHC" firstAttribute="leading" secondItem="mUg-be-9Q5" secondAttribute="leading" id="GIn-Sv-jSX"/>
                             <constraint firstAttribute="trailing" secondItem="2bp-Ce-zHC" secondAttribute="trailing" id="KhG-wY-TGu"/>
                             <constraint firstAttribute="trailing" secondItem="gic-vc-CJA" secondAttribute="trailing" id="Ns2-ZE-pv6"/>
                             <constraint firstItem="gic-vc-CJA" firstAttribute="top" secondItem="mUg-be-9Q5" secondAttribute="top" id="XKl-D1-bX2"/>
                             <constraint firstItem="OTY-hC-Zv1" firstAttribute="top" secondItem="2bp-Ce-zHC" secondAttribute="bottom" id="cMu-RS-bSy"/>
-                            <constraint firstItem="ugp-PV-aGQ" firstAttribute="leading" secondItem="mUg-be-9Q5" secondAttribute="leading" id="ho3-ut-0NV"/>
-                            <constraint firstItem="2bp-Ce-zHC" firstAttribute="top" secondItem="ugp-PV-aGQ" secondAttribute="bottom" id="lVu-rq-eyE"/>
                             <constraint firstItem="gic-vc-CJA" firstAttribute="leading" secondItem="mUg-be-9Q5" secondAttribute="leading" id="lmm-Es-IQo"/>
-                            <constraint firstItem="ugp-PV-aGQ" firstAttribute="top" secondItem="gic-vc-CJA" secondAttribute="bottom" id="oCc-Qe-CJB"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="9Za-Tl-i7r"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="568"/>
                     <connections>
                         <outlet property="albumArtView" destination="le1-i4-Wqa" id="SIb-HA-Drd"/>
                         <outlet property="albumLabel" destination="MbK-E3-ngV" id="Oyn-Ew-9Or"/>
                         <outlet property="artistLabel" destination="Zh2-aY-igI" id="sMI-Z0-zrR"/>
                         <outlet property="lengthLabel" destination="h0I-jj-TkT" id="A8d-sY-MOJ"/>
                         <outlet property="roomLabel" destination="enu-Z9-LWa" id="u5Q-1n-rKc"/>
-                        <outlet property="scrollView" destination="ugp-PV-aGQ" id="27h-ge-YMx"/>
                         <outlet property="titleLabel" destination="B5k-o0-Tl2" id="lFs-a5-zgq"/>
                         <outlet property="tokenLabel" destination="zHr-qa-uoF" id="LPE-0z-muy"/>
                         <outlet property="usernameLabel" destination="1oh-oK-1Jy" id="UsL-NG-aoR"/>
@@ -1678,7 +1678,7 @@
             <objects>
                 <tableViewController id="jqh-ez-F4Q" customClass="AddSongTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="4mF-ll-sfr">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="374"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="371"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="separatorColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1691,12 +1691,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_song_placeholder_small.png" translatesAutoresizingMaskIntoConstraints="NO" id="QJ4-2j-ibp">
-                                            <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
-                                        </imageView>
-                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_song_placeholder_small_selected.png" translatesAutoresizingMaskIntoConstraints="NO" id="B0G-9z-hWH">
-                                            <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
-                                        </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Song Song Song" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="Eur-zc-Ga3">
                                             <rect key="frame" x="66" y="7" width="238" height="29"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
@@ -1716,16 +1710,14 @@
                                             </userDefinedRuntimeAttributes>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="grC-hf-mR9">
-                                            <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                            <rect key="frame" x="3" y="3" width="54" height="54"/>
                                         </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="albumArtImage" destination="grC-hf-mR9" id="b1G-sE-dER"/>
                                     <outlet property="artistLabel" destination="GbA-6j-viR" id="ZnO-o7-I6a"/>
-                                    <outlet property="songImage" destination="QJ4-2j-ibp" id="pNr-bJ-Jr9"/>
                                     <outlet property="songLabel" destination="Eur-zc-Ga3" id="b81-tV-IpG"/>
-                                    <outlet property="songPressedImage" destination="B0G-9z-hWH" id="kia-Ob-INM"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="resultsArtistCell" rowHeight="50" id="8qF-zS-R4l" customClass="ResultsArtistTableViewCell">
@@ -1735,12 +1727,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_song_placeholder_small.png" translatesAutoresizingMaskIntoConstraints="NO" id="xiB-pC-qlg">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                        </imageView>
-                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_song_placeholder_small_selected.png" translatesAutoresizingMaskIntoConstraints="NO" id="nds-1y-raB">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                        </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Artist Artist Artist" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="8lR-Sy-fZk">
                                             <rect key="frame" x="58" y="10" width="238" height="29"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
@@ -1751,16 +1737,13 @@
                                             </userDefinedRuntimeAttributes>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zfz-GD-nas">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <rect key="frame" x="3" y="3" width="44" height="44"/>
                                         </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.86274510622024536" green="0.86274510622024536" blue="0.86274509803921573" alpha="1" colorSpace="deviceRGB"/>
                                 <connections>
-                                    <outlet property="artistImage" destination="xiB-pC-qlg" id="xRA-fs-LLO"/>
                                     <outlet property="artistLabel" destination="8lR-Sy-fZk" id="VfZ-ob-CLb"/>
                                     <outlet property="artistSPImage" destination="Zfz-GD-nas" id="Q9f-R2-tgi"/>
-                                    <outlet property="artistSelectedImage" destination="nds-1y-raB" id="ch0-Iz-htE"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="resultsAlbumCell" rowHeight="50" id="Sb3-S7-ukz" customClass="ResultsAlbumTableViewCell">
@@ -1770,12 +1753,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_song_placeholder_small.png" translatesAutoresizingMaskIntoConstraints="NO" id="5gL-Z6-Tzz">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                        </imageView>
-                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg_song_placeholder_small_selected.png" translatesAutoresizingMaskIntoConstraints="NO" id="67t-gb-B4L">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                        </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Album Album Album" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="lwX-Sa-wo4">
                                             <rect key="frame" x="58" y="10" width="238" height="29"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
@@ -1786,16 +1763,13 @@
                                             </userDefinedRuntimeAttributes>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l8q-Gr-13U">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <rect key="frame" x="3" y="3" width="44" height="44"/>
                                         </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.86274516580000005" green="0.86274516580000005" blue="0.86274516580000005" alpha="1" colorSpace="deviceRGB"/>
                                 <connections>
                                     <outlet property="albumArtImage" destination="l8q-Gr-13U" id="Rcl-Qo-4Wb"/>
-                                    <outlet property="albumImage" destination="5gL-Z6-Tzz" id="Bu7-Mm-ewr"/>
                                     <outlet property="albumLabel" destination="lwX-Sa-wo4" id="RLn-0B-wnP"/>
-                                    <outlet property="albumSelectedImage" destination="67t-gb-B4L" id="jVZ-sL-Yec"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1808,7 +1782,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qBc-Ea-4l5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1597" y="1752"/>
+            <point key="canvasLocation" x="1635" y="1698"/>
         </scene>
         <!--Artist Detail View Controller-->
         <scene sceneID="Xfx-Hf-pCo">
@@ -1819,7 +1793,7 @@
                         <viewControllerLayoutGuide type="bottom" id="7Cr-WX-0RW"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="y71-SV-VhM">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sgU-Th-5Mf" userLabel="View - Header">
@@ -1844,6 +1818,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RcQ-Lq-hYx" userLabel="View - Footer">
                                 <rect key="frame" x="0.0" y="528" width="320" height="40"/>
@@ -1886,34 +1861,28 @@
                                     </imageView>
                                 </subviews>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4fW-5U-nmk">
-                                <rect key="frame" x="20" y="90" width="280" height="408"/>
-                                <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rgd-Yn-73e">
-                                        <rect key="frame" x="20" y="9" width="240" height="30"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="26"/>
-                                        <color key="textColor" red="0.180392161" green="0.2274509817" blue="0.24313725529999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="Gotham-Medium"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                    <containerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9v5-e2-LEL">
-                                        <rect key="frame" x="20" y="47" width="240" height="352"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                        <connections>
-                                            <segue destination="Mol-5U-0nI" kind="embed" identifier="embedArtistAlbums" id="wFp-gT-f9P"/>
-                                        </connections>
-                                    </containerView>
-                                </subviews>
+                            <containerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9v5-e2-LEL">
+                                <rect key="frame" x="40" y="106" width="240" height="413"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                            </view>
+                                <connections>
+                                    <segue destination="Mol-5U-0nI" kind="embed" identifier="embedArtistAlbums" id="wFp-gT-f9P"/>
+                                </connections>
+                            </containerView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rgd-Yn-73e">
+                                <rect key="frame" x="28" y="68" width="264" height="30"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="26"/>
+                                <color key="textColor" red="0.180392161" green="0.2274509817" blue="0.24313725529999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="Gotham-Medium"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
                         </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="YKq-vz-mGM"/>
                     <connections>
                         <outlet property="artistLabel" destination="Rgd-Yn-73e" id="HZf-Bo-yA2"/>
-                        <outlet property="cardView" destination="4fW-5U-nmk" id="goa-0h-bKm"/>
                         <outlet property="roomLabel" destination="Ebc-w2-aal" id="ZrI-Ld-alB"/>
                         <outlet property="userTokensLabel" destination="0On-Ba-NbD" id="nP2-hu-dNK"/>
                         <outlet property="usernameLabel" destination="Ccf-Db-Rhp" id="Spu-5K-4EU"/>
@@ -1933,10 +1902,10 @@
                         <viewControllerLayoutGuide type="bottom" id="17B-vY-MKF"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="31C-9v-7SY">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oCm-HH-TYu" userLabel="View - Header">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oCm-HH-TYu" userLabel="View - Header">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Album" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hef-zI-ihI">
@@ -1958,12 +1927,9 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="PV3-9w-wNn"/>
-                                    <constraint firstAttribute="width" constant="320" id="Xvu-lI-2Rf"/>
-                                </constraints>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gPn-lX-1Ne" userLabel="View - Footer">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gPn-lX-1Ne" userLabel="View - Footer">
                                 <rect key="frame" x="0.0" y="528" width="320" height="40"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ico_footer_user.png" translatesAutoresizingMaskIntoConstraints="NO" id="0y3-mj-aKE">
@@ -2003,116 +1969,52 @@
                                         <rect key="frame" x="284" y="4" width="15" height="15"/>
                                     </imageView>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="GGQ-bS-jSn"/>
-                                    <constraint firstAttribute="width" constant="320" id="zYp-y6-c2o"/>
-                                </constraints>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bxd-zd-I5G">
-                                <rect key="frame" x="20" y="90" width="280" height="408"/>
-                                <subviews>
-                                    <containerView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rHQ-iI-qVK">
-                                        <rect key="frame" x="10" y="148" width="250" height="253"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="250" id="9UT-fr-HfM"/>
-                                        </constraints>
-                                        <connections>
-                                            <segue destination="71W-Zc-W36" kind="embed" identifier="embedAlbumTracks" id="dfk-uB-MpI"/>
-                                        </connections>
-                                    </containerView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_song_placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="Mf9-pL-Q4h">
-                                        <rect key="frame" x="45" y="45" width="50" height="50"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="50" id="QMh-Yk-Ht0"/>
-                                            <constraint firstAttribute="height" constant="50" id="V0g-8K-ISd"/>
-                                        </constraints>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NcZ-QN-TU0">
-                                        <rect key="frame" x="0.0" y="0.0" width="140" height="140"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="140" id="LxC-c3-tof"/>
-                                            <constraint firstAttribute="width" constant="140" id="vpE-zH-CKA"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Album Album" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="18" adjustsLetterSpacingToFitWidth="YES" preferredMaxLayoutWidth="130" translatesAutoresizingMaskIntoConstraints="NO" id="aQV-h6-gnX">
-                                        <rect key="frame" x="145" y="9" width="130" height="67"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="67" id="Mql-di-lkB"/>
-                                            <constraint firstAttribute="width" constant="130" id="wBG-fF-KQr"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="24"/>
-                                        <color key="textColor" red="0.180392161" green="0.2274509817" blue="0.24313725529999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="Gotham-Book"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist Artist Artist Artist" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" preferredMaxLayoutWidth="130" translatesAutoresizingMaskIntoConstraints="NO" id="RU8-Fa-VFz">
-                                        <rect key="frame" x="145" y="67" width="130" height="42"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="130" id="9im-3W-Rmo"/>
-                                            <constraint firstAttribute="height" constant="42" id="otR-9d-RhU"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
-                                        <color key="textColor" red="0.180392161" green="0.2274509817" blue="0.24313725529999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="Gotham-Book"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="####" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2r1-zL-le7">
-                                        <rect key="frame" x="145" y="109" width="130" height="20"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="20" id="BRq-ex-ph8"/>
-                                            <constraint firstAttribute="width" constant="130" id="QHk-Ld-g6y"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
-                                        <color key="textColor" red="0.180392161" green="0.2274509817" blue="0.24313725529999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="Gotham-Book"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                </subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NcZ-QN-TU0">
+                                <rect key="frame" x="10" y="68" width="140" height="140"/>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Album        Album" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="18" adjustsLetterSpacingToFitWidth="YES" preferredMaxLayoutWidth="130" translatesAutoresizingMaskIntoConstraints="NO" id="aQV-h6-gnX">
+                                <rect key="frame" x="148" y="68" width="161" height="73"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="24"/>
+                                <color key="textColor" red="0.180392161" green="0.2274509817" blue="0.24313725529999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="Gotham-Book"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Artist Artist     Artist Artist" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" preferredMaxLayoutWidth="130" translatesAutoresizingMaskIntoConstraints="NO" id="RU8-Fa-VFz">
+                                <rect key="frame" x="148" y="129" width="161" height="42"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
+                                <color key="textColor" red="0.180392161" green="0.2274509817" blue="0.24313725529999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="Gotham-Book"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="####" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2r1-zL-le7">
+                                <rect key="frame" x="148" y="168" width="161" height="20"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
+                                <color key="textColor" red="0.180392161" green="0.2274509817" blue="0.24313725529999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="Gotham-Book"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <containerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rHQ-iI-qVK">
+                                <rect key="frame" x="22" y="216" width="260" height="303"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="2r1-zL-le7" firstAttribute="top" secondItem="RU8-Fa-VFz" secondAttribute="bottom" id="Bwe-gu-uWG"/>
-                                    <constraint firstItem="Mf9-pL-Q4h" firstAttribute="top" secondItem="Bxd-zd-I5G" secondAttribute="top" constant="45" id="CNs-6m-Kol"/>
-                                    <constraint firstItem="RU8-Fa-VFz" firstAttribute="leading" secondItem="NcZ-QN-TU0" secondAttribute="trailing" constant="5" id="Gll-Mr-Tvy"/>
-                                    <constraint firstItem="NcZ-QN-TU0" firstAttribute="top" secondItem="Bxd-zd-I5G" secondAttribute="top" id="L76-mc-c6e"/>
-                                    <constraint firstItem="2r1-zL-le7" firstAttribute="leading" secondItem="NcZ-QN-TU0" secondAttribute="trailing" constant="5" id="P9B-oJ-CFX"/>
-                                    <constraint firstItem="aQV-h6-gnX" firstAttribute="leading" secondItem="NcZ-QN-TU0" secondAttribute="trailing" constant="5" id="Pp7-up-96e"/>
-                                    <constraint firstItem="rHQ-iI-qVK" firstAttribute="top" secondItem="2r1-zL-le7" secondAttribute="bottom" constant="19" id="VaS-Mg-9H4"/>
-                                    <constraint firstItem="aQV-h6-gnX" firstAttribute="top" secondItem="Bxd-zd-I5G" secondAttribute="top" constant="9" id="WU4-ar-uJB"/>
-                                    <constraint firstItem="NcZ-QN-TU0" firstAttribute="leading" secondItem="Bxd-zd-I5G" secondAttribute="leading" id="Zxo-vG-5BF"/>
-                                    <constraint firstAttribute="bottom" secondItem="rHQ-iI-qVK" secondAttribute="bottom" constant="7" id="g65-Xp-Sz9"/>
-                                    <constraint firstItem="rHQ-iI-qVK" firstAttribute="top" secondItem="NcZ-QN-TU0" secondAttribute="bottom" constant="8" id="lvI-Tp-Oxj"/>
-                                    <constraint firstItem="rHQ-iI-qVK" firstAttribute="leading" secondItem="Bxd-zd-I5G" secondAttribute="leading" constant="10" id="oVA-7S-Yfc"/>
-                                    <constraint firstAttribute="width" constant="280" id="uWd-kJ-dhg"/>
-                                    <constraint firstItem="Mf9-pL-Q4h" firstAttribute="leading" secondItem="Bxd-zd-I5G" secondAttribute="leading" constant="45" id="y7l-ti-xfo"/>
-                                </constraints>
-                            </view>
+                                <connections>
+                                    <segue destination="71W-Zc-W36" kind="embed" identifier="embedAlbumTracks" id="dfk-uB-MpI"/>
+                                </connections>
+                            </containerView>
                         </subviews>
-                        <constraints>
-                            <constraint firstItem="17B-vY-MKF" firstAttribute="top" secondItem="gPn-lX-1Ne" secondAttribute="bottom" id="KbQ-ow-a7V"/>
-                            <constraint firstAttribute="trailing" secondItem="gPn-lX-1Ne" secondAttribute="trailing" id="QA4-Pd-g91"/>
-                            <constraint firstItem="gPn-lX-1Ne" firstAttribute="top" secondItem="Bxd-zd-I5G" secondAttribute="bottom" constant="30" id="R2j-8u-Tl2"/>
-                            <constraint firstItem="Bxd-zd-I5G" firstAttribute="top" secondItem="oCm-HH-TYu" secondAttribute="bottom" constant="30" id="WcW-kH-QKk"/>
-                            <constraint firstItem="Bxd-zd-I5G" firstAttribute="leading" secondItem="31C-9v-7SY" secondAttribute="leading" constant="20" id="a94-c1-4z2"/>
-                            <constraint firstAttribute="trailing" secondItem="oCm-HH-TYu" secondAttribute="trailing" id="aLj-EN-WFS"/>
-                            <constraint firstItem="gPn-lX-1Ne" firstAttribute="leading" secondItem="31C-9v-7SY" secondAttribute="leading" id="c3n-wP-VOC"/>
-                            <constraint firstItem="oCm-HH-TYu" firstAttribute="top" secondItem="31C-9v-7SY" secondAttribute="top" id="e0a-1f-kSZ"/>
-                            <constraint firstAttribute="trailing" secondItem="Bxd-zd-I5G" secondAttribute="trailing" constant="20" id="pYk-8U-1Y8"/>
-                            <constraint firstItem="oCm-HH-TYu" firstAttribute="leading" secondItem="31C-9v-7SY" secondAttribute="leading" id="rJl-s7-93r"/>
-                        </constraints>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="jcu-7Q-dBf"/>
                     <connections>
                         <outlet property="albumArtImage" destination="NcZ-QN-TU0" id="TO9-oY-sGn"/>
                         <outlet property="albumLabel" destination="aQV-h6-gnX" id="wVt-Th-2YE"/>
                         <outlet property="artistLabel" destination="RU8-Fa-VFz" id="70R-Q0-V53"/>
-                        <outlet property="cardView" destination="Bxd-zd-I5G" id="YId-u5-3wl"/>
                         <outlet property="releasedLabel" destination="2r1-zL-le7" id="cwV-tr-gTg"/>
                         <outlet property="roomLabel" destination="jYC-z6-nkk" id="ghi-Zr-83p"/>
                         <outlet property="userTokensLabel" destination="7Kr-pv-qLR" id="F9r-5a-17f"/>
@@ -2128,8 +2030,8 @@
         <scene sceneID="3ae-Sd-G9z">
             <objects>
                 <tableViewController id="71W-Zc-W36" customClass="AlbumTracksTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="VUP-Ue-QJM">
-                        <rect key="frame" x="0.0" y="0.0" width="250" height="253"/>
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="VUP-Ue-QJM">
+                        <rect key="frame" x="0.0" y="0.0" width="260" height="303"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -2141,7 +2043,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Track" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="max-iM-bLo">
-                                            <rect key="frame" x="35" y="5" width="285" height="29"/>
+                                            <rect key="frame" x="17" y="5" width="285" height="29"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
                                             <color key="textColor" red="0.180392161" green="0.2274509817" blue="0.24313725529999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -2150,9 +2052,9 @@
                                             </userDefinedRuntimeAttributes>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="#" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SGE-sm-VeM">
-                                            <rect key="frame" x="2" y="12" width="20" height="16"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <color key="textColor" red="0.180392161" green="0.2274509817" blue="0.24313725529999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <rect key="frame" x="-5" y="8" width="20" height="16"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="Gotham-Book"/>
@@ -2182,7 +2084,7 @@
             <objects>
                 <tableViewController id="Mol-5U-0nI" customClass="ArtistAlbumsTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Axv-Vl-pR0">
-                        <rect key="frame" x="0.0" y="0.0" width="240" height="352"/>
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="413"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -2194,13 +2096,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="240" height="55"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_song_placeholder_small.png" translatesAutoresizingMaskIntoConstraints="NO" id="svA-ce-wdT">
-                                            <rect key="frame" x="15" y="15" width="25" height="25"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="25" id="xCB-Cq-z9A"/>
-                                                <constraint firstAttribute="width" constant="25" id="zFQ-9W-eY0"/>
-                                            </constraints>
-                                        </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Album Album" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O3d-UO-fIY">
                                             <rect key="frame" x="62" y="0.0" width="178" height="34"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
@@ -2220,13 +2115,9 @@
                                             </userDefinedRuntimeAttributes>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pla-Kg-lhE">
-                                            <rect key="frame" x="0.0" y="0.0" width="55" height="55"/>
+                                            <rect key="frame" x="3" y="3" width="49" height="49"/>
                                         </imageView>
                                     </subviews>
-                                    <constraints>
-                                        <constraint firstItem="svA-ce-wdT" firstAttribute="leading" secondItem="ROm-IX-Tlp" secondAttribute="leading" constant="15" id="Nhp-qO-AY6"/>
-                                        <constraint firstItem="svA-ce-wdT" firstAttribute="top" secondItem="ROm-IX-Tlp" secondAttribute="top" constant="15" id="RSr-Ti-8NJ"/>
-                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="albumArtImage" destination="pla-Kg-lhE" id="HRd-mF-nwo"/>
@@ -2251,7 +2142,7 @@
             <objects>
                 <tableViewController id="Icu-bB-b03" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="QWA-ai-Xn4">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="276"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="277"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
@@ -2370,15 +2261,13 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jcS-9g-zQq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="680" y="1655"/>
+            <point key="canvasLocation" x="785" y="1451.5"/>
         </scene>
     </scenes>
     <resources>
         <image name="AppIcon29x29.png" width="29" height="29"/>
         <image name="SPLoginViewBackground.png" width="320" height="416"/>
-        <image name="bg_song_placeholder.png" width="50" height="50"/>
         <image name="bg_song_placeholder_small.png" width="25" height="25"/>
-        <image name="bg_song_placeholder_small_selected.png" width="25" height="25"/>
         <image name="btn_addsong.png" width="40" height="40"/>
         <image name="btn_addsong_pressed.png" width="40" height="40"/>
         <image name="btn_header_back.png" width="40" height="40"/>
@@ -2404,7 +2293,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="avb-rW-O6O"/>
-        <segue reference="1XS-AL-8xU"/>
+        <segue reference="sTs-cd-FP0"/>
+        <segue reference="iZ5-Yl-9H4"/>
     </inferredMetricsTieBreakers>
 </document>

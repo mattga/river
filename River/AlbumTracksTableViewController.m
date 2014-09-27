@@ -64,5 +64,10 @@
 	[self.parentViewController performSegueWithIdentifier:@"trackDetailSegue" sender:indexPath];
 }
 
+#pragma mark - Table view delegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	return 40.0f;
+}
 
 @end

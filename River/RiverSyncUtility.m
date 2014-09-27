@@ -69,8 +69,8 @@ static RiverSyncUtility *instance;
 														vars.playingIndex = -1;
 													}
 													for (User *user in room.members) {
-														if([user.userName isEqualToString:[RiverAuthController sharedAuth].currentUser.userName]) {
-															[RiverAuthController sharedAuth].currentUser.tokens = user.tokens;
+														if([user.DisplayName isEqualToString:[RiverAuthController sharedAuth].currentUser.DisplayName]) {
+															[RiverAuthController sharedAuth].currentUser.Tokens = user.Tokens;
 															break;
 														}
 													}

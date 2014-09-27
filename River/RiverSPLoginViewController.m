@@ -33,7 +33,7 @@
  */
 
 #import "RiverSPLoginViewController.h"
-#import "RiverLoadingUtility.h"
+#import "SVProgressHUD.h"
 
 @interface RiverSPLoginViewController ()
 
@@ -138,10 +138,10 @@
 	if (self.usernameField.text.length == 0 || self.passwordField.text.length == 0) {
 		[RiverAlertUtility showOKAlertWithMessage:@"Please enter your username and password."];
 	} else {
-		[[RiverLoadingUtility sharedLoader] startLoading:self.view withFrame:CGRectNull];
-		
+		[SVProgressHUD show];
 		[session attemptLoginWithUserName:self.usernameField.text
 								 password:self.passwordField.text];
+		[SVProgressHUD dismiss];
 	}
 }
 

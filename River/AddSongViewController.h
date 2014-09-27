@@ -11,7 +11,7 @@
 #import "RiverAuthController.h"
 #import "AddSongTableViewController.h"
 
-@interface AddSongViewController : RiverViewController <UITextFieldDelegate, UIGestureRecognizerDelegate> {
+@interface AddSongViewController : RiverViewController <UISearchBarDelegate, UIGestureRecognizerDelegate> {
 	
 	bool tracksFetched, artistsFetched, albumsFetched;
 	

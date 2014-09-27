@@ -10,10 +10,10 @@
 #import "RiverUtility.h"
 
 @implementation User
-@synthesize userId, userName;
+@synthesize UserId, DisplayName;
 
 - (id)initWithName:(NSString*)name {
-    userName = name;
+    DisplayName = name;
     return [self init];
 }
 
@@ -22,13 +22,13 @@
 	if (dict != nil && ![dict isEqual:[NSNull null]] && dict.count > 0) {
 		
 		if (![RiverUtility isJsonNull:dict forKey:@"UserId"]) {
-			self.userId = [[dict objectForKey:@"UserId"] integerValue];
+			self.UserId = [[dict objectForKey:@"UserId"] integerValue];
 		}
 		if (![RiverUtility isJsonNull:dict forKey:@"Username"]) {
-			self.userName = [dict objectForKey:@"Username"];
+			self.DisplayName = [dict objectForKey:@"Username"];
 		}
 		if (![RiverUtility isJsonNull:dict forKey:@"Email"]) {
-			self.email = [dict objectForKey:@"Email"];
+			self.Email = [dict objectForKey:@"Email"];
 		}
 		
 		[super readFromJSONObject:dict];

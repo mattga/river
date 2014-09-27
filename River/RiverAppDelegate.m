@@ -30,7 +30,7 @@
     vars.memberedRoom = nil;
 	vars.playingIndex = -1;
     
-    // Gets the bundle and saved the settings
+    // Get the bundle and saved settings
     NSString *dest = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     NSString *docPath = [dest stringByAppendingPathComponent:@"riversettings.plist"];
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -40,7 +40,6 @@
     NSLog(@"Settings file copied!");
     vars.settingsPath = docPath;
     vars.settingsDict = [[NSMutableDictionary alloc] initWithContentsOfFile:docPath];
-	User *user = [[User alloc] initWithName:[vars.settingsDict valueForKey:@"username"]];
 	
 	NSString *groupId = [vars.settingsDict valueForKey:@"memberedRoom"];
 	if (groupId != nil && ![groupId isEqualToString:@""]) {
@@ -50,7 +49,16 @@
 	}
 	
 	// Get username
-	[[RiverAuthController sharedAuth] setCurrentUser:user];
+	NSString *username = [vars.settingsDict valueForKey:@"username"];
+	if (username) {
+	User *user = [[User alloc] initWithName:username];
+		[[RiverAuthController sharedAuth] setCurrentUser:user];
+	} else {
+		UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"River_iPhone" bundle:[NSBundle mainBundle]];
+		UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"AuthView"];
+		UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
+		
+	}
 	
     // Initialize spotify session
 	NSString *userAgent = [[[NSBundle mainBundle] infoDictionary] valueForKey:(__bridge NSString *)kCFBundleIdentifierKey];

@@ -44,9 +44,10 @@
 #define kRiverStatusAlreadyExists								2
 #define kRiverStatusError										3
 
-#define kSPRESTAlbums											@"albums"
-#define kSPRESTArtists											@"artists"
-#define kSPRESTSearch											@"search"
+#define kSPTracks												@"tracks"
+#define kSPAlbums												@"albums"
+#define kSPArtists												@"artists"
+#define kSPSearch												@"search"
 
 // Color Scheme
 #define kRiverLightBlue                                         [UIColor colorWithRed:0.000 green:0.663 blue:0.898 alpha:1.000]

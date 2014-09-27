@@ -7,7 +7,7 @@
 //
 
 #import "DiscoverRoomTableViewController.h"
-#import "RiverLoadingUtility.h"
+#import "SVProgressHUD.h"
 #import "RiverAlertUtility.h"
 #import "RiverSyncUtility.h"
 
@@ -45,7 +45,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
 	
-	[[RiverLoadingUtility sharedLoader] startLoading:self.view withFrame:CGRectNull];
+	[SVProgressHUD show];
 	
 	[self reloadRooms];
 	[super viewDidAppear:animated];
@@ -82,7 +82,7 @@
 										[self.tableView reloadData];
 									}
 									
-									[[RiverLoadingUtility sharedLoader] stopLoading];
+									[SVProgressHUD dismiss];
 								}];
 }
 
@@ -137,7 +137,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
-	[[RiverLoadingUtility sharedLoader] startLoading:self.view withFrame:CGRectNull];
+	[SVProgressHUD show];
 	
     if (selectedRoom > -1 && selectedRoom != indexPath.row	) {
 		// Update cells
@@ -153,7 +153,7 @@
 								  action:kRiverActionJoinRoom
 									verb:kRiverPost
 									 _id:room.roomName
-							  withParams:@{@"Username" : [RiverAuthController sharedAuth].currentUser.userName}
+							  withParams:@{@"Username" : [RiverAuthController sharedAuth].currentUser.DisplayName}
 								callback:^(NSDictionary *object, NSError *err) {
 									
 									if (!err) {
@@ -175,7 +175,7 @@
 										[RiverAlertUtility showOKAlertWithMessage:[err localizedDescription]];
 									}
 									
-									[[RiverLoadingUtility sharedLoader] stopLoading];
+									[SVProgressHUD dismiss];
 								}];
 }
 

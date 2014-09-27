@@ -144,7 +144,7 @@
 										verb:kRiverPost
 										 _id:@"1"
 								  withParams:@{@"RoomName" : memberedRoom.roomName,
-											   @"Users" : @[@{@"User" : @{@"Username" : [RiverAuthController sharedAuth].currentUser.userName}}],
+											   @"Users" : @[@{@"User" : @{@"Username" : [RiverAuthController sharedAuth].currentUser.DisplayName}}],
 											   @"Songs" : @[@{@"ProviderId" : selectedTrack.trackId,
 															  @"Tokens" : @((int)bid)}]}
 									callback:^(NSDictionary *object, NSError *err) {

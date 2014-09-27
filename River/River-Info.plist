@@ -39,7 +39,7 @@
 		<string>location</string>
 	</array>
 	<key>UIMainStoryboardFile</key>
-	<string>RiverStoryboard_iPhone</string>
+	<string>River_iPhone</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
