@@ -7,7 +7,7 @@
 //
 
 #import "RoomTableViewController.h"
-#import "RiverAuthAccount.h"
+#import "RiverAuthController.h"
 #import "RiverViewController.h"
 
 @interface RoomTableViewController ()
@@ -139,12 +139,12 @@
 	
 	if (bid > 0) {
 		
-		[RiverAuthAccount authorizedRESTCall:kRiverRESTRoom
+		[RiverAuthController authorizedRESTCall:kRiverWebApiRoom
 									  action:kRiverActionAddSong
 										verb:kRiverPost
 										 _id:@"1"
 								  withParams:@{@"RoomName" : memberedRoom.roomName,
-											   @"Users" : @[@{@"User" : @{@"Username" : [RiverAuthAccount sharedAuth].username}}],
+											   @"Users" : @[@{@"User" : @{@"Username" : [RiverAuthController sharedAuth].currentUser.DisplayName}}],
 											   @"Songs" : @[@{@"ProviderId" : selectedTrack.trackId,
 															  @"Tokens" : @((int)bid)}]}
 									callback:^(NSDictionary *object, NSError *err) {
@@ -160,14 +160,12 @@
 												
 												[bidAlert removeFromSuperview];
 												
-												[RiverAlertUtility showOKAlertWithMessage:[NSString stringWithFormat:@"%d tokens added to %@", bid, selectedTrack.title]
-																				   onView:self.parentViewController.view];
+												[RiverAlertUtility showOKAlertWithMessage:[NSString stringWithFormat:@"%d tokens added to %@", bid, selectedTrack.title]];
 												
 												[self.navigationController popToRootViewControllerAnimated:YES];
 											} else {
 												
-												[RiverAlertUtility showOKAlertWithMessage:@"ERROR"
-																				   onView:self.parentViewController.view];
+												[RiverAlertUtility showOKAlertWithMessage:@"ERROR"];
 											}
 											
 											[bidAlert removeFromSuperview];

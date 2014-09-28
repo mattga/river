@@ -35,8 +35,6 @@
     _vars = [GlobalVars getVar];
     playbackManager = _vars.playbackManager;
 	hostTVC = [self.childViewControllers firstObject];
-    
-	[self.volumeSlider setShowsVolumeSlider:YES];
 	
 	[self prepareButtons];
 	
@@ -44,14 +42,21 @@
     appDelegate = (RiverAppDelegate*)[[UIApplication sharedApplication] delegate];
 	
     // Configure observers for player controls
-    [self addObserver:self forKeyPath:@"appDelegate.syncId" options:0 context:nil];
-    [self addObserver:self forKeyPath:@"playbackManager.currentTrack.duration" options:0 context:nil];
-	[self addObserver:self forKeyPath:@"playbackManager.trackPosition" options:0 context:nil];
-	[self addObserver:self forKeyPath:@"playbackManager.isPlaying" options:0 context:nil];
-	[self addObserver:self forKeyPath:@"playbackManager.currentTrack" options:0 context:nil];
+//    [self addObserver:self forKeyPath:@"appDelegate.syncId" options:0 context:nil];
+//    [self addObserver:self forKeyPath:@"playbackManager.currentTrack.duration" options:0 context:nil];
+//	[self addObserver:self forKeyPath:@"playbackManager.trackPosition" options:0 context:nil];
+//	[self addObserver:self forKeyPath:@"playbackManager.isPlaying" options:0 context:nil];
+//	[self addObserver:self forKeyPath:@"playbackManager.currentTrack" options:0 context:nil];
+	
+	self.songsButton.layer.cornerRadius = 20;
+	[self.songsButton setTitleColor:kRiverWhite forState:UIControlStateSelected];
+	[self.songsButton setTitleColor:kRiverDarkGray forState:UIControlStateNormal];
+	
+	self.membersButton.layer.cornerRadius = 20;
+	[self.membersButton setTitleColor:kRiverWhite forState:UIControlStateSelected];
+	[self.membersButton setTitleColor:kRiverDarkGray forState:UIControlStateNormal];
 	
 	[hostTVC.tableView reloadData];
-	
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -74,16 +79,6 @@
 }
 
 - (void)prepareButtons {
-	UIImage *minTrack = [[UIImage imageNamed:@"ico_min_track_tint.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0, 1.0, 0.0, 1.0)];
-	UIImage *maxTrack = [[UIImage imageNamed:@"ico_max_track_tint.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0.0, 1.0, 0.0, 1.0)];
-	
-	[self.trackSlider setMinimumTrackImage:minTrack forState:UIControlStateNormal];
-	[self.trackSlider setMaximumTrackImage:maxTrack forState:UIControlStateNormal];
-	[self.trackSlider setThumbImage:[UIImage imageNamed:@"ico_slider_thumb.png"] forState:UIControlStateNormal];
-	
-	[self.volumeSlider setMinimumVolumeSliderImage:minTrack forState:UIControlStateNormal];
-	[self.volumeSlider setMaximumVolumeSliderImage:maxTrack forState:UIControlStateNormal];
-	[self.volumeSlider setVolumeThumbImage:[UIImage imageNamed:@"ico_slider_thumb.png"] forState:UIControlStateNormal];
 	
 	// Restore audio controls form background streaming state
     if(playbackManager.isPlaying) {
@@ -95,8 +90,6 @@
 }
 
 - (void)updateLabels {
-	
-	
 	
 	self.songsButton.titleLabel.text = [NSString stringWithFormat:@"%d Songs", hostedRoom.songs.count];
 	self.membersButton.titleLabel.text = [NSString stringWithFormat:@"%d Members", hostedRoom.members.count];
@@ -150,13 +143,13 @@
 
 - (void)dealloc {
 	
-	if (appDelegate != nil) {
-		[self removeObserver:self forKeyPath:@"appDelegate.syncId"];
-		[self removeObserver:self forKeyPath:@"playbackManager.currentTrack.duration"];
-		[self removeObserver:self forKeyPath:@"playbackManager.trackPosition"];
-		[self removeObserver:self forKeyPath:@"playbackManager.isPlaying"];
-		[self removeObserver:self forKeyPath:@"playbackManager.currentTrack"];
-	}
+//	if (appDelegate != nil) {
+//		[self removeObserver:self forKeyPath:@"appDelegate.syncId"];
+//		[self removeObserver:self forKeyPath:@"playbackManager.currentTrack.duration"];
+//		[self removeObserver:self forKeyPath:@"playbackManager.trackPosition"];
+//		[self removeObserver:self forKeyPath:@"playbackManager.isPlaying"];
+//		[self removeObserver:self forKeyPath:@"playbackManager.currentTrack"];
+//	}
 }
 
 
@@ -169,8 +162,7 @@
 - (IBAction)skipPressed:(id)sender {
 	
 	if(hostedRoom == nil || [hostedRoom.songs count] < 1) {
-		[RiverAlertUtility showOKAlertWithMessage:@"No track to skip"
-										   onView:self.view];
+		[RiverAlertUtility showOKAlertWithMessage:@"No track to skip"];
 	} else {
 		[_nextSong setEnabled:NO];
 		
@@ -192,8 +184,7 @@
 - (IBAction)playPressed:(id)sender {
 	
 	if(hostedRoom == nil || [hostedRoom.songs count] == 0)
-		[RiverAlertUtility showOKAlertWithMessage:@"No track to play"
-										   onView:self.view];
+		[RiverAlertUtility showOKAlertWithMessage:@"No track to play"];
 	else {
 		[_streamButton setEnabled:NO];
 		
@@ -225,10 +216,10 @@
 - (IBAction)songsPressed:(id)sender {
 	[hostTVC setSelectedTab:kHostSongsSelected];
 	
+	self.songsButton.selected = YES;
+	self.membersButton.selected = NO;
 	[self.songsButton setBackgroundColor:kRiverLightBlue];
-	[self.songsButton.titleLabel setTextColor:kRiverBGLightGray];
 	[self.membersButton setBackgroundColor:kRiverBGLightGray];
-	[self.membersButton.titleLabel setTextColor:kRiverLightBlue];
 	
 	[hostTVC.tableView reloadData];
 }
@@ -236,10 +227,10 @@
 - (IBAction)membersPressed:(id)sender {
 	[hostTVC setSelectedTab:kHostMembersSelected];
 	
+	self.songsButton.selected = NO;
+	self.membersButton.selected = YES;
 	[self.songsButton setBackgroundColor:kRiverBGLightGray];
-	[self.songsButton.titleLabel setTextColor:kRiverLightBlue];
 	[self.membersButton setBackgroundColor:kRiverLightBlue];
-	[self.membersButton.titleLabel setTextColor:kRiverBGLightGray];
 	
 	[hostTVC.tableView reloadData];
 }

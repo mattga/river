@@ -7,7 +7,7 @@
 //
 
 #import "AddSongTableViewController.h"
-#import "RiverAuthAccount.h"
+#import "RiverAuthController.h"
 #import "AddSongViewController.h"
 #import "SPJSONParser.h"
 
@@ -31,6 +31,11 @@
 {
     [super viewDidLoad];
     
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	
 }
 
 - (void)didReceiveMemoryWarning

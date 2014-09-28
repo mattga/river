@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RiverAuthAccount.h"
+#import "RiverAuthController.h"
 #import "CocoaLibSpotify.h"
 #import "Constants.h"
 #import "Song.h"

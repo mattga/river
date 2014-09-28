@@ -11,7 +11,7 @@
 #import "SPTracksXMLParser.h"
 #import "GlobalVars.h"
 #import "TrackDetailViewController.h"
-#import "RiverLoadingUtility.h"
+#import "SVProgressHUD.h"
 #import "SPJSONParser.h"
 
 @interface AlbumDetailViewController ()
@@ -23,19 +23,19 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+	if (self) {
+		// Custom initialization
+	}
+	return self;
 }
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+	[super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
-	[[RiverLoadingUtility sharedLoader] startLoading:_cardView withFrame:CGRectNull];
+	
+	[SVProgressHUD show];
 	
 	[self fetchAlbumDetails];
 	
@@ -43,8 +43,8 @@
 
 - (void)didReceiveMemoryWarning
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+	[super didReceiveMemoryWarning];
+	// Dispose of any resources that can be recreated.
 }
 
 - (void)prepareLabels {
@@ -54,36 +54,36 @@
 	self.artistLabel.text = [[[self.album objectForKey:@"artists"] firstObject] objectForKey:@"name"];
 	self.releasedLabel.text = [[self.album objectForKey:@"released_date"] substringToIndex:4];
 	
-    // Fetch album art
-    NSURL *url = [SPJSONParser imageURLFromSPJSON:self.album withSize:kRiverAlbumArtMedium];
-    [self.albumArtImage setImageWithURL:url];
-    
+	// Fetch album art
+	NSURL *url = [SPJSONParser imageURLFromSPJSON:self.album withSize:kRiverAlbumArtMedium];
+	[self.albumArtImage setImageWithURL:url];
+	
 	// Set footer labels
-	[self.userLabel setText:[[RiverAuthAccount sharedAuth] currentUser].userName];
+	[self.userLabel setText:[[RiverAuthController sharedAuth] currentUser].DisplayName];
 	[self.roomLabel setText:[GlobalVars getVar].memberedRoom.roomName];
-	[self.tokenLabel setText:[NSString stringWithFormat:@"%d", [[RiverAuthAccount sharedAuth] currentUser].tokens]];
+	[self.tokenLabel setText:[NSString stringWithFormat:@"%d", [[RiverAuthController sharedAuth] currentUser].Tokens]];
 }
 
 - (void)fetchAlbumDetails {
 	if (self.albumId) {
-		[RiverAuthAccount authorizedRESTCall:kSPRESTAlbums
-									  action:nil
-										verb:kRiverGet
-										 _id:self.albumId
-								  withParams:nil
-									callback:^(NSDictionary *object, NSError *err) {
-										
-										if (!err) {
-											
-											self.album = object;
-											self.tracks = [SPJSONParser tracksFromSPJSON:self.album];
-											[self prepareLabels];
-											
-											[tracksTVC.tableView reloadData];
-										}
-										
-										[[RiverLoadingUtility sharedLoader] stopLoading];
-									}];
+		[RiverAuthController authorizedSPQuery:kSPAlbums
+										action:nil
+										   _id:self.albumId
+										  verb:kRiverGet
+									withParams:nil
+									  callback:^(NSDictionary *object, NSError *err) {
+										  
+										  if (!err) {
+											  
+											  self.album = object;
+											  self.tracks = [SPJSONParser tracksFromSPJSON:self.album];
+											  [self prepareLabels];
+											  
+											  [tracksTVC.tableView reloadData];
+										  }
+										  
+										  [SVProgressHUD dismiss];
+									  }];
 	}
 }
 

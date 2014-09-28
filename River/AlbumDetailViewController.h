@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "RiverViewController.h"
-#import "RiverAuthAccount.h"
+#import "RiverAuthController.h"
 #import "AlbumTracksTableViewController.h"
 
 @interface AlbumDetailViewController : RiverViewController {

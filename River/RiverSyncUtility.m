@@ -8,7 +8,7 @@
 
 #import "RiverSyncUtility.h"
 #import "RiverAppDelegate.h"
-#import "RiverAuthAccount.h"
+#import "RiverAuthController.h"
 
 @implementation RiverSyncUtility
 static RiverSyncUtility *instance;
@@ -44,7 +44,7 @@ static RiverSyncUtility *instance;
 }
 
 - (void)fetchMemberedRoom {
-	[RiverAuthAccount authorizedSyncRESTCall:kRiverRESTRoom
+	[RiverAuthController authorizedSyncRESTCall:kRiverWebApiRoom
 									  action:nil
 										verb:kRiverGet
 										 _id:vars.memberedRoom.roomName
@@ -69,8 +69,8 @@ static RiverSyncUtility *instance;
 														vars.playingIndex = -1;
 													}
 													for (User *user in room.members) {
-														if([user.userName isEqualToString:[RiverAuthAccount sharedAuth].currentUser.userName]) {
-															[RiverAuthAccount sharedAuth].currentUser.tokens = user.tokens;
+														if([user.DisplayName isEqualToString:[RiverAuthController sharedAuth].currentUser.DisplayName]) {
+															[RiverAuthController sharedAuth].currentUser.Tokens = user.Tokens;
 															break;
 														}
 													}

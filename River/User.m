@@ -7,12 +7,13 @@
 //
 
 #import "User.h"
+#import "RiverUtility.h"
 
 @implementation User
-@synthesize userId, userName;
+@synthesize UserId, DisplayName;
 
 - (id)initWithName:(NSString*)name {
-    userName = name;
+    DisplayName = name;
     return [self init];
 }
 
@@ -20,8 +21,15 @@
 	
 	if (dict != nil && ![dict isEqual:[NSNull null]] && dict.count > 0) {
 		
-		self.userId = [[dict objectForKey:@"UserId"] integerValue];
-		self.userName = [dict objectForKey:@"Username"];
+		if (![RiverUtility isJsonNull:dict forKey:@"UserId"]) {
+			self.UserId = [[dict objectForKey:@"UserId"] integerValue];
+		}
+		if (![RiverUtility isJsonNull:dict forKey:@"Username"]) {
+			self.DisplayName = [dict objectForKey:@"Username"];
+		}
+		if (![RiverUtility isJsonNull:dict forKey:@"Email"]) {
+			self.Email = [dict objectForKey:@"Email"];
+		}
 		
 		[super readFromJSONObject:dict];
 	}

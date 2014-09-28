@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #########################
 # .gitignore file for Xcode4 and Xcode5 Source projects
 #
@@ -170,3 +171,7 @@ xcuserdata
 # UNKNOWN: recommended by others, but I can't discover what these files are
 #
 # ...none. Everything is now explained.
+=======
+.DS_Store
+River.xcodeproj/project.xcworkspace/xcuserdata/mattga.xcuserdatad/UserInterfaceState.xcuserstate
+>>>>>>> uiv3

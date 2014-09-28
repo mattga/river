@@ -7,7 +7,6 @@
 //
 
 #import "RiverViewController.h"
-#import "SWRevealViewController.h"
 #import "RiverSPLoginViewController.h"
 
 @interface RiverViewController ()
@@ -30,20 +29,13 @@
 	
     [super viewDidLoad];
 	
-	// Set the gesture
-    [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
-	
-    // Configure the reveal menu button
-    [self.revealBarButton addTarget:self action:@selector(resignResponderAndRevealToggle) forControlEvents:UIControlEventTouchUpInside];
-	[[self.revealBarButton viewWithTag:0] setContentMode:UIViewContentModeCenter];
-	
 	if ([self isKindOfClass:[RiverSPLoginViewController class]])
-		[[UITextField appearance] setTintColor:kRiverFGDarkGray];
+		[[UITextField appearance] setTintColor:kRiverDarkGray];
 	else
 		[[UITextField appearance] setTintColor:kRiverLightBlue];
 	
 	if (self.usernameLabel != nil && self.roomLabel != nil) {
-		self.usernameLabel.text = [RiverAuthAccount sharedAuth].username;
+		self.usernameLabel.text = [RiverAuthController sharedAuth].currentUser.DisplayName;
 		self.roomLabel.text = ([GlobalVars getVar].memberedRoom==nil ? @"-" : [NSString stringWithFormat:@"%@",[[GlobalVars getVar].memberedRoom roomName]]);
 		if ([GlobalVars getVar].memberedRoom != nil) {
 			[self updateFooter];
@@ -59,7 +51,6 @@
 
 - (void)resignResponderAndRevealToggle {
 	[self.view endEditing:YES];
-	[self.revealViewController revealToggleAnimated:YES];
 }
 
 - (IBAction)backPressed:(id)sender {
@@ -67,7 +58,7 @@
 }
 
 - (void)updateFooter {
-	self.userTokensLabel.text = [NSString stringWithFormat:@"%d", [[RiverAuthAccount sharedAuth] currentUser].tokens];
+	self.userTokensLabel.text = [NSString stringWithFormat:@"%d", [[RiverAuthController sharedAuth] currentUser].Tokens];
 }
 
 

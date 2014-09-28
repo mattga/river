@@ -33,7 +33,7 @@
  */
 
 #import "RiverSPLoginViewController.h"
-#import "RiverLoadingUtility.h"
+#import "SVProgressHUD.h"
 
 @interface RiverSPLoginViewController ()
 
@@ -136,12 +136,20 @@
 
 - (IBAction)loginPressed:(id)sender {
 	if (self.usernameField.text.length == 0 || self.passwordField.text.length == 0) {
-		[RiverAlertUtility showOKAlertWithMessage:@"Please enter your username and password." onView:self.view];
+		[RiverAlertUtility showOKAlertWithMessage:@"Please enter your username and password."];
 	} else {
-		[[RiverLoadingUtility sharedLoader] startLoading:self.view withFrame:CGRectNull];
-		
+		[SVProgressHUD show];
 		[session attemptLoginWithUserName:self.usernameField.text
 								 password:self.passwordField.text];
+		[SVProgressHUD dismiss];
+		
+		UINavigationController *nvc = [[[[UIApplication sharedApplication].delegate.window rootViewController] childViewControllers] firstObject];
+		NSMutableArray *vcs = [[nvc viewControllers] mutableCopy];
+		[vcs removeLastObject];
+		[vcs removeLastObject];
+		[vcs removeLastObject];
+		[nvc setViewControllers:vcs animated:YES];
+		[vcs.firstObject tabBarController].tabBar.hidden = NO;
 	}
 }
 

@@ -8,9 +8,8 @@
 
 #import "RiverAppDelegate.h"
 #import "CocoaLibSpotify.h"
-#import "RiverSetupViewController.h"
 #import "RiverFrontViewController.h"
-#import "RiverAuthAccount.h"
+#import "RiverAuthController.h"
 #import "GlobalVars.h"
 #import "Song.h"
 #import "User.h"
@@ -22,8 +21,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-	
     // Register for push notifications
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
      (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeNone)];
@@ -33,7 +30,7 @@
     vars.memberedRoom = nil;
 	vars.playingIndex = -1;
     
-    // Gets the bundle and saved the settings
+    // Get the bundle and saved settings
     NSString *dest = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     NSString *docPath = [dest stringByAppendingPathComponent:@"riversettings.plist"];
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -43,9 +40,8 @@
     NSLog(@"Settings file copied!");
     vars.settingsPath = docPath;
     vars.settingsDict = [[NSMutableDictionary alloc] initWithContentsOfFile:docPath];
-	User *user = [[User alloc] initWithName:[vars.settingsDict valueForKey:@"username"]];
 	
-	NSString *groupId = [vars.settingsDict valueForKey:@"memberedRoom"];
+	NSString *groupId = [vars.settingsDict valueForKey:@"MemberedRoom"];
 	if (groupId != nil && ![groupId isEqualToString:@""]) {
 		vars.memberedRoom = [[Room alloc] initWithName:groupId];
 		vars.memberedRoom.songs = [[NSMutableArray alloc] init];
@@ -53,19 +49,19 @@
 	}
 	
 	// Get username
-	[[RiverAuthAccount sharedAuth] setUsername:user.userName];
-	[[RiverAuthAccount sharedAuth] setCurrentUser:user];
-    if(user.userName == nil || [user.userName isEqualToString:@""]) {
-        NSLog(@"No username set...presenting username configuration view...");
-        // Present River setup view if no username is set
-        if([RiverAuthAccount sharedAuth].username == nil || [[RiverAuthAccount sharedAuth].username isEqualToString:@""]) {
-            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"RiverStoryboard_iPhone" bundle:nil];
-            UIViewController *vc = [sb instantiateViewControllerWithIdentifier:@"RiverSetupViewController"];
-            self.window.rootViewController = vc;
-        }
-    } else
-        NSLog(@"Username: '%@'", user.userName);
-    
+	NSString *username = [vars.settingsDict valueForKey:@"Username"];
+	if (username && ![username isEqualToString:@""]) {
+		User *user = [[User alloc] initWithName:username];
+		[[RiverAuthController sharedAuth] setCurrentUser:user];
+	} else {
+		UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"River_iPhone" bundle:[NSBundle mainBundle]];
+		UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"AuthView"];
+		NSMutableArray *vcs = [[[[[self.window rootViewController] childViewControllers] firstObject] viewControllers] mutableCopy];
+		[vcs addObject:vc];
+		[(UITabBarController*)[self.window rootViewController] tabBar].hidden = YES;
+		[[[[self.window rootViewController] childViewControllers] firstObject] setViewControllers:vcs];
+	}
+	
     // Initialize spotify session
 	NSString *userAgent = [[[NSBundle mainBundle] infoDictionary] valueForKey:(__bridge NSString *)kCFBundleIdentifierKey];
 	NSData *appKey = [NSData dataWithBytes:&g_appkey length:g_appkey_size];
@@ -156,8 +152,10 @@
             [[UIApplication sharedApplication] endBackgroundTask:identifier];
     }];
 	
-	[[GlobalVars getVar].settingsDict setValue:[GlobalVars getVar].memberedRoom.roomName forKey:@"memberedRoom"];
+	[[GlobalVars getVar].settingsDict setValue:[GlobalVars getVar].memberedRoom.roomName forKey:@"MemberedRoom"];
+	[[GlobalVars getVar].settingsDict setValue:[RiverAuthController sharedAuth].currentUser forKey:@"Username"];
 	[[GlobalVars getVar].settingsDict writeToFile:[GlobalVars getVar].settingsPath atomically:YES];
+	NSLog(@"User data saved.");
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -179,14 +177,6 @@
 	
     // Resign as first responder
     [self resignFirstResponder];
-}
-
-#pragma mark - SW Reveal Delegate
-
-- (void)revealController:(SWRevealViewController *)revealController willMoveToPosition:(FrontViewPosition)position {
-	if (position == 4) {
-		[revealController.view endEditing:YES];
-	}
 }
 
 @end

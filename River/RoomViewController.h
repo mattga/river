@@ -14,7 +14,7 @@
 #import "User.h"
 #import "Song.h"
 #import "RiverAppDelegate.h"
-#import "RiverAuthAccount.h"
+#import "RiverAuthController.h"
 #import "RoomSongTableViewCell.h"
 #import "SPTracksXMLParser.h"
 

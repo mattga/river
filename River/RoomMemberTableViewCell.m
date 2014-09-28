@@ -39,8 +39,8 @@
         _user = user;
     }
     
-    usernameLabel.text = _user.userName;
-	tokenLabel.text = [NSString stringWithFormat:@"%d", _user.tokens];
+    usernameLabel.text = _user.DisplayName;
+	tokenLabel.text = [NSString stringWithFormat:@"%d", _user.Tokens];
 }
 
 @end

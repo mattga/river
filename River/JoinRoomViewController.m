@@ -7,9 +7,7 @@
 //
 
 #import "JoinRoomViewController.h"
-#import "SWRevealViewController.h"
-#import "SideMenuViewController.h"
-#import "RiverLoadingUtility.h"
+#import "SVProgressHUD.h"
 #import "GlobalVars.h"
 #import "RiverSyncUtility.h"
 
@@ -49,15 +47,15 @@
 
 - (IBAction)joinPressed:(id)sender {
 	
-	[[RiverLoadingUtility sharedLoader] startLoading:self.view withFrame:CGRectNull];
+	[SVProgressHUD show];
 
 	Room *room = [[Room alloc] initWithName:_roomField.text];
 
-	[RiverAuthAccount authorizedRESTCall:kRiverRESTRoom
+	[RiverAuthController authorizedRESTCall:kRiverWebApiRoom
 								  action:kRiverActionJoinRoom
 									verb:kRiverPost
 									 _id:room.roomName
-							  withParams:@{@"Username" : [RiverAuthAccount sharedAuth].username}
+							  withParams:@{@"Username" : [RiverAuthController sharedAuth].currentUser.DisplayName}
 								callback:^(NSDictionary *object, NSError *err) {
 									
 									if (!err) {
@@ -70,26 +68,17 @@
 											[GlobalVars getVar].playingIndex = -1;
 											
 											[[RiverSyncUtility sharedSyncing] preemptRoomSync];
-											
-											SideMenuViewController *sideMenuVC = (SideMenuViewController*)((SWRevealViewController*)[(RiverViewController*)self revealViewController]).rearViewController;
-											[[sideMenuVC tableView] selectRowAtIndexPath:[NSIndexPath indexPathForRow:kSideMenuShare inSection:0]
-																				animated:NO
-																		  scrollPosition:UITableViewScrollPositionNone];
-											[self.revealViewController.rearViewController performSegueWithIdentifier:@"roomSegue" sender:nil];
 										} else if (status.statusCode.intValue == kRiverStatusNotFound) {
-											[RiverAlertUtility showOKAlertWithMessage:@"Room does not exist!"
-																			   onView:self.view];
+											[RiverAlertUtility showOKAlertWithMessage:@"Room does not exist!"];
 										} else {
-											[RiverAlertUtility showOKAlertWithMessage:@"ERROR"
-																			   onView:self.view];
+											[RiverAlertUtility showOKAlertWithMessage:@"ERROR"];
 										}
 									}
 									else {
-										[RiverAlertUtility showOKAlertWithMessage:[err localizedDescription]
-																		   onView:self.view];
+										[RiverAlertUtility showOKAlertWithMessage:[err localizedDescription]];
 									}
 									
-									[[RiverLoadingUtility sharedLoader] stopLoading];
+									[SVProgressHUD dismiss];
 								}];
 }
 

@@ -53,7 +53,7 @@
 			for (NSDictionary *user in _users) {
 				User *u = [[User alloc] init];
 				[u readFromJSONObject:[user objectForKey:@"User"]];
-				u.tokens = [[user objectForKey:@"Tokens"] integerValue];
+				u.Tokens = [[user objectForKey:@"Tokens"] integerValue];
 				[members addObject:u];
 			}
 		}

@@ -8,7 +8,7 @@
 
 #import "ArtistAlbumsTableViewController.h"
 #import "ResultsAlbumTableViewCell.h"
-#import "RiverAuthAccount.h"
+#import "RiverAuthController.h"
 #import "AlbumDetailViewController.h"
 #import "ArtistDetailViewController.h"
 #import "SPJSONParser.h"
@@ -59,24 +59,26 @@
 	[[(ResultsAlbumTableViewCell*)cell albumLabel] setText:[album objectForKey:@"name"]];
 	[[(ResultsAlbumTableViewCell*)cell albumArtImage] setImage:nil];
 	
-	dispatch_queue_t thread = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-	dispatch_async(thread, ^{
+//	dispatch_queue_t thread = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+//	dispatch_async(thread, ^{
 		NSURL *url= [SPJSONParser imageURLFromSPJSON:album withSize:55];
-		[SDWebImageDownloader.sharedDownloader downloadImageWithURL:url
-															options:0
-														   progress:nil
-														  completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
-															  if (image && finished)
-															  {
-																  dispatch_async(dispatch_get_main_queue(), ^{
-																	  UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-																	  if (cell) {
-																		  [[(ResultsAlbumTableViewCell*)cell albumArtImage] setImage:image];
-																	  }
-																  });
-															  }
-														  }];
-	});
+		if (url) {
+			[SDWebImageDownloader.sharedDownloader downloadImageWithURL:url
+																options:0
+															   progress:nil
+															  completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
+																  if (image && finished)
+																  {
+																	  dispatch_async(dispatch_get_main_queue(), ^{
+																		  UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+																		  if (cell) {
+																			  [[(ResultsAlbumTableViewCell*)cell albumArtImage] setImage:image];
+																		  }
+																	  });
+																  }
+															  }];
+		}
+//	});
 	
 	return cell;
 }

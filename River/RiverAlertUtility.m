@@ -15,9 +15,9 @@
 
 @implementation RiverAlertUtility
 
-+ (RiverAlertView*)showOKAlertWithMessage:(NSString*)message onView:(UIView*)view {
++ (UIAlertView*)showOKAlertWithMessage:(NSString*)message {
 
-	RiverAlertView *alertView = [[RiverAlertView alloc] initWithContents:@"RiverOKAlertView"];
+	/*RiverAlertView *alertView = [[RiverAlertView alloc] initWithContents:@"RiverOKAlertView"];
 	
 	CGRect textFrame = [message boundingRectWithSize:alertView.alertMessageView.frame.size
 										 options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading)
@@ -58,7 +58,26 @@
 					 }
 					 completion:^(BOOL finished) {
 						 
-					 }];
+					 }];*/
+	
+	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
+														message:message
+													   delegate:nil
+											  cancelButtonTitle:@"Ok"
+											  otherButtonTitles:nil, nil];
+	[alertView show];
+	
+	return alertView;
+}
+
++ (UIAlertView*)showErrorMessage:(NSString*)message {
+	
+	UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
+														message:message
+													   delegate:nil
+											  cancelButtonTitle:@"Ok"
+											  otherButtonTitles:nil, nil];
+	[alertView show];
 	
 	return alertView;
 }

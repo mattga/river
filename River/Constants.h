@@ -11,9 +11,8 @@
 
 // Web Connection
 #define kRiverWebProtocol                                       @"http"
-#define kRiverWebHost                                           @"54.191.119.187"
-#define kRiverWebPath											@"api"
-#define kRiverWebVersion										@"v1"
+#define kRiverWebHost                                           @"riverweb.apphb.com"
+#define kRiverWebPath											@"api/v1"
 
 #define kSPWebProtocol											@"https"
 #define kSPWebHost												@"api.spotify.com"
@@ -25,33 +24,37 @@
 #define kRiverPut												@"PUT"
 #define kRiverDelete											@"DELETE"
 
-#define kRiverRESTUser											@"UserRest"
-#define kRiverRESTRoom											@"RoomRest"
-#define kRiverRESTSong											@"SongRest"
+#define kRiverWebApiUser										@"User"
+#define kRiverWebApiRoom										@"Room"
+#define kRiverWebApiSong										@"Song"
+
+#define kRiverWebApiActionAuthenticate							@"Authenticate"
 
 #define kRiverActionPlaySong									@"Play"
 #define kRiverActionAddSong										@"AddSong"
 #define kRiverActionJoinRoom									@"JoinRoom"
+
+#define kRiverWebApiVerbGet										@"GET"
+#define kRiverWebApiVerbPost									@"POST"
+#define kRiverWebApiVerbPut										@"PUT"
+#define kRiverWebApiVerbDelete									@"DELETE"
 
 #define kRiverStatusOK											0
 #define kRiverStatusNotFound									1
 #define kRiverStatusAlreadyExists								2
 #define kRiverStatusError										3
 
-#define kSPRESTAlbums											@"albums"
-#define kSPRESTArtists											@"artists"
-#define kSPRESTSearch											@"search"
+#define kSPTracks												@"tracks"
+#define kSPAlbums												@"albums"
+#define kSPArtists												@"artists"
+#define kSPSearch												@"search"
 
 // Color Scheme
 #define kRiverLightBlue                                         [UIColor colorWithRed:0.000 green:0.663 blue:0.898 alpha:1.000]
 #define kRiverDarkBlue											[UIColor colorWithRed:0.246 green:0.413 blue:0.482 alpha:1.000]
 #define kRiverBGLightGray                                       [UIColor colorWithWhite:0.863 alpha:1.000]
-#define kRiverFGDarkGray										[UIColor colorWithWhite:0.121 alpha:1.000]
-#define kRiverFGDarkGray_70										[UIColor colorWithWhite:0.121 alpha:0.700]
-#define kRiverFGDarkGray_65										[UIColor colorWithWhite:0.121 alpha:0.650]
-#define kRiverFGDarkGray_60										[UIColor colorWithWhite:0.121 alpha:0.600]
-#define kRiverFGDarkGray_55										[UIColor colorWithWhite:0.121 alpha:0.550]
-#define kRiverFGDarkGray_50										[UIColor colorWithWhite:0.121 alpha:0.500]
+#define kRiverDarkGray											[UIColor colorWithRed:0.180 green:0.227 blue:0.243 alpha:1.000]
+#define kRiverWhite												[UIColor whiteColor]
 
 #define kGothamLight											@"Gotham-Light"
 #define kGothamLightItalic										@"Gotham-LightItalic"

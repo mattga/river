@@ -12,9 +12,10 @@
 
 @interface User : RiverStatus <JSONSerializable>
 
-@property (nonatomic) NSInteger userId;
-@property (strong, nonatomic) NSString *userName;
-@property (nonatomic) NSInteger tokens;
+@property (nonatomic) NSInteger UserId;
+@property (strong, nonatomic) NSString *DisplayName;
+@property (strong, nonatomic) NSString *Email;
+@property (nonatomic) NSInteger Tokens;
 
 - (id)initWithName:(NSString*)name;
 
